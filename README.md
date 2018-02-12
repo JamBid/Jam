@@ -34,6 +34,7 @@ run `yarn install`
 
 To run the app locally, use the following command:
 ```
+yarn build
 yarn dev
 ```
 
@@ -75,7 +76,13 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+### Heroku
+To push to Heroku, follow the commands (Note: You must have set your git to have a Heroku remote set up. Full directions can be found here [Deploying with Git](https://devcenter.heroku.com/articles/git))
+
+Make sure to have the latest code commit first.
+```
+git push heroku master
+```
 
 ## Built With
 
@@ -87,6 +94,8 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 * **Andrew Damico** - [AndrewD14](https://github.com/AndrewD14)
+* **Jamal** - [fjnw](https://github.com/fjnw)
+* **Muri** - [muri03](https://github.com/muri03)
 
 ## Acknowledgments
 
