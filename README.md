@@ -32,14 +32,19 @@ run `git clone https://github.com/JamBid/Jam.git` (If there are errors due to pe
 run `yarn install`
 ```
 
-### Configuring the databases
-## Dev
+To run the app locally, use the following command:
+```
+yarn dev
+```
+
+## Configuring the databases
+### Dev
 
 In you editor of choice or cml, run and commit the following code:
 ```
 db files
 ```
-## Prod
+### Prod
 
 In you editor of choice or cml, run and commit the following code:
 ```
