@@ -1,0 +1,69 @@
+body {
+    background: #f6f3ff;
+    min-width: 479px;
+}
+
+/* Navbar*/
+#nav-background{
+    background-image: linear-gradient(to bottom, #cd9cf2 0%, #f6f3ff 100%) !important;
+    height: 146px;
+}
+
+.navbar-brand {
+    margin-top: -10px;
+    font-family: 'Indie Flower', cursive;
+    height: 50px;
+    font-size: 50px;
+}
+
+    .list-unstyled {
+        height: 50px;
+        color: #84639b;
+    }
+
+        #navbar-quote {
+            margin-top: -5px;
+            font-family: 'Indie Flower', cursive;
+            font-size: 20px;
+        }
+
+    .nav-link {
+        color: #440066;
+    }
+
+ #navbar-category-btn, #navbar-search-input, #navbar-search-btn {
+    border-radius: 0px !important;
+    border: none;
+}
+    #navbar-category-btn {
+        background: none;
+        color: rgb(136, 71, 190);
+    }
+        #navbar-category-btn:hover {
+            box-shadow: none;
+        }
+    #navbar-search-input {
+        width: 130px;
+    }
+    #navbar-search-btn {
+        background: rgb(136, 71, 190);
+        color: white;
+    }
+
+
+#burger {
+    /*border-color: purple;*/
+    /*Icon: https://www.flaticon.com/free-icon/login_149408#term=login&page=1&position=1*/
+    width: 30px;
+}
+
+/*  Navbar - Accordian (login & signup)  */
+#accordion {
+    padding: 10px;
+/*    background: #f6f3ff;
+*/}
+
+#accordian-header {
+    border: none;
+    background: none;
+}
