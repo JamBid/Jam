@@ -16,39 +16,39 @@ body {
     font-size: 50px;
 }
 
-    .list-unstyled {
-        height: 50px;
-        color: #84639b;
-    }
+.list-unstyled {
+    height: 50px;
+    color: #84639b;
+}
 
-        #navbar-quote {
-            margin-top: -5px;
-            font-family: 'Indie Flower', cursive;
-            font-size: 20px;
-        }
+#navbar-quote {
+    margin-top: -5px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 20px;
+}
 
-    .nav-link {
-        color: #440066;
-    }
+.nav-link {
+    color: #440066;
+}
 
- #navbar-category-btn, #navbar-search-input, #navbar-search-btn {
+#navbar-category-btn, #navbar-search-input, #navbar-search-btn {
     border-radius: 0px !important;
     border: none;
 }
-    #navbar-category-btn {
-        background: none;
-        color: rgb(136, 71, 190);
-    }
-        #navbar-category-btn:hover {
-            box-shadow: none;
-        }
-    #navbar-search-input {
-        width: 130px;
-    }
-    #navbar-search-btn {
-        background: rgb(136, 71, 190);
-        color: white;
-    }
+#navbar-category-btn {
+    background: none;
+    color: rgb(136, 71, 190);
+}
+#navbar-category-btn:hover {
+    box-shadow: none;
+}
+#navbar-search-input {
+    width: 130px;
+}
+#navbar-search-btn {
+    background: rgb(136, 71, 190);
+    color: white;
+}
 
 
 #burger {
