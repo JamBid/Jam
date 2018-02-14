@@ -1,6 +1,6 @@
 # Jam Bidding
-![Jam logo][logo]
-[logo]: https://drive.google.com/file/d/1n6pXiC4jR6wW3GgzJxdAVPeZm1GWaOZ4/view?usp=sharing
+![alt Jam logo][logo]
+[logo]: https://drive.google.com/file/d/1n6pXiC4jR6wW3GgzJxdAVPeZm1GWaOZ4/view
 
 A real-time application that provides a way to bid on an item, or even allow a user to post an item to be up for auction.
 
