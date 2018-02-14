@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
+node (8.9.1) or later (Download from [https://nodejs.org/en/download/])
 ```
 
 ### Installing
@@ -47,7 +47,7 @@ db/create_user.sql
 db/create_tables.sql
 ```
 
-The username and password can only connect to the database from the localhost (127.0.0.1) IP address:
+The username and password can only connect to the database from the *localhost (127.0.0.1)* IP address:
 ```
 username: jb_user
 password: jb_1234
@@ -60,7 +60,7 @@ db/seed.sql
 
 ### Prod
 
-####Heroku (You will need Clear DB addon)
+#### Heroku (You will need **Clear DB** addon)
 In you editor of choice or cml, run and commit the following code to the database:
 ```
 db/create_tables.sql
