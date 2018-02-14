@@ -24,9 +24,8 @@ run `npm install -g yarn`
 Navigate to the folder where you would like to store the app. In that folder, run the following command:
 
 ```
-run `npm create-react-app jam`
-cd jam
 run `git clone https://github.com/JamBid/Jam.git` (If there are errors due to permission, download the repo as a zip and replace the files in the jam folder with the ones from the zip.)
+cd jam
 run `yarn install`
 ```
 
@@ -38,7 +37,7 @@ yarn dev
 ## Configuring the databases
 ### Dev
 
-In you editor of choice or cml, run and commit the following code:
+In you editor of choice or cml, connect to the database and then run and commit the following code:
 
 * [db/create_schema.sql](db/create_schema.sql)
 * [db/create_user.sql](db/create_user.sql)
@@ -59,7 +58,7 @@ If you want to use the test data, please run and commit the following script:
 ### Prod
 
 #### Heroku (You will need **Clear DB** addon)
-In you editor of choice or cml, run and commit the following code to the database:
+In you editor of choice or cml, connect to the database and then run and commit the following code to the database:
 
 * [db/create_tables.sql](db/create_tables.sql)
 
