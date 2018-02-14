@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-node (8.9.1) or later
+node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
 ```
 
 ### Installing
@@ -34,7 +34,6 @@ run `yarn install`
 
 To run the app locally, use the following command:
 ```
-yarn build
 yarn dev
 ```
 
@@ -43,13 +42,28 @@ yarn dev
 
 In you editor of choice or cml, run and commit the following code:
 ```
-db files
+db/create_schema.sql
+db/create_user.sql
+db/create_tables.sql
 ```
+
+The username and password can only connect to the database from the localhost (127.0.0.1) IP address:
+```
+username: jb_user
+password: jb_1234
+```
+
+If you want to use the test data, please run and commit the following script:
+```
+db/seed.sql
+```
+
 ### Prod
 
-In you editor of choice or cml, run and commit the following code:
+####Heroku (You will need Clear DB addon)
+In you editor of choice or cml, run and commit the following code to the database:
 ```
-db files
+db/create_tables.sql
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
@@ -77,7 +91,7 @@ Give an example
 ## Deployment
 
 ### Heroku
-To push to Heroku, follow the commands (Note: You must have set your git to have a Heroku remote set up. Full directions can be found here [Deploying with Git](https://devcenter.heroku.com/articles/git))
+To push to Heroku, follow the commands (Note: You must have set your git to have a Heroku remote configred. Full directions can be found here [Deploying with Git](https://devcenter.heroku.com/articles/git))
 
 Make sure to have the latest code commit first.
 ```
