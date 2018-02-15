@@ -14,19 +14,12 @@ class Nav extends Component {
 
                     {/*<!-- navbar logo -->*/}
                     <div className="col-4">
-                        <ul className="list-unstyled">
-                            <li>
-                                <a className="navbar-brand ml-auto mr-auto" href="/">Jam</a>
-                            </li>
-                            <li id="navbar-quote">
-                                <p>Sweet deals that stick.</p>
-                            </li>
-                        </ul>
+                        <div className="navbar-brand ml-auto mr-auto">Jam</div>
                     </div>
 
                     {/*<!-- navbar search -->*/}
-                    <div className="col-7 my-auto offset-1">
-                    <form className="form-inline my-2 my-md-0">
+                    <div className="col-8">
+                    <form className="form-inline float-right">
                         <div className="btn-group">
                         <button type="button" className="btn btn-sm dropdown-toggle navbar-search" id="navbar-category-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Category
@@ -47,19 +40,27 @@ class Nav extends Component {
 
                 {/*<!-- bottom Nav Bar -->*/}
                 <nav className="navbar navbar-dark">
+                    <div className="col-4">
+                        <div className="navbar-quote">Sweet deals that stick.</div>
+                    </div>
+
                     {/*<!-- Nav links -->*/}
-                    <ul className="nav mr-auto mt-2 mt-lg-0">
-                    <li className="nav-item">
-                        <a className="nav-link" href="/">Shop</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/">Notification</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/">Account</a>
-                    </li>
-                    </ul>
-                    {/*<!-- hamburger -->*/}
+                    <div class="col-7 ">
+                        <ul className="nav float-right">
+                        <li className="nav-item">
+                            <a className="nav-link" href="/">Shop</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/">Notification</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/">Account</a>
+                        </li>
+                        </ul>
+
+                    </div>
+
+                    {/*<!-- login button -->*/}
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <img src={loginSvg} id="burger" alt=""/>
                     </button>
@@ -67,8 +68,8 @@ class Nav extends Component {
                 </nav>
 
                 {/*<!-- sign-up & login (collapsed)  -->*/}
-                <nav className="navbar navbar-light bg-light py-0 sticky-top"  >
-                    <div id="navcollapse" className="collapse navbar-collapse my-2" >
+                <nav className="navbar navbar-light bg-light p-0"  >
+                    <div id="navcollapse" className="collapse navbar-collapse" >
                         <div className="navbar-nav" id="accordion">
                             <div className="mx-auto">
                                 <Signup />
@@ -78,9 +79,10 @@ class Nav extends Component {
                     </div>
                 </nav>
             </div>
+
         </div>
       );
     }
   }
-  
+
   export default Nav;
