@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import './Navbar.css';
 import loginSvg from './images/login.svg';
+
+// sub-components 
 import Signup from '../Signup';
 import Login from '../Login';
+
 
 class Nav extends Component {
     render() {
@@ -45,7 +48,7 @@ class Nav extends Component {
                     </div>
 
                     {/*<!-- Nav links -->*/}
-                    <div class="col-7 ">
+                    <div className="col-7 ">
                         <ul className="nav float-right">
                         <li className="nav-item">
                             <a className="nav-link" href="/">Shop</a>
@@ -68,7 +71,7 @@ class Nav extends Component {
                 </nav>
 
                 {/*<!-- sign-up & login (collapsed)  -->*/}
-                <nav className="navbar navbar-light bg-light p-0"  >
+                <nav className="navbar navbar-light bg-light p-0"  style={{zIndex:1}}>
                     <div id="navcollapse" className="collapse navbar-collapse" >
                         <div className="navbar-nav" id="accordion">
                             <div className="mx-auto">
