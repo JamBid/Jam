@@ -5,7 +5,8 @@ firstName VARCHAR (25) NOT NULL,
 lastName VARCHAR (25) NOT NULL,
 email VARCHAR(100) NOT NULL,
 password VARCHAR(41) NOT NULL COLLATE utf8_bin,
-image VARCHAR(32) null, 
+image VARCHAR(500) null,
+imageType varchar(4) null,
 createTs TIMESTAMP NOT NULL default current_timestamp,
 updateTs TIMESTAMP NOT NULL default current_timestamp
 );
@@ -14,7 +15,7 @@ CREATE TABLE products (
    id bigint unsigned auto_increment primary key,
    prodName varchar(255) not null,
    category varchar(255) not null,
-   description varchar(255),
+   description varchar(1000),
    startingPrice decimal(20, 5) not null,
    location varchar(255),
    endTimestamp timestamp not null,
@@ -30,7 +31,7 @@ CREATE TABLE bids (
    buyerId BIGINT UNSIGNED NOT NULL,
    prodId BIGINT UNSIGNED NOT NULL,
    createTs TIMESTAMP not null default current_timestamp,
-   foreign key bid_user_id_fk (userId) references users(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+   foreign key bid_user_id_fk (buyerId) references users(id) ON UPDATE CASCADE ON DELETE RESTRICT,
    foreign key bid_prod_id_fk (prodId) references products(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -57,7 +58,8 @@ CREATE TABLE answers (
 CREATE TABLE prodImages ( 
     id BIGINT unsigned auto_increment primary key,
     productId BIGINT unsigned NOT NULL,
-    img VARCHAR (32) NOT NULL,
+    image VARCHAR (500) NOT NULL,
+    imageType VARCHAR (4) NOT NULL,
     createTs TIMESTAMP NOT NULL default current_timestamp,
     FOREIGN KEY pimg_prod_id_fk(productId) REFERENCES products (id)ON DELETE RESTRICT ON UPDATE CASCADE
 );
