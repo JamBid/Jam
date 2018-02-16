@@ -1,6 +1,6 @@
 CREATE TABLE users (
 id BIGINT unsigned auto_increment primary key,
-userName VARCHAR (25) NOT NULL,
+userName VARCHAR (25) UNIQUE NOT NULL,
 firstName VARCHAR (25) NOT NULL,
 lastName VARCHAR (25) NOT NULL,
 email VARCHAR(100) NOT NULL,
@@ -11,8 +11,9 @@ updateTs TIMESTAMP NOT NULL default current_timestamp
 );
 
 CREATE TABLE products (
-   id bigint unsigned primary key,
+   id bigint unsigned auto_increment primary key,
    prodName varchar(255) not null,
+   category varchar(255) not null,
    description varchar(255),
    startingPrice decimal(20, 5) not null,
    location varchar(255),
