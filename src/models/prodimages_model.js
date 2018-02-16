@@ -43,7 +43,7 @@ const prodImages = {
   insertOne: function(cols, vals) {
     return new Promise(function(resolve, reject){
       pool.getConnection().then(function(connection){
-          orm.insertOne('prodImages', cols, vals, connection)
+          this.insertOneConnection(cols, vals, connection)
           .then(function(res) {
               pool.closeConnection(connection);
             return resolve(res);
@@ -53,6 +53,18 @@ const prodImages = {
             return reject(error);
           });
       });
+    });
+  },
+  //actual insert
+  insertOneConnection: function(cols, vals, connection) {
+    return new Promise(function(resolve, reject){
+      orm.insertOne('prodImages', cols, vals, connection)
+        .then(function(res) {
+          return resolve(res);
+        })
+        .catch(function(error){
+          return reject(error);
+        });
     });
   },
   
