@@ -23,14 +23,14 @@ var bid = {
     });
   },
 
-  // creates product
+  // creates bids
   insertOne: function(cols, vals, callback) {
     orm.insertOne('bid', cols, vals, function(res) {
       callback(res);
     });
   },
   
-  // updates product
+  // updates bids
   updateOne: function(objColVals, condition, callback) {
     orm.updateOne('bid', objColVals, condition, function(res) {
       callback(res);

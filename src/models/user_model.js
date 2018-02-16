@@ -23,14 +23,14 @@ var user = {
     });
   },
 
-  // creates product
+  // creates user
   insertOne: function(cols, vals, callback) {
     orm.insertOne('user', cols, vals, function(res) {
       callback(res);
     });
   },
   
-  // updates product
+  // updates user
   updateOne: function(objColVals, condition, callback) {
     orm.updateOne('user', objColVals, condition, function(res) {
       callback(res);
@@ -40,4 +40,4 @@ var user = {
 };
 
 // export to controller.js
-module.exports = products;
+module.exports = user;
