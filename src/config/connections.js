@@ -18,10 +18,7 @@ if (process.env.CLEARDB_DATABASE_URL) {
 var getConnection = function(){
   return new Promise(function(resolve, reject){
     pool.getConnection(function(error, connection){
-      if(error){
-        console.error("error connecting: " + error);
-        return reject();
-      }
+      if(error) return reject(error);
 
       return resolve(connection);
     });

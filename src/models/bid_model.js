@@ -1,43 +1,77 @@
-var orm = require('../config/orm.js');
+/*The model for maintain format to the table structure for the BIDS table*/
+const orm = require('../config/orm.js');
+const pool = require('../config/connections');
 
-var bid = {
+const bids = {
 
-  // select all
-  selectAll: function(callback) {
-    orm.selectAll('bid', function(res) {
-      callback(res); 
+  // select all rows
+  selectAll: function() {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAll('bids', connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // grabs all distinct values for the columns identified
-  selectAllDistinct: function(cols, callback) {
-    orm.selectAllDistinct('bid', cols, function(res) {
-        callback(res);
+  //selects all rows based on the condition
+  selectOne: function(cols,vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.SelectAllForOne('bids', cols, vals, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // grab all for 1 condition
-  selectAllForOne: function(cols,vals, callback) {
-    orm.selectOne('bid', cols, vals, function(res) {
-      callback(res);
-    });
-  },
-
-  // creates bids
-  insertOne: function(cols, vals, callback) {
-    orm.insertOne('bid', cols, vals, function(res) {
-      callback(res);
+  //creates a row
+  insertOne: function(cols, vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.insertOne('bids', cols, vals, connection)
+          .then(function(res) {
+              pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
   
-  // updates bids
-  updateOne: function(objColVals, condition, callback) {
-    orm.updateOne('bid', objColVals, condition, function(res) {
-      callback(res);
+  //update rows that match condition
+  updateOne: function(objColVals, condition) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.updateOne('bids', objColVals, condition, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   }
-
 };
 
 // export to controller.js
-module.exports = bid;
+module.exports = bids;
