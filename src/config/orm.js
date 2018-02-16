@@ -24,12 +24,12 @@ var orm = {
             });
         });
     },
-    selectOne:function(table, conCol, condition, func){
+    selectAllForOne:function(table, conCol, condition, func){
         pool.getConnection().then(function(connection){
             connection.query("SELECT * FROM ?? WHERE ?? = ?", [table, conCol, condition], function(error, data){
                 if(error) throw error;
                 
-                func(data[0]);
+                func(data);
 
                 pool.closeConnection(connection);
             });
