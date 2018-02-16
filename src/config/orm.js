@@ -1,5 +1,5 @@
 //imports the connection config
-var pool = require('./connection.js');
+var pool = require('./connections.js');
 
 var orm = {
     selectAll:function(table, func){        
@@ -13,12 +13,23 @@ var orm = {
             });
         });
     },
-    selectOne:function(table, conCol, condition, func){
+    selectAllDistinct:function(table, col, func){        
+        pool.getConnection().then(function(connection){
+            connection.query("SELECT distinct ?? FROM ??", [col,table], function(error, data){
+                if(error) throw error;
+
+                func(data);
+
+                pool.closeConnection(connection);
+            });
+        });
+    },
+    selectAllForOne:function(table, conCol, condition, func){
         pool.getConnection().then(function(connection){
             connection.query("SELECT * FROM ?? WHERE ?? = ?", [table, conCol, condition], function(error, data){
                 if(error) throw error;
                 
-                func(data[0]);
+                func(data);
 
                 pool.closeConnection(connection);
             });

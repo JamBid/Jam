@@ -1,4 +1,4 @@
-# Jam Bidding
+![alt text](JAM-logo.png "Jam Logo")
 
 A real-time application that provides a way to bid on an item, or even allow a user to post an item to be up for auction.
 
@@ -10,9 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-```
-node (8.9.1) or later
-```
+* node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
 
 ### Installing
 
@@ -26,31 +24,44 @@ run `npm install -g yarn`
 Navigate to the folder where you would like to store the app. In that folder, run the following command:
 
 ```
-run `npm create-react-app jam`
-cd jam
 run `git clone https://github.com/JamBid/Jam.git` (If there are errors due to permission, download the repo as a zip and replace the files in the jam folder with the ones from the zip.)
+cd jam
 run `yarn install`
 ```
 
 To run the app locally, use the following command:
 ```
-yarn build
 yarn dev
 ```
 
 ## Configuring the databases
 ### Dev
 
-In you editor of choice or cml, run and commit the following code:
+In you editor of choice or cml, connect to the database and then run and commit the following code:
+
+* [db/create_schema.sql](db/create_schema.sql)
+* [db/create_user.sql](db/create_user.sql)
+* [db/create_tables.sql](db/create_tables.sql)
+
+
+The username and password can only connect to the database from the *localhost (127.0.0.1)* IP address:
 ```
-db files
+username: jb_user
+password: jb_1234
 ```
+
+If you want to use the test data, please run and commit the following script:
+
+* [db/seed.sql](db/seed.sql)
+
+
 ### Prod
 
-In you editor of choice or cml, run and commit the following code:
-```
-db files
-```
+#### Heroku (You will need **Clear DB** addon)
+In you editor of choice or cml, connect to the database and then run and commit the following code to the database:
+
+* [db/create_tables.sql](db/create_tables.sql)
+
 
 End with an example of getting some data out of the system or using it for a little demo
 
@@ -77,7 +88,7 @@ Give an example
 ## Deployment
 
 ### Heroku
-To push to Heroku, follow the commands (Note: You must have set your git to have a Heroku remote set up. Full directions can be found here [Deploying with Git](https://devcenter.heroku.com/articles/git))
+To push to Heroku, follow the commands (Note: You must have set your git to have a Heroku remote configred. Full directions can be found here [Deploying with Git](https://devcenter.heroku.com/articles/git))
 
 Make sure to have the latest code commit first.
 ```

@@ -34,6 +34,3 @@ var users = {
 
 // export to controller.js
 module.exports = users;
-
-
-
