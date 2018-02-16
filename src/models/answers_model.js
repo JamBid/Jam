@@ -1,42 +1,76 @@
-var orm = require('../config/orm.js');
+/*The model for maintain format to the table structure for the ANSWERS table*/
+const orm = require('../config/orm.js');
+const pool = require('../config/connections');
 
-var answers = {
+const answers = {
 
-  // select all
-  selectAll: function(callback) {
-    orm.selectAll('answers', function(res) {
-      callback(res); 
+  // select all rows
+  selectAll: function() {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAll('answers', connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // grabs all distinct values for the columns identified
-  selectAllDistinct: function(cols, callback) {
-    orm.selectAllDistinct('answers', cols, function(res) {
-        callback(res);
+  //selects all rows based on the condition
+  selectOne: function(cols,vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.SelectAllForOne('answers', cols, vals, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // grab all for 1 condition
-  selectAllForOne: function(cols,vals, callback) {
-    orm.selectOne('answers', cols, vals, function(res) {
-      callback(res);
-    });
-  },
-
-  // creates product
-  insertOne: function(cols, vals, callback) {
-    orm.insertOne('answers', cols, vals, function(res) {
-      callback(res);
+  //creates a row
+  insertOne: function(cols, vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.insertOne('answers', cols, vals, connection)
+          .then(function(res) {
+              pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
   
-  // updates product
-  updateOne: function(objColVals, condition, callback) {
-    orm.updateOne('answers', objColVals, condition, function(res) {
-      callback(res);
+  //update rows that match condition
+  updateOne: function(objColVals, condition) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.updateOne('answers', objColVals, condition, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   }
-
 };
 
 // export to controller.js

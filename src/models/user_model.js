@@ -1,36 +1,78 @@
-var orm = require('../config/orm.js');
+/*The model for maintain format to the table structure for the USERS table*/
 
-var users = {
+const orm = require('../config/orm.js');
+const pool = require('../config/connections');
 
-  // select
-  selectAll: function(callback) {
-    orm.selectAll('users', function(res) {
-      callback(res); 
+const users = {
+
+  // select all rows
+  selectAll: function() {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAll('users', connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // grab indiviudal user
-  selectOne: function(cols,vals, callback) {
-    orm.SelectAllForOne('users', cols, vals, function(res) {
-      callback(res);
+  //selects all rows based on the condition
+  selectOne: function(cols,vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.SelectAllForOne('users', cols, vals, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
 
-  // create user
-  insertOne: function(cols, vals, callback) {
-    orm.insertOne('users', cols, vals, function(res) {
-      callback(res);
+  //creates a row
+  insertOne: function(cols, vals) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.insertOne('users', cols, vals, connection)
+          .then(function(res) {
+              pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   },
   
-  // update user account info
-  updateOne: function(objColVals, condition, callback) {
-    orm.updateOne('users', objColVals, condition, function(res) {
-      callback(res);
+  //update rows that match condition
+  updateOne: function(objColVals, condition) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.updateOne('users', objColVals, condition, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
     });
   }
-
 };
 
-// export to controller.js
+//export to controller.js
 module.exports = users;

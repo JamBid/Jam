@@ -1,57 +1,49 @@
-//imports the connection config
-var pool = require('./connections.js');
+/*The functions here will serve as common sql commands for all the models.
+  Each ORM will return a promise of the resulting data from the query.*/
 
 var orm = {
-    selectAll:function(table, func){        
-        pool.getConnection().then(function(connection){
+    selectAll:function(table, connection){        
+        return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ??", table, function(error, data){
-                if(error) throw error;
+                if(error) return reject(error);
 
-                func(data);
-
-                pool.closeConnection(connection);
+                return resolve(data);
             });
         });
     },
-    selectAllDistinct:function(table, col, func){        
-        pool.getConnection().then(function(connection){
+    selectAllDistinct:function(table, col, connection){        
+        return new Promise(function(resolve, reject){
             connection.query("SELECT distinct ?? FROM ??", [col,table], function(error, data){
-                if(error) throw error;
+                if(error) return reject(error);
 
-                func(data);
-
-                pool.closeConnection(connection);
+                return resolve(data);
             });
         });
     },
-    selectAllForOne:function(table, conCol, condition, func){
-        pool.getConnection().then(function(connection){
+    selectAllForOne:function(table, conCol, condition, connection){
+        return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ?? WHERE ?? = ?", [table, conCol, condition], function(error, data){
-                if(error) throw error;
-                
-                func(data);
+                if(error) return reject(error);
 
-                pool.closeConnection(connection);
+                return resolve(data);
             });
         });
     },
-    insertOne: function(table, cols, values, func){
-        pool.getConnection().then(function(connection){
-            var query = connection.query("INSERT INTO ?? (??) VALUES (?)", [table, cols, values], function(error, data){
-                if(error){console.log(query.sql); throw error};
+    insertOne: function(table, cols, values, connection){
+        return new Promise(function(resolve, reject){
+            connection.query("INSERT INTO ?? (??) VALUES (?)", [table, cols, values], function(error, data){
+                if(error) return reject(error);
 
-                func(data.insertId);
-                pool.closeConnection(connection);
+                return resolve(data.insertId);
             });
         });
     },
-    updateOne: function(table, values, id, func){
-        pool.getConnection().then(function(connection){
+    updateOne: function(table, values, id, connection){
+        return new Promise(function(resolve, reject){
             connection.query("UPDATE ?? SET ? WHERE id = ?", [table, values, id], function(error, data){
-                if(error) throw error;
+                if(error) return reject(error);
 
-                func(data);
-                pool.closeConnection(connection);
+                return resolve(data);
             });
         });
     }
