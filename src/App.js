@@ -11,8 +11,12 @@ class App extends Component {
     return (
       <div>
         <Nav />
-        <Homepage />
+        {/* <Homepage /> */}
+
         <Account />
+        
+        <hr/>
+
         <Product />
       </div>
     );

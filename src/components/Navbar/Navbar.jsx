@@ -13,7 +13,7 @@ class Nav extends Component {
         <div>
             {/*<!-- top Nav Bar  -->*/}
             <div id="nav-background">
-                <nav className="navbar navbar-dark sticky-top">
+                <nav className="navbar navbar-dark">
 
                     {/*<!-- navbar logo -->*/}
                     <div className="col-4">
