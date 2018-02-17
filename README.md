@@ -51,6 +51,7 @@ password: jb_1234
 ```
 
 If you want to use the test data, please run the following script to generate random data from the Jam folder:
+**_This will erase everything in the database!!!_**
 ```
 `node db/seeder/seed.js #1 #2 #3 #4`
 ```
