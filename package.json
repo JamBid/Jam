@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "express": "^4.16.2",
+    "mysql": "^2.15.0",
     "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -20,7 +21,8 @@
     "dev": "concurrently --kill-others-on-fail \"node ./src/server/server.js\" \"yarn start\""
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "faker": "^4.1.0"
   },
   "engines": {
     "node": ">=8.9.1"

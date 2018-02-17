@@ -8,7 +8,8 @@ const users = {
   // select all rows
   selectAll: function() {
     return new Promise(function(resolve, reject){
-      pool.getConnection().then(function(connection){
+      pool.getConnection()
+      .then(function(connection){
           orm.selectAll('users', connection)
           .then(function(res) {
             pool.closeConnection(connection);
@@ -45,7 +46,7 @@ const users = {
       pool.getConnection().then(function(connection){
           orm.insertOne('users', cols, vals, connection)
           .then(function(res) {
-              pool.closeConnection(connection);
+            pool.closeConnection(connection);
             return resolve(res);
           })
           .catch(function(error){
