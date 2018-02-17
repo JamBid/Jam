@@ -26,4 +26,8 @@ require('../routes/sockets/global.js')(io);
 //QA socket
 require('../routes/sockets/qa.js')(io);
 
+// Routes
+// =============================================================
+require("../routes/api/routes")(app);
+
 server.listen(PORT, () => {console.log(`Listening on port ${PORT}`)});

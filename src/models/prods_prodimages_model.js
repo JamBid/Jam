@@ -82,6 +82,30 @@ const prod_prodimage = {
                 });
             });
         });
+    },
+
+    //function get a product with their images
+    selectOneWithAllImage: function(prodId){
+        return new Promise(function(resolve, reject){
+            Promise.all([prods.selectOne("id", prodId), prodImgs.selectOne("productId",prodId)])
+            .then(function(results){
+                let result = {};
+                if(results[0][0]){
+                    result=results[0][0];
+                    if(results[1])
+                        result.images=results[1];
+                    else
+                        result.images=[];
+                }
+                else
+                    result={};
+
+                return resolve(result);
+            })
+            .catch(function(errors){
+                return reject(errors);
+            })
+        });
     }
 }
 
