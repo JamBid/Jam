@@ -138,7 +138,7 @@ const insertRandomUserProd = function(count, max){
             })
             .catch(function(error){
                 return reject(error);
-            })
+            });
         })
         .catch(function(error){
             return reject(error);
@@ -183,7 +183,7 @@ const insertRandomQuestions = function(count, max){
             })
             .catch(function(error){
                 return reject(error);
-            })
+            });
         })
         .catch(function(error){
             return reject(error);
@@ -228,7 +228,7 @@ const insertRandomAnwsers = function(count, max){
             })
             .catch(function(error){
                 return reject(error);
-            })
+            });
         })
         .catch(function(error){
             return reject(error);
@@ -246,6 +246,7 @@ const insertRandomBids = function(count, max){
             userId = data[Math.floor(Math.random() * data.length)].id;
         })
         .then(function(){
+            
             db.products.selectAll()
             .then(function(data){
                 let prodId = null;
@@ -282,7 +283,7 @@ const insertRandomBids = function(count, max){
             })
             .catch(function(error){
                 return reject(error);
-            })
+            });
         })
         .catch(function(error){
             return reject(error);
@@ -354,7 +355,7 @@ const generateRandomData = function(){
                             })
                             .catch(function(error){
                                 console.log(error);
-                            })
+                            });
                         }
                         else{
                             console.log("Number of users must be greater than 1 to insert any bids.")
