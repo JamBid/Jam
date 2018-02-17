@@ -30,6 +30,12 @@ var closeConnection = function(connection){
   connection.release();
 }
 
+//ends the pool
+var closePool = function(){
+  pool.end();
+}
+
 // Export connection for our ORM to use.
 module.exports = {getConnection: getConnection,
-  closeConnection: closeConnection};
+  closeConnection: closeConnection,
+  closePool: closePool};

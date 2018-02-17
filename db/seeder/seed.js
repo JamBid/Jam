@@ -322,45 +322,63 @@ const generateRandomData = function(){
             if(userCount){
                 insertRandomUserProd(1, userCount)
                 .then(function(data){
-                console.log("Inserted "+userCount+" users into the database with products for sale.");
+                    console.log("Inserted "+userCount+" users into the database with products for sale.");
                 })
                 .then(function(){
-                    //inserts the questions
-                    if(questionCount)
-                        insertRandomQuestions(1, questionCount)
-                        .then(function(data){
-                            console.log("Inserted "+questionCount+" questions into the database.");
-                        })
-                        .then(function(){
-                            //inserts the answers
-                            if(answerCount)
-                                insertRandomAnwsers(1, answerCount)
+                    Promise.all([
+                        new Promise(function(resolve, reject){
+                            //inserts the questions
+                            if(questionCount){
+                                insertRandomQuestions(1, questionCount)
                                 .then(function(data){
-                                    console.log("Inserted "+answerCount+" answers into the database.");
+                                    console.log("Inserted "+questionCount+" questions into the database.");
+                                })
+                                .then(function(){
+                                    //inserts the answers
+                                    if(answerCount)
+                                        insertRandomAnwsers(1, answerCount)
+                                        .then(function(data){
+                                            console.log("Inserted "+answerCount+" answers into the database.");
+                                            return resolve();
+                                        })
+                                        .catch(function(error){
+                                            console.log(error);
+                                            return reject();
+                                        });
+                                    else
+                                        return resolve();
                                 })
                                 .catch(function(error){
                                     console.log(error);
+                                    return reject();
                                 });
+                            }
+                        }),
+                        new Promise(function(resolve, reject){
+                            if(bidCount){
+                                if(userCount > 1){
+                                    insertRandomBids(1,bidCount)
+                                    .then(function(data){
+                                        console.log("Inserted "+bidCount+" bids into the database.");
+                                        return resolve();
+                                    })
+                                    .catch(function(error){
+                                        console.log(error);
+                                        return reject();
+                                    });
+                                }
+                                else{
+                                    console.log("Number of users must be greater than 1 to insert any bids.");
+                                    return resolve();
+                                }
+                            }
+                            else
+                                return resolve();
                         })
-                        .catch(function(error){
-                            console.log(error);
-                        });
-                })
-                .then(function(){
-                    if(bidCount){
-                        if(userCount > 1){
-                            insertRandomBids(1,bidCount)
-                            .then(function(data){
-                                console.log("Inserted "+bidCount+" bids into the database.")
-                            })
-                            .catch(function(error){
-                                console.log(error);
-                            });
-                        }
-                        else{
-                            console.log("Number of users must be greater than 1 to insert any bids.")
-                        }
-                    }
+                    ])
+                    .then(function(results){
+                        pool.closePool();
+                    });
                 })
                 .catch(function(error){
                     console.log(error);
