@@ -59,6 +59,10 @@ If you want to use the test data, please run the following script to generate ra
 * Replace the **#3** with an integer for the number of answers to insert. *(Optional: If you put a 0 for questions, this does nothing.)*
 * Replace the **#4** with an integer for the number of bids to insert. *(Optional: If you put a 0 or 1 for users, this will show a warning.)*
 
+After the seeder has finished, the login info will be as follow:
+* Username: user# **(The # is the number for which user you want to log in as, such as user1.)**
+* Password: 1234
+
 
 ### Prod
 
