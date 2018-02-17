@@ -1,0 +1,23 @@
+.carousel-content, .carousel-item {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.carousel-inner {
+    height: 400px;
+}
+
+.carousel-tab {
+    line-height: 15px;
+}
+
+.info {
+    line-height: 10px;
+    height: 25px;
+    font-size: 12px;
+}
+
+/* .container-extend {
+    margin: 0px auto;
+    min-width: 90%;
+} */
