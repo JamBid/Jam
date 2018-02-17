@@ -59,9 +59,10 @@ const prod_prodimage = {
                                     pool.closeConnection(connection);
                                     return reject(error);
                                 }
-                            });
 
-                            return resolve(data);
+                                pool.closeConnection(connection);
+                                return resolve(data);
+                            });
                         })
                         .catch(function(error){
                             if(error){

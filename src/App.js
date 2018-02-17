@@ -10,6 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
+
         <Nav />
         {/* <Homepage /> */}
 
@@ -18,6 +19,7 @@ class App extends Component {
         <hr/>
 
         <Product />
+
       </div>
     );
   }

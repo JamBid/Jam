@@ -50,14 +50,24 @@ username: jb_user
 password: jb_1234
 ```
 
-If you want to use the test data, please run and commit the following script:
+If you want to use the test data, please run the following script to generate random data from the Jam folder:
+**_This will erase everything in the database!!!_**
+```
+`node db/seeder/seed.js #1 #2 #3 #4`
+```
+* Replace the **#1** with an integer for how many users to generate with random number of products to be up for bids. *(Required)*
+* Replace the **#2** with an integer for the number of questions to insert. *(Optional)*
+* Replace the **#3** with an integer for the number of answers to insert. *(Optional: If you put a 0 for questions, this does nothing.)*
+* Replace the **#4** with an integer for the number of bids to insert. *(Optional: If you put a 0 or 1 for users, this will show a warning.)*
 
-* [db/seed.sql](db/seed.sql)
+After the seeder has finished, the login info will be as follow:
+* Username: user# **(The # is the number for which user you want to log in as, such as user1.)**
+* Password: 1234
 
 
 ### Prod
 
-#### Heroku (You will need **Clear DB** addon)
+#### Heroku (You will need *Clear DB* addon)
 In you editor of choice or cml, connect to the database and then run and commit the following code to the database:
 
 * [db/create_tables.sql](db/create_tables.sql)
