@@ -236,6 +236,60 @@ const insertRandomAnwsers = function(count, max){
     });
 }
 
+//function to insert random bids
+const insertRandomBids = function(count, max){
+    return new Promise(function(resolve, reject){
+        let userId = null;
+
+        db.users.selectAll()
+        .then(function(data){
+            userId = data[Math.floor(Math.random() * data.length)].id;
+        })
+        .then(function(){
+            db.products.selectAll()
+            .then(function(data){
+                let prodId = null;
+                let item = null;
+                
+                //checks to make sure that prodId selected is not the seller for the bidder
+                do{
+                    item = Math.floor(Math.random() * data.length);
+                    if(data[item].sellerId !== userId)
+                        prodId = data[item].id;
+                }while(prodId == null);
+
+                let bid = faker.getRandomBid(data[item].startingPrice, 9999);
+
+                db.bids.insertOne(
+                    ['amount','buyerId','prodId'],
+                    [bid.amount,userId,prodId]
+                )
+                .then(function(data){
+                    if(count +1 <= max)
+                        insertRandomBids(count+1, max)
+                        .then(function(data){
+                            return resolve(data);
+                        })
+                        .catch(function(error){
+                            return reject(error);
+                        })
+                    else
+                        return resolve(data);
+                })
+                .catch(function(error){
+                    return reject(error);
+                });
+            })
+            .catch(function(error){
+                return reject(error);
+            })
+        })
+        .catch(function(error){
+            return reject(error);
+        });
+    });
+}
+
 //function to generate a random data to insert
 const generateRandomData = function(){
     if(process.argv.length < 3){
@@ -246,6 +300,7 @@ const generateRandomData = function(){
         let userCount = 0;
         let questionCount = 0;
         let answerCount = 0;
+        let bidCount = 0;
 
         if(process.argv[2])
             userCount = parseInt(process.argv[2]);
@@ -255,6 +310,9 @@ const generateRandomData = function(){
         
         if(process.argv[4])
             answerCount = parseInt(process.argv[4]);
+
+        if(process.argv[5])
+            bidCount = parseInt(process.argv[5]);
 
         //calls the database truncation function
         clearEverything()
@@ -286,6 +344,22 @@ const generateRandomData = function(){
                         .catch(function(error){
                             console.log(error);
                         });
+                })
+                .then(function(){
+                    if(bidCount){
+                        if(userCount > 1){
+                            insertRandomBids(1,bidCount)
+                            .then(function(data){
+                                console.log("Inserted "+bidCount+" bids into the database.")
+                            })
+                            .catch(function(error){
+                                console.log(error);
+                            })
+                        }
+                        else{
+                            console.log("Number of users must be greater than 1 to insert any bids.")
+                        }
+                    }
                 })
                 .catch(function(error){
                     console.log(error);

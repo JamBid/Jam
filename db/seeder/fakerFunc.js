@@ -26,7 +26,7 @@ const getRandomBid = function(min, max){
 const getRandomProd = function(){
     let productName = faker.commerce.productName();
     let department = faker.commerce.department();
-    let price = faker.commerce.price(10, 9999, 2);
+    let price = faker.commerce.price(10, 999, 2);
     let description = faker.lorem.sentences();
     let endDate = faker.date.future();
 

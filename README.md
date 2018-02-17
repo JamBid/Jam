@@ -52,11 +52,12 @@ password: jb_1234
 
 If you want to use the test data, please run the following script to generate random data from the Jam folder:
 ```
-`node db/seeder/seed.js #1 #2 #3`
+`node db/seeder/seed.js #1 #2 #3 #4`
 ```
 * Replace the **#1** with an integer for how many users to generate with random number of products to be up for bids. *(Required)*
 * Replace the **#2** with an integer for the number of questions to insert. *(Optional)*
 * Replace the **#3** with an integer for the number of answers to insert. *(Optional: If you put a 0 for questions, this does nothing.)*
+* Replace the **#4** with an integer for the number of bids to insert. *(Optional: If you put a 0 or 1 for users, this will show a warning.)*
 
 
 ### Prod
