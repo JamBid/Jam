@@ -28,7 +28,6 @@ class Account extends Component {
                     </div>
                     <textarea name="lastName" className="update-task form-control update" >lastName</textarea>
                 </div>
-
                 <div className="input-group mb-3 info">
                     {/* password */}
                     <div className="input-group-">
