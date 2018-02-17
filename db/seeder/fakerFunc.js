@@ -40,7 +40,7 @@ const getRandomProd = function(){
 }
 
 const getRandomQuestion = function(){
-    let question = faker.lorem.sentence();
+    let question = faker.hacker.phrase();
 
     question = question.replace(/.$/, "?");
     return ({
@@ -49,7 +49,7 @@ const getRandomQuestion = function(){
 }
 
 const getRandomAnswer = function(){
-    let answer = faker.lorem.sentence();
+    let answer = faker.hacker.phrase();
 
     return ({
         'answer': answer
