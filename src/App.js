@@ -12,14 +12,15 @@ class App extends Component {
       <div>
 
         <Nav />
-        {/* <Homepage /> */}
 
-        <Account />
-        
-        <hr/>
-
-        <Product />
-
+        <div className="container">
+            {/* <Homepage /> */}
+            <hr/>
+            <Account />
+            <hr/>
+            <Product />
+          </div>
+          
       </div>
     );
   }
