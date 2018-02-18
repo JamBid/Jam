@@ -17,7 +17,7 @@ class Nav extends Component {
 
                     {/*<!-- navbar logo -->*/}
                     <div className="col-4">
-                        <div className="ml-auto mr-auto">
+                        <div className="mx-auto">
                             <a class="navbar-brand nav-link" href="/">Jam</a>
                         </div>
                     </div>
