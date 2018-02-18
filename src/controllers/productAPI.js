@@ -40,7 +40,7 @@ router.route('/')
             if(req.body["image"+i])
                 images.push({
                     'image':req.body["image"+i],
-                    'imageType':req.body["image"+i+type]
+                    'imageType':req.body["image"+i+"type"]
                 });
         }
         
