@@ -1,4 +1,4 @@
-const db = require('../../models/models');
+const db = require('../models/models');
 const router = require("express").Router();
 
 router.route('/:id')

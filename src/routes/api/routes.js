@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const prodRoutes = require("./productAPI");
+const prodRoutes = require("../../controllers/productAPI");
 
 // Book routes
 router.use("/prod", prodRoutes);
