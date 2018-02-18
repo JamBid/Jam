@@ -1,6 +1,20 @@
 const db = require('../models/models');
 const router = require("express").Router();
 
+//product part api for homepage use
+router.route('/recent')
+    .get(function(req, res){
+        db.prod_prodImages.selectRecentAllLimit(6)
+        .then(function(results){
+            res.send(results);
+        })
+        .catch(function(error){
+            console.log(error);
+            res.send(error)
+        })
+    })
+
+//path to get a specific product info
 router.route('/:id')
     .get(function(req, res){
         db.prod_prodImages.selectOneWithAllImage(req.params.id)

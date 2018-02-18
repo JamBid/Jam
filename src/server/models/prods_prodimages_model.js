@@ -106,6 +106,46 @@ const prod_prodimage = {
                 return reject(errors);
             })
         });
+    },
+
+    //function get a list of most recent products with their images
+    selectRecentAllLimit: function(limit){
+        return new Promise(function(resolve, reject){
+            prods.selectAllLimitOrder(
+                [
+                    {'createTs':'desc'}
+                ],
+                limit
+            )
+            .then(function(results){
+                let arrayPromises = [];
+                for(i in results){
+                    arrayPromises.push(new Promise(function(resolve, reject){
+                        let prod = results[i];
+                        prodImgs.selectOne("productId",prod.id)
+                        .then(function(results){
+                            if(results)
+                                prod.images=results;
+                            else
+                                prod.images=[];
+
+                            return resolve(prod);
+                        })
+                        .catch(function(error){
+                            return reject(error);
+                        });
+                    }));
+                };
+
+                Promise.all(arrayPromises)
+                .then(function(results){
+                    return resolve(results);
+                })
+                .catch(function(errors){
+                    return reject(errors);
+                });
+            });
+        });
     }
 }
 

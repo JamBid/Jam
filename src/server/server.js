@@ -3,7 +3,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const path = require('path');
 const bodyParser = require("body-parser");
-const routes = require('../routes/api/routes');
+const routes = require('./routes/api/routes');
 
 const PORT = process.env.PORT || 3001;
 
@@ -27,10 +27,10 @@ app.get('/', (req, res, next) => {
 });
 
 //global socket
-require('../routes/sockets/global.js')(io);
+require('./routes/sockets/global.js')(io);
 
 //QA socket
-require('../routes/sockets/qa.js')(io);
+require('./routes/sockets/qa.js')(io);
 
 // Routes
 // =============================================================
