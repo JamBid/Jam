@@ -27,7 +27,7 @@ const users = {
   selectOne: function(cols,vals) {
     return new Promise(function(resolve, reject){
       pool.getConnection().then(function(connection){
-          orm.SelectAllForOne('users', cols, vals, connection)
+          orm.selectAllForOne('users', cols, vals, connection)
           .then(function(res) {
             pool.closeConnection(connection);
             return resolve(res);

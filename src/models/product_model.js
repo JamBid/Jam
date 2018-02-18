@@ -26,7 +26,7 @@ const products = {
   selectOne: function(cols,vals) {
     return new Promise(function(resolve, reject){
       pool.getConnection().then(function(connection){
-          orm.SelectAllForOne('products', cols, vals, connection)
+          orm.selectAllForOne('products', cols, vals, connection)
           .then(function(res) {
             pool.closeConnection(connection);
             return resolve(res);
