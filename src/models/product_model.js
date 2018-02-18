@@ -22,11 +22,96 @@ const products = {
     });
   },
 
+  //selects all rows in an order
+  selectAllOrder: function(sortCols) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAllOrder('products', sortCols, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
+    });
+  },
+
+  //selects all rows in an order
+  selectAllLimitOrder: function(sortCols, limit) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAllLimitOrder('products', sortCols, limit, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
+    });
+  },
+
+  //selects all rows in an order
+  selectAllLimit: function(limit) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectAllLimit('products', limit, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
+    });
+  },
+
   //selects all rows based on the condition
-  selectOne: function(cols,vals) {
+  selectOne: function(cols, vals) {
     return new Promise(function(resolve, reject){
       pool.getConnection().then(function(connection){
           orm.selectAllForOne('products', cols, vals, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
+    });
+  },
+
+  //selects all rows in an order
+  selectLimitForOneCon: function(cols, vals, limit) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectLimitForOneCon('products', cols, vals, limit, connection)
+          .then(function(res) {
+            pool.closeConnection(connection);
+            return resolve(res);
+          })
+          .catch(function(error){
+            pool.closeConnection(connection);
+            return reject(error);
+          });
+      });
+    });
+  },
+
+  //selects all rows in an order
+  selectLimitForOneConOrder: function(cols, vals, sortCols, limit) {
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+          orm.selectLimitForOneConOrder('products', cols, vals, sortCols, limit, connection)
           .then(function(res) {
             pool.closeConnection(connection);
             return resolve(res);
