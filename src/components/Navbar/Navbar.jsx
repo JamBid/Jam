@@ -17,7 +17,9 @@ class Nav extends Component {
 
                     {/*<!-- navbar logo -->*/}
                     <div className="col-4">
-                        <div className="navbar-brand ml-auto mr-auto">Jam</div>
+                        <div className="ml-auto mr-auto">
+                            <a class="navbar-brand nav-link" href="/">Jam</a>
+                        </div>
                     </div>
 
                     {/*<!-- navbar search -->*/}
@@ -27,6 +29,7 @@ class Nav extends Component {
                         <button type="button" className="btn btn-sm dropdown-toggle navbar-search" id="navbar-category-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Category
                         </button>
+                        {/* category drop down */}
                         <div className="dropdown-menu">
                             <a className="dropdown-item" href="/">All</a>
                             <div className="dropdown-divider"></div>
@@ -35,7 +38,9 @@ class Nav extends Component {
                             <a className="dropdown-item" href="/">Cateogry 3</a>
                         </div>
                         </div>
+                        {/* search field */}
                         <input className="form-control form-control-sm navbar-search" id="navbar-search-input" type="search" placeholder="Search" aria-label="Search" />
+                        {/* search button */}
                         <button className="btn btn-sm my-2 my-sm-0 navbar-search" id="navbar-search-btn" type="submit">Search</button>
                     </form>
                     </div>
@@ -51,13 +56,13 @@ class Nav extends Component {
                     <div className="col-7 ">
                         <ul className="nav float-right">
                         <li className="nav-item">
-                            <a className="nav-link" href="/">Shop</a>
+                            <a className="nav-link" href="/shop">Shop</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/">Notification</a>
+                            <a className="nav-link" href="" id="notifiction">Notification</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/">Account</a>
+                            <a className="nav-link" href="/account">Account</a>
                         </li>
                         </ul>
 
@@ -67,7 +72,6 @@ class Nav extends Component {
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <img src={loginSvg} id="burger" alt=""/>
                     </button>
-
                 </nav>
 
                 {/*<!-- sign-up & login (collapsed)  -->*/}

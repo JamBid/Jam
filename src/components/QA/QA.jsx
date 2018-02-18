@@ -7,9 +7,9 @@ class QA extends Component {
                     {/* QA cards */}
                     <div className="card mb-3">
                         <div className="card-block">
-                            <h5 className="card-title">Question.....?</h5>
+                            <h5 className="card-title">(template question card) This is the question?</h5>
                             <p className="card-subtitle mb-2 text-muted">February 17th 2018, 1:06:33 pm</p>
-                            <p className="card-text">Answer......!</p>
+                            <p className="card-text">(sample answer response) This is the answer.</p>
                         </div>
                     </div>
 

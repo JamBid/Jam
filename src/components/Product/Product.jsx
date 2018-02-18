@@ -9,7 +9,7 @@ class Product extends Component {
                 
                 {/* QA */}
                 <QA />
-                
+
 
             </div>
         )
