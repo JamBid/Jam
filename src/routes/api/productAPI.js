@@ -1,11 +1,16 @@
 const db = require('../../models/models');
+const router = require("express").Router();
 
-module.exports = function(app){
-     //gets all the product info for a specific id
-     app.get("/prod/:id", function(req, res){
+router.route('/:id')
+    .get(function(req, res){
         db.prod_prodImages.selectOneWithAllImage(req.params.id)
         .then(function(results){
             res.send(results)
-        })
-     });
-}
+        });
+    })
+    .put(function(req, res){
+           //db.products.updateOne()
+           res.send(req.body.price)
+    });
+
+module.exports = router;
