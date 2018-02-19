@@ -8,6 +8,14 @@ import Login from '../Login';
 
 
 class Nav extends Component {
+    constructor(props){
+        super(props);
+
+        this.state={
+            userId: props.userId
+        }
+    }
+
     render() {
       return (
         <div>
@@ -61,9 +69,11 @@ class Nav extends Component {
                         <li className="nav-item">
                             <a className="nav-link" href="" id="notifiction">Notification</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/account">Account</a>
-                        </li>
+                        {this.state.userId !== null ?
+                            <li className="nav-item">
+                                <a className="nav-link" href="/account">Account</a>
+                            </li>
+                        : null}
                         </ul>
 
                     </div>

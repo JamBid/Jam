@@ -8,7 +8,7 @@ class Account extends Component {
         super(props);
 
         this.state = {
-            userId: 1, //this should be props.userId
+            userId: props.userId,
             userInfo: {}
         }
     }
@@ -17,12 +17,11 @@ class Account extends Component {
         this.loadUser();
     }
 
-
     //function for loading user info
     loadUser = () => {
         API.getUser(this.state.userId)
         .then( res => {
-            console.log(res.data[0])
+            console.log(res)
             this.setState({userInfo: res.data[0]})
         })
         .catch(err => console.log(err))
