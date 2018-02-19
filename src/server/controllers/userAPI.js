@@ -16,7 +16,6 @@ router.route('/:id')
 //inserts a new user
 router.route('/')
     .post(function(req, res){
-        console.log(req.body.name);
         db.users.insertOne(
             ["email","userName","firstName","lastName","password","image","imageType"],
             [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, req.body.image, req.body.imageType])
