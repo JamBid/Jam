@@ -9,21 +9,22 @@ import Product from './components/Product';
 import NoMatch from "./components/NoMatch";
 
 class App extends Component {
+  state = {
+    userId: 2
+  }
+
   render() {
     return (
       <Router>
-      <div>
-
-        <Nav />
-
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route exact path="/account" component={Account} />
-          <Route path="/product" component={Product} />
-          <Route component={NoMatch} />
-        </Switch>
-
-      </div>
+        <div>
+          <Nav userId={this.state.userId}/>
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+            <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
+            <Route path="/product" component={Product} />
+            <Route component={NoMatch} />
+          </Switch>
+        </div>
     </Router>
     );
   }
