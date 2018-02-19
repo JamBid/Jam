@@ -60,7 +60,7 @@ class Account extends Component {
                     <input name="password" type="password" className="form-control" />
                 </div>
 
-                <img id='profile-picture'  src={this.state.userInfo.image} className="img-fluid rounded profile-picture"/>
+                <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
 
                 {/* upload - new profile picture */}
                 <div className="form-group">
