@@ -7,7 +7,7 @@ class Product extends Component {
         return (
             <div>
                 
-                {/* QA */}
+                {/* Product */}
                 <QA />
 
 

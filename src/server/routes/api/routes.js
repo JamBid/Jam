@@ -1,4 +1,3 @@
-var axios = require('axios');
 const router = require("express").Router();
 const prodRoutes = require("../../controllers/productAPI");
 const userRoutes = require("../../controllers/userAPI");
