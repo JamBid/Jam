@@ -63,17 +63,17 @@ class Nav extends Component {
                     {/*<!-- Nav links -->*/}
                     <div className="col-7 ">
                         <ul className="nav float-right">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/shop">Shop</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="" id="notifiction">Notification</a>
-                        </li>
-                        {this.state.userId !== null ?
                             <li className="nav-item">
-                                <a className="nav-link" href="/account">Account</a>
+                                <a className="nav-link" href="" id="shop-btn">Shop</a>
                             </li>
-                        : null}
+                            <li className="nav-item">
+                                <a className="nav-link" href="" id="notifiction-btn">Notification</a>
+                            </li>
+                            {this.state.userId !== null ?
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/account" id="account-btn">Account</a>
+                                </li>
+                            : null}
                         </ul>
 
                     </div>
