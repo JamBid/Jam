@@ -5,19 +5,19 @@ class NoMatch extends Component {
         return (
             <div>
                 {/* 404 page */}
-                <div class="row mt-5">
-                    <div class="col-md-12 text-center">
-                        <div class="error-template">
+                <div className="row mt-5">
+                    <div className="col-md-12 text-center">
+                        <div className="error-template">
                             <h1>
                                 Oops!</h1>
                             <h2>
                                 404 Not Found</h2>
-                            <div class="error-details">
+                            <div className="error-details">
                                 Sorry, an error has occured, Requested page not found!
                             </div>
-                            <div class="error-actions mt-4">
-                                <a href="/" class="btn btn-primary btn-md">
-                                    <span class="glyphicon glyphicon-home">🏚️ </span>
+                            <div className="error-actions mt-4">
+                                <a href="/" className="btn btn-primary btn-md">
+                                    <span className="glyphicon glyphicon-home" role="img" aria-labelledby="house glyph icon">🏚️ </span>
                                     Take Me Home 
                                 </a>
                             </div>

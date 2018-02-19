@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import carPng from './images/car.png';
 import API from '../../utils/API';
 import './homepage.css';
 
