@@ -1,12 +1,16 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
+  // Gets all recent products
   getRecentProducts: function() {
     return axios.get("/prod/recent");
   },
   // Gets the product with the given id
-  getBook: function(id) {
+  getProduct: function(id) {
     return axios.get("/prod/" + id);
+  },
+  //gets a specific user info
+  getUser: function(id) {
+    return axios.get("/user/" + id);
   }
 };
