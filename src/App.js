@@ -40,7 +40,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Homepage}/>
             <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
-            <Route path="/product" component={Product} />
+            <Route path="/product/:id" component={Product} />
             <Route component={NoMatch} />
           </Switch>
         </div>

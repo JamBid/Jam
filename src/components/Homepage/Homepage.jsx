@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import API from '../../utils/API';
 import './homepage.css';
 
@@ -32,14 +33,14 @@ class Homepage extends Component {
                     <div className="d-flex align-content-between flex-wrap justify-content-center">
                         {this.state.products.map((p,i) => (
                             <div key={i} className="p-4 my-flex-item">
-                                <a href={`/prod/${p.id}`} >
+                                <Link to={`/product/${p.id}`} >
                                     <div className="card rounded-circle border-dark">
                                         <div className="card-body home-category text-center">
                                             <img className="imgCard" src={p.images[0].image} alt=""/>
                                             <p>{p.prodName}</p>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         ))}
                         {/*<div className="p-4 my-flex-item">
