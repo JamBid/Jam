@@ -113,6 +113,7 @@ git push heroku master
 * [Node JS](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)
 * [Socket.io](https://socket.io/)
+* [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
 
 ### Dev packages
 * [Faker](https://github.com/marak/Faker.js/)
