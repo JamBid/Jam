@@ -13,7 +13,7 @@ class Account extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadUser();
     }
 

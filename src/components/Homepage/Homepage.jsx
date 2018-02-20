@@ -30,8 +30,8 @@ class Homepage extends Component {
                 {/*<!-- Homepage -->*/}
                 <div className="container ">
                     <div className="d-flex align-content-between flex-wrap justify-content-center">
-                        {this.state.products.map(p => (
-                            <div className="p-4 my-flex-item">
+                        {this.state.products.map((p,i) => (
+                            <div key={i} className="p-4 my-flex-item">
                                 <a href={`/prod/${p.id}`} >
                                     <div className="card rounded-circle border-dark">
                                         <div className="card-body home-category text-center">

@@ -87,6 +87,24 @@ var orm = {
             });
         });
     },
+    selectAllWithCon:function(table, colsVals, connection){
+        return new Promise(function(resolve, reject){
+            let sql = "SELECT * FROM ?? WHERE ";
+            let colCount = 0;
+            for(i in colsVals){
+                if(colCount > 0)
+                    sql += " AND ";
+
+                sql+=i +"= "+connection.escape(colsVals[i]);
+                colCount++;
+            }
+            connection.query(sql, [table], function(error, data){
+                if(error) return reject(error);
+
+                return resolve(data);
+            });
+        });
+    },
     selectLimitForOneCon:function(table, conCol, condition, limit, connection){
         return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ?? WHERE ?? = ? LIMIT ?", [table, conCol, condition, limit], function(error, data){
