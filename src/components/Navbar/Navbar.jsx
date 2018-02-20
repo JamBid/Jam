@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Navbar.css';
 import loginSvg from './images/login.svg';
+import {Link} from 'react-router-dom';
 
 // sub-components 
 import Signup from '../Signup';
@@ -12,8 +13,13 @@ class Nav extends Component {
         super(props);
 
         this.state={
-            userId: props.userId
+            userId: props.userId,
+            handleLogin: props.handleLogin
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({userId: nextProps.userId});
     }
 
     render() {
@@ -26,7 +32,7 @@ class Nav extends Component {
                     {/*<!-- navbar logo -->*/}
                     <div className="col-4">
                         <div className="mx-auto">
-                            <a className="navbar-brand nav-link" href="/">Jam</a>
+                            <Link className="navbar-brand nav-link" to="/">Jam</Link>
                         </div>
                     </div>
 
@@ -39,11 +45,11 @@ class Nav extends Component {
                         </button>
                         {/* category drop down */}
                         <div className="dropdown-menu">
-                            <a className="dropdown-item" href="/">All</a>
+                            <Link className="dropdown-item" to="/">All</Link>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="/">Cateogry 1</a>
-                            <a className="dropdown-item" href="/">Cateogry 2</a>
-                            <a className="dropdown-item" href="/">Cateogry 3</a>
+                            <Link className="dropdown-item" to="/">Cateogry 1</Link>
+                            <Link className="dropdown-item" to="/">Cateogry 2</Link>
+                            <Link className="dropdown-item" to="/">Cateogry 3</Link>
                         </div>
                         </div>
                         {/* search field */}
@@ -64,14 +70,14 @@ class Nav extends Component {
                     <div className="col-7 ">
                         <ul className="nav float-right">
                             <li className="nav-item">
-                                <a className="nav-link" href="" id="shop-btn">Shop</a>
+                                <Link className="nav-link" to="" id="shop-btn">Shop</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="" id="notifiction-btn">Notification</a>
+                                <Link className="nav-link" to="" id="notifiction-btn">Notification</Link>
                             </li>
                             {this.state.userId !== null ?
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/account" id="account-btn">Account</a>
+                                    <Link className="nav-link" to="/account" id="account-btn">Account</Link>
                                 </li>
                             : null}
                         </ul>
@@ -90,7 +96,7 @@ class Nav extends Component {
                         <div className="navbar-nav" id="accordion">
                             <div className="mx-auto">
                                 <Signup />
-                                <Login />
+                                <Login onClick={this.state.handleLogin}/>
                             </div>
                         </div>
                     </div>

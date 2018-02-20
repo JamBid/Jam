@@ -53,12 +53,13 @@ password: jb_1234
 If you want to use the test data, please run the following script to generate random data from the Jam folder:
 **_This will erase everything in the database!!!_**
 ```
-`node db/seeder/seed.js #1 #2 #3 #4`
+`node db/seeder/seed.js #1 #2 #3 #4 #5`
 ```
 * Replace the **#1** with an integer for how many users to generate with random number of products to be up for bids. *(Required)*
-* Replace the **#2** with an integer for the number of questions to insert. *(Optional)*
-* Replace the **#3** with an integer for the number of answers to insert. *(Optional: If you put a 0 for questions, this does nothing.)*
-* Replace the **#4** with an integer for the number of bids to insert. *(Optional: If you put a 0 or 1 for users, this will show a warning.)*
+* Replace the **#2** with an integer for the number of products to insert. *(Optional: If you put a 0 for users, this will throw a warning.) _(Must have a 0 if you want to provide a value for questions, answers, and bids.)_*
+* Replace the **#3** with an integer for the number of questions to insert. *(Optional: If you put a 0 for products, this does nothing.) _(Must have a 0 if you want to provide a value for answers and/or bids.)_*
+* Replace the **#4** with an integer for the number of answers to insert. *(Optional: If you put a 0 for users, this will do nothing.) _(Must have a 0 if you want to provide a value for bids.)_*
+* Replace the **#5** with an integer for the number of bids to insert. *(Optional: If you put a 0 for users, this will do nothing. If you put 1 for users, this will show a warning.)*
 
 After the seeder has finished, the login info will be as follow:
 * Username: user# **(The # is the number for which user you want to log in as, such as user1.)**
@@ -110,7 +111,13 @@ git push heroku master
 * [MySQL](https://www.mysql.com/)
 * [ReactJS](https://reactjs.org/)
 * [Node JS](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
 * [Socket.io](https://socket.io/)
+* [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
+
+### Dev packages
+* [Faker](https://github.com/marak/Faker.js/)
+* [Concurrently](https://github.com/kimmobrunfeldt/concurrently)
 
 ## Authors
 

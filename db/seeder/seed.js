@@ -1,6 +1,6 @@
 const faker = require('./fakerFunc.js');
-const pool = require('../../src/server/config/connections.js');
-const db = require('../../src/server/models/models');
+const pool = require('../../server/config/connections.js');
+const db = require('../../server/models/models');
 
 //function to clear all the tables
 const clearEverything = function(){
@@ -93,7 +93,7 @@ const clearEverything = function(){
 }
 
 //fuction to insert user and their product
-const insertRandomUserProd = function(count, max){
+const insertRandomUser = function(count, max){
     return new Promise(function(resolve, reject){
         //sets up the user to be inserted
         let userName = 'user'+count;
@@ -116,7 +116,35 @@ const insertRandomUserProd = function(count, max){
             ['username','password','firstname','lastname','email','image','imageType'],
             [person.userName,person.password,person.firstName,person.lastName,person.email,person.avatar,person.imageType])
         .then(function(data){
-            userId = data;
+            if(count+1 <= max)
+                insertRandomUser(count+1, max)
+                .then(function(data){
+                    return resolve(data);
+                })
+                .catch(function(error){
+                    return reject(data);
+                });
+            else
+                return resolve(data);            
+        })
+        .catch(function(error){
+            return reject(error);
+        });
+    });
+}
+
+//function to insert random productions
+const insertRandomProd = function(count, max){
+    return new Promise(function(resolve, reject){
+        //sets up the product
+        let product = faker.getRandomProd();
+
+        //sets up random images for the product
+        let prodImages = faker.getRandomProdImage(Math.floor(Math.random() * 4)+1);
+
+        db.users.selectAll()
+        .then(function(data){
+            let userId = data[Math.floor(Math.random() * data.length)].id;
 
             db.prod_prodImages.insertNewProd(
                 ['prodName','category','description','startingPrice','location','endTimestamp','sellerId'],
@@ -126,7 +154,7 @@ const insertRandomUserProd = function(count, max){
             )
             .then(function(data){
                 if(count+1 <= max)
-                    insertRandomUserProd(count+1, max)
+                    insertRandomProd(count+1, max)
                     .then(function(data){
                         return resolve(data);
                     })
@@ -139,9 +167,6 @@ const insertRandomUserProd = function(count, max){
             .catch(function(error){
                 return reject(error);
             });
-        })
-        .catch(function(error){
-            return reject(error);
         });
     });
 }
@@ -299,6 +324,7 @@ const generateRandomData = function(){
     else{
         //sets up the counters
         let userCount = 0;
+        let prodCount = 0;
         let questionCount = 0;
         let answerCount = 0;
         let bidCount = 0;
@@ -307,82 +333,111 @@ const generateRandomData = function(){
             userCount = parseInt(process.argv[2]);
         
         if(process.argv[3])
-            questionCount = parseInt(process.argv[3]);
+            prodCount = parseInt(process.argv[3]);
         
         if(process.argv[4])
-            answerCount = parseInt(process.argv[4]);
+            questionCount = parseInt(process.argv[4]);
 
         if(process.argv[5])
-            bidCount = parseInt(process.argv[5]);
+            answerCount = parseInt(process.argv[5]);
+
+        if(process.argv[6])
+            bidCount = parseInt(process.argv[6]);
 
         //calls the database truncation function
         clearEverything()
         .then(function(info){
-            //inserts the user with random products for sale
+            //inserts the user
             if(userCount){
-                insertRandomUserProd(1, userCount)
+                insertRandomUser(1, userCount)
                 .then(function(data){
                     console.log("Inserted "+userCount+" users into the database with products for sale.");
                 })
-                .then(function(){
-                    Promise.all([
-                        new Promise(function(resolve, reject){
-                            //inserts the questions
-                            if(questionCount){
-                                insertRandomQuestions(1, questionCount)
-                                .then(function(data){
-                                    console.log("Inserted "+questionCount+" questions into the database.");
-                                })
-                                .then(function(){
-                                    //inserts the answers
-                                    if(answerCount)
-                                        insertRandomAnwsers(1, answerCount)
+                .then(function(data){
+                    //inserts random products to random users
+                    if(prodCount > 0){
+                        insertRandomProd(1, prodCount)
+                        .then(function(results){
+                            console.log("Inserted "+prodCount+" products into the database.");
+                            Promise.all([
+                                new Promise(function(resolve, reject){
+                                    //inserts the questions
+                                    if(questionCount){
+                                        insertRandomQuestions(1, questionCount)
                                         .then(function(data){
-                                            console.log("Inserted "+answerCount+" answers into the database.");
-                                            return resolve();
+                                            console.log("Inserted "+questionCount+" questions into the database.");
+                                        })
+                                        .then(function(){
+                                            //inserts the answers
+                                            if(answerCount)
+                                                insertRandomAnwsers(1, answerCount)
+                                                .then(function(data){
+                                                    console.log("Inserted "+answerCount+" answers into the database.");
+                                                    return resolve();
+                                                })
+                                                .catch(function(error){
+                                                    console.log(error);
+                                                    return reject();
+                                                });
+                                            else{
+                                                console.log("No answers were inserted into the database.");
+                                                return resolve();
+                                            }
                                         })
                                         .catch(function(error){
                                             console.log(error);
                                             return reject();
                                         });
+                                    }
+                                    else{
+                                        console.log("0 or nothing was entered for questions. Will not insert any answers.");
+                                        return resolve();
+                                    }
+                                }),
+                                new Promise(function(resolve, reject){
+                                    if(bidCount){
+                                        if(userCount > 1){
+                                            insertRandomBids(1,bidCount)
+                                            .then(function(data){
+                                                console.log("Inserted "+bidCount+" bids into the database.");
+                                                return resolve();
+                                            })
+                                            .catch(function(error){
+                                                console.log(error);
+                                                return reject();
+                                            });
+                                        }
+                                        else{
+                                            console.log("Number of users must be greater than 1 to insert any bids.");
+                                            return resolve();
+                                        }
+                                    }
                                     else
                                         return resolve();
                                 })
-                                .catch(function(error){
-                                    console.log(error);
-                                    return reject();
-                                });
-                            }
-                        }),
-                        new Promise(function(resolve, reject){
-                            if(bidCount){
-                                if(userCount > 1){
-                                    insertRandomBids(1,bidCount)
-                                    .then(function(data){
-                                        console.log("Inserted "+bidCount+" bids into the database.");
-                                        return resolve();
-                                    })
-                                    .catch(function(error){
-                                        console.log(error);
-                                        return reject();
-                                    });
-                                }
-                                else{
-                                    console.log("Number of users must be greater than 1 to insert any bids.");
-                                    return resolve();
-                                }
-                            }
-                            else
-                                return resolve();
+                            ])
+                            .then(function(results){
+                                pool.closePool();
+                            });
                         })
-                    ])
-                    .then(function(results){
+                        .catch(function(error){
+                            console.log(error);
+                            pool.closePool();
+                        });
+                    }
+                    else{
+                        console.log("0 or nothing was entered for product count. Will not insert any questions, answers, or bids.");
                         pool.closePool();
-                    });
+                    }
                 })
                 .catch(function(error){
                     console.log(error);
+                    pool.closePool();
                 });
+            }
+            else{
+                console.log("Nothing was inserted into the database.");
+                pool.closePool();
             }
         });
     }

@@ -1,6 +1,31 @@
 import React, {Component} from 'react';
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            userName: "",
+            password: "",
+            handleClick: props.onClick
+        }
+    }
+
+    //function to update the state when the element detects a change
+    handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]:value
+        });
+    }
+
+    handleClick = (event) => {
+        event.preventDefault();
+        this.state.handleClick(this.state.userName, this.state.password);
+    }
+
     render() {
         return (
             <div>
@@ -11,12 +36,14 @@ class Login extends Component {
                         {/*<!--  <h3 className="text-center mb-4">Login</h3> -->*/}
                             <fieldset>
                                 <div className="form-group has-error">
-                                    <input className="form-control input-md" placeholder="E-mail Address" name="email" type="text" />
+                                    <input className="form-control input-md" placeholder="username" name="userName"
+                                        value={this.state.userName} onChange={this.handleChange} type="text" />
                                 </div>
                                 <div className="form-group has-success">
-                                    <input className="form-control input-md" placeholder="Password" name="password" value="" type="password" />
+                                    <input className="form-control input-md" placeholder="Password" name="password"
+                                        value={this.state.password} onChange={this.handleChange} type="password" />
                                 </div>
-                                <input className="btn btn-md btn-primary btn-block" value="Login" type="submit" />
+                                <button className="btn btn-md btn-primary btn-block" onClick={this.handleClick} type="submit">Login</button>
                             </fieldset>
                         </div>
                     </div>

@@ -39,6 +39,22 @@ const users = {
       });
     });
   },
+  //selects all rows based on the multiple condition
+  selectAllWithMultCon: function(colsVals) {
+  return new Promise(function(resolve, reject){
+    pool.getConnection().then(function(connection){
+        orm.selectAllWithCon('users', colsVals, connection)
+        .then(function(res) {
+          pool.closeConnection(connection);
+          return resolve(res);
+        })
+        .catch(function(error){
+          pool.closeConnection(connection);
+          return reject(error);
+        });
+    });
+  });
+},
 
   //creates a row
   insertOne: function(cols, vals) {
