@@ -435,6 +435,10 @@ const generateRandomData = function(){
                     pool.closePool();
                 });
             }
+            else{
+                console.log("Nothing was inserted into the database.");
+                pool.closePool();
+            }
         });
     }
 }
