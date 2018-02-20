@@ -1,6 +1,6 @@
 const faker = require('./fakerFunc.js');
-const pool = require('../../src/server/config/connections.js');
-const db = require('../../src/server/models/models');
+const pool = require('../../server/config/connections.js');
+const db = require('../../server/models/models');
 
 //function to clear all the tables
 const clearEverything = function(){
