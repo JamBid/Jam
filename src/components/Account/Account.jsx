@@ -8,7 +8,7 @@ class Account extends Component {
         super(props);
 
         this.state = {
-            userId: 1,//props.userId,
+            userId: props.userId,
             userInfo: {
                 userName:"",
                 firstName:"",
