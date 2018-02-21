@@ -17,8 +17,8 @@ class NoMatch extends Component {
                             </div>
                             <div className="error-actions mt-4">
                                 <a href="/" className="btn btn-primary btn-md">
-                                    <span className="glyphicon glyphicon-home" role="img" aria-labelledby="house glyph icon">🏚️ </span>
-                                    Take Me Home 
+                                    <span className="glyphicon glyphicon-home" role="img" aria-labelledby="house glyph icon">🏚️</span>
+                                     Take Me Home 
                                 </a>
                             </div>
                         </div>
