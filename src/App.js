@@ -37,9 +37,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          
           <Nav userId={this.state.userId} handleLogin={this.handleClick}/>
-          
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>
@@ -49,7 +47,6 @@ class App extends Component {
               <Route component={NoMatch} />
             </Switch>
           </div>
-
         </div>
       </Router>
     );
