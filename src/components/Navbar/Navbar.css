@@ -2,34 +2,35 @@
 #nav-background{
     background-image: linear-gradient(to bottom, #cd9cf2 0%, #f6f3ff 100%) !important;
     height: 146px;
+    border-bottom: solid 1px #a778d2;
 }
 
+/* logo text */
 .navbar-brand {
     margin-top: -10px;
-    font-family: 'Indie Flower', cursive;
+    /* font-family: 'Indie Flower', cursive; */
     height: 50px;
     font-size: 50px;
 }
 
-.list-unstyled {
-    height: 50px;
-    color: #84639b;
+/* site quote under logo */
+.navbar-quote {
+    /* font-family: 'Indie Flower', cursive; */
+    color: #440066;
+    font-size: 25px;
 }
 
-#navbar-quote {
-    margin-top: -5px;
-    font-family: 'Indie Flower', cursive;
-    font-size: 20px;
-}
-
+/* nav links */
 .nav-link {
     color: #440066;
 }
 
+/* nav search group */
 #navbar-category-btn, #navbar-search-input, #navbar-search-btn {
     border-radius: 0px !important;
     border: none;
 }
+/* search category dropdown */
 #navbar-category-btn {
     background: none;
     color: rgb(136, 71, 190);
@@ -37,26 +38,37 @@
 #navbar-category-btn:hover {
     box-shadow: none;
 }
+/* seach field */
 #navbar-search-input {
     width: 130px;
 }
+/* search btn */
 #navbar-search-btn {
-    background: rgb(136, 71, 190);
+    background: #7f4db8;
     color: white;
 }
 
-
-#burger {
-    /*border-color: purple;*/
+/* login logout button */
+.navbar-toggler {
+    border: none;
+}
+/*  */
+.log-btn {
     /*Icon: https://www.flaticon.com/free-icon/login_149408#term=login&page=1&position=1*/
     width: 30px;
+    margin: 0 0 20px 0;
+}
+
+#navcollapse {
+    background: #f6f3ff;
+    border-bottom: solid 1px #a778d2;
 }
 
 /*  Navbar - Accordian (login & signup)  */
 #accordion {
-    padding: 10px;
-/*    background: #f6f3ff;
-*/}
+    margin: 50px 0;
+    background: none;
+}
 
 #accordian-header {
     border: none;

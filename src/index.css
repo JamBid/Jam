@@ -1,4 +1,98 @@
 body {
   background: #f6f3ff;
-  min-width: 479px;
+}
+
+/* content container wrapper */
+.content {
+  padding-top: 50px !important;
+  margin-bottom: 100px;
+}
+
+/* form area */
+.form-area {
+  border: none;
+  background: #f6f3ff;
+}
+
+/* input field */
+.form-input {
+  color: #7f4db8;
+  border-radius: 0px !important;
+  border: solid 1px #7f4db8;
+}
+
+/* input field - placeholder */
+.form-control::placeholder {
+  color: #7f4db8;
+}
+
+/* btn */
+.form-btn {
+  color: white;
+  background: #7f4db8;
+  border-radius: 0px;
+}
+
+/* btn w/ border */
+.form-btn-b {
+  color: white;
+  background: #7f4db8;
+  border-radius: 0px;
+  border: solid 2px #7f4db8 !important;
+}
+
+/* toggle */
+.form-toggle {
+  border-radius: 0px !important;
+  border-color:  #7f4db8 !important;
+  color: #7f4db8;
+  background: none;
+}
+.form-toggle:hover,
+.form-toggle:focus,
+.form-toggle:active,
+.form-toggle.active {
+  color: white;
+  background: #7f4db8 !important;
+  border-color: #7f4db8 !important;
+  box-shadow: #7f4db8 !important;
+}
+
+.form-header {
+  color: white;
+  background: #7f4db8;
+  border-radius: 0px !important;
+  border: solid 1px #7f4db8;
+}
+
+/* text area (non-expanding) */
+.form-textarea {
+  color: #7f4db8;
+  border-radius: 0px !important;
+  border: solid 1px #7f4db8;
+}
+
+/*  text-area (expandable) */
+.form-textarea-e {
+  color: #7f4db8;
+  border-radius: 0px !important;
+  border: solid 1px #7f4db8;
+  resize: vertical;
+}
+
+.form-footer {
+}
+
+.accordion {
+  border-radius: 0px !important;
+  border: solid 1px #7f4db8;
+}
+
+.accordion-header {
+  background: none;
+}
+
+.accordion-footer {
+  border-top: none;
+  background: none;
 }

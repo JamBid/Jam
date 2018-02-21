@@ -5,7 +5,7 @@ class NoMatch extends Component {
         return (
             <div>
                 {/* 404 page */}
-                <div className="row mt-5">
+                <div className="row">
                     <div className="col-md-12 text-center">
                         <div className="error-template">
                             <h1>
