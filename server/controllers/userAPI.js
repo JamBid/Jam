@@ -2,7 +2,6 @@ const db = require('../models/models');
 const router = require("express").Router();
 
 //updates a user
-//gets the info for a specific user
 router.route('/update')
     .post(function(req, res){
         db.users.updateOne(req.body.userInfo,{id:req.body.userId})
@@ -17,7 +16,7 @@ router.route('/update')
 //gets the info for a specific user
 router.route('/:id')
     .get(function(req, res){
-        db.users.selectOne(['id'],[req.params.id])
+        db.users.selectAllWithMultCon({'id':req.params.id})
         .then(function(result){
             res.send(result);
         })
@@ -26,8 +25,9 @@ router.route('/:id')
         })
     })
 
-//inserts a new user
+
 router.route('/')
+    //inserts a new user
     /*.post(function(req, res){
         db.users.insertOne(
             ["email","userName","firstName","lastName","password","image","imageType"],
@@ -39,6 +39,7 @@ router.route('/')
             res.send(error);
         });
     })*/
+    //gets user info from logging in
     .post(function(req,res){
         db.users.selectAllWithMultCon({'userName':req.body.userName,'password':req.body.password})
         .then(function(result){

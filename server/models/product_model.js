@@ -73,11 +73,11 @@ const products = {
     });
   },
 
-  //selects all rows based on the condition
-  selectOne: function(cols, vals) {
+  //selects all rows based on the 1 or multiple condition(s)
+  selectAllWithMultCon: function(colsVals) {
     return new Promise(function(resolve, reject){
       pool.getConnection().then(function(connection){
-          orm.selectAllForOne('products', cols, vals, connection)
+          orm.selectAllWithCon('products', colsVals, connection)
           .then(function(res) {
             pool.closeConnection(connection);
             return resolve(res);

@@ -22,24 +22,8 @@ const users = {
       });
     });
   },
-
-  //selects all rows based on the condition
-  selectOne: function(cols,vals) {
-    return new Promise(function(resolve, reject){
-      pool.getConnection().then(function(connection){
-          orm.selectAllForOne('users', cols, vals, connection)
-          .then(function(res) {
-            pool.closeConnection(connection);
-            return resolve(res);
-          })
-          .catch(function(error){
-            pool.closeConnection(connection);
-            return reject(error);
-          });
-      });
-    });
-  },
-  //selects all rows based on the multiple condition
+  
+  //selects all rows based on the 1 or multiple condition(s)
   selectAllWithMultCon: function(colsVals) {
   return new Promise(function(resolve, reject){
     pool.getConnection().then(function(connection){

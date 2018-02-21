@@ -87,7 +87,7 @@ const prod_prodimage = {
     //function get a product with their images
     selectOneWithAllImage: function(prodId){
         return new Promise(function(resolve, reject){
-            Promise.all([prods.selectOne("id", prodId), prodImgs.selectOne("productId",prodId)])
+            Promise.all([prods.selectAllWithMultCon({"id": prodId}), prodImgs.selectAllWithMultCon({"productId":prodId})])
             .then(function(results){
                 let result = {};
                 if(results[0][0]){
@@ -122,7 +122,7 @@ const prod_prodimage = {
                 for(i in results){
                     arrayPromises.push(new Promise(function(resolve, reject){
                         let prod = results[i];
-                        prodImgs.selectOne("productId",prod.id)
+                        prodImgs.selectAllWithMultCon({"productId":prod.id})
                         .then(function(results){
                             if(results)
                                 prod.images=results;
