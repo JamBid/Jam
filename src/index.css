@@ -70,6 +70,7 @@ body {
   color: #7f4db8;
   border-radius: 0px !important;
   border: solid 1px #7f4db8;
+  resize: none;
 }
 
 /*  text-area (expandable) */
