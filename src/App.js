@@ -7,6 +7,7 @@ import API from './utils/API';
 import Homepage from './components/Homepage';
 import Account from './components/Account';
 import Product from './components/Product';
+import ProductNew from './components/ProductNew';
 import NoMatch from "./components/NoMatch";
 
 class App extends Component {
@@ -36,13 +37,19 @@ class App extends Component {
     return (
       <Router>
         <div>
+          
           <Nav userId={this.state.userId} handleLogin={this.handleClick}/>
-          <Switch>
-            <Route exact path="/" component={Homepage}/>
-            <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
-            <Route path="/product/:id" component={Product} />
-            <Route component={NoMatch} />
-          </Switch>
+          
+          <div className="container content">
+            <Switch>
+              <Route exact path="/" component={Homepage}/>
+              <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
+              <Route path="/product/:id" component={Product} />
+              <Route path="/product-new" component={ProductNew} />
+              <Route component={NoMatch} />
+            </Switch>
+          </div>
+
         </div>
       </Router>
     );
