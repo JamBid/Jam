@@ -1,3 +1,7 @@
 textarea {
     resize:none;
 }
+
+.round-button {
+    border-radius: 50%;
+}

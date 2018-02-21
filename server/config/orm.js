@@ -149,9 +149,38 @@ var orm = {
             });
         });
     },
-    updateOne: function(table, values, id, connection){
+    updateOne: function(table, values, cons, connection){
         return new Promise(function(resolve, reject){
-            connection.query("UPDATE ?? SET ? WHERE id = ?", [table, values, id], function(error, data){
+            let sql = "UPDATE "+table+" SET ";
+            let colCount = 0;
+
+            //builds the update with binding variables based on name of keys
+            for(i in values){
+                //adds in a comma and space if there are more than 1 col to update
+                if(colCount > 0)
+                    sql += ", ";
+
+                //adds the column name
+                sql += i +" = "+connection.escape(values[i]);
+
+                colCount++;
+            }
+
+            //adds the where clause
+            sql+= " WHERE ";
+            colCount=0;
+            for(i in cons){
+                //adds in an AND and space if there are more than 1 col in where clause
+                if(colCount > 0)
+                    sql += " AND ";
+
+                //adds the column name
+                sql += i +" = "+connection.escape(cons[i]);
+
+                colCount++
+            }
+
+            connection.query(sql, function(error, data){
                 if(error) return reject(error);
 
                 return resolve(data);
