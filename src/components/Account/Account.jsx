@@ -235,7 +235,7 @@ class Account extends Component {
                                     <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
                                     <input className="btn btn-md btn-danger" value="Cancel" readOnly onClick={this.cancelEdit}/>
                                     {this.state.editPassword ?
-                                        <input className="btn btn-md btn-primary" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
+                                        <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
                                     :
                                         <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
                                     }
@@ -244,7 +244,7 @@ class Account extends Component {
                                 {this.state.editPassword ?
                                     <div>
                                         <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
-                                        <input className="btn btn-md btn-primary" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
+                                        <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
                                     </div>
                                 :
                                     <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
