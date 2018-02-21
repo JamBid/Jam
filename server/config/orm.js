@@ -2,6 +2,7 @@
   Each ORM will return a promise of the resulting data from the query.*/
 
 var orm = {
+    //gets all columns for all rows
     selectAll:function(table, connection){        
         return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ??", table, function(error, data){
@@ -11,6 +12,7 @@ var orm = {
             });
         });
     },
+    //gets all the columns for all rows in a certain order
     selectAllOrder:function(table, sortCols, connection){        
         return new Promise(function(resolve, reject){
             let sql = "SELECT * FROM ?? ORDER BY ";
@@ -34,6 +36,7 @@ var orm = {
             });
         });
     },
+    //selects all columns for a limited amount of rows
     selectAllLimit:function(table, limit, connection){        
         return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ?? LIMIT ?", [table, limit], function(error, data){
@@ -43,6 +46,7 @@ var orm = {
             });
         });
     },
+    //selects all columns for a limited amount of rows that are ordered
     selectAllLimitOrder:function(table, sortCols, limit, connection){
         return new Promise(function(resolve, reject){
             let sql = "SELECT * FROM ?? ORDER BY ";
@@ -69,6 +73,7 @@ var orm = {
             });
         });
     },
+    //selects all columns in all rows, but guarantee each rows are unique
     selectAllDistinct:function(table, col, connection){        
         return new Promise(function(resolve, reject){
             connection.query("SELECT distinct ?? FROM ??", [col,table], function(error, data){
@@ -78,15 +83,7 @@ var orm = {
             });
         });
     },
-    selectAllForOne:function(table, conCol, condition, connection){
-        return new Promise(function(resolve, reject){
-            connection.query("SELECT * FROM ?? WHERE ?? = ?", [table, conCol, condition], function(error, data){
-                if(error) return reject(error);
-
-                return resolve(data);
-            });
-        });
-    },
+    //selects all columns in all the rows that matches the condition
     selectAllWithCon:function(table, colsVals, connection){
         return new Promise(function(resolve, reject){
             let sql = "SELECT * FROM ?? WHERE ";
@@ -140,6 +137,7 @@ var orm = {
             });
         });
     },
+    //inserts a new row with the values
     insertOne: function(table, cols, values, connection){
         return new Promise(function(resolve, reject){
             connection.query("INSERT INTO ?? (??) VALUES (?)", [table, cols, values], function(error, data){
@@ -149,6 +147,7 @@ var orm = {
             });
         });
     },
+    //updates all rows that match the conditions with the values specified
     updateOne: function(table, values, cons, connection){
         return new Promise(function(resolve, reject){
             let sql = "UPDATE "+table+" SET ";
