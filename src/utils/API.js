@@ -16,5 +16,9 @@ export default {
   //function to get userId
   logUserIn: function(userName, password) {
     return axios.post("/user",{userName:userName, password:password});
+  },
+  //function to save user account changes
+  saveUserChange: function(userInfo, userId){
+    return axios.post("/user/update",{userInfo:userInfo,userId:userId});
   }
 };
