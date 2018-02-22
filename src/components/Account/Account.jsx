@@ -255,7 +255,6 @@ class Account extends Component {
                         </form>
                     </div>
                 </div>
-                }
             </div>
         )
     }

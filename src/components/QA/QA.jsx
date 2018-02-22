@@ -4,27 +4,110 @@ class QA extends Component {
     render() {
         return (
             <div>
-                    {/* QA cards */}
-                    <div className="card mb-3">
-                        <div className="card-block">
-                            <h5 className="card-title">(template question card) This is the question?</h5>
-                            <p className="card-subtitle mb-2 text-muted">February 17th 2018, 1:06:33 pm</p>
-                            <p className="card-text">(sample answer response) This is the answer.</p>
-                        </div>
-                    </div>
+                {/* question answer */}
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="card">
+                            <h4 className="card-header form-header">Q&A</h4>
+                            <div className="card-block">
+                                <div id="accordion-qa" className="">
 
+                                    {/* 1 */}
+                                    <div className="card accordion ">
+                                        <div className="card-header accordion-header">
+                                        <h5 className="mb-0">
+                                            <button className="btn" data-toggle="collapse" data-target="#1" aria-expanded="true" aria-controls="collapseOne">
+                                            Question 1
+                                            </button>
+                                        </h5>
+                                        </div>
+                                        <div id="1" className="collapse show" data-parent="#accordion-qa">
+                                            <div className="card-body">
+                                                Answer 1
+                                            </div>
+                                            <div className="card-footer accordion-footer">
+                                                {/* answer button */}
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">Answer</span>
+                                                        </div>
+                                                        <input className="form-control form-input"  name="answer" /> 
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                                        </div>
+                                                    </div>  {/*  -input-group */}
+                                                </div> {/*  -form-group */}
+                                            </div> {/*  -card-footer */}
+                                        </div> {/*  -accordian content */}
+                                    </div> {/*  -card */}
 
-                    {/* QA form */}
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text info" id="">Question: </span>
-                        </div>
-                        <textarea name="newQuestion" className="update-task form-control update">
-                        </textarea>
-                        <div className="input-group-append">
-                            <input className="btn btn-md btn-primary" value="Submit" type="submit" />
-                        </div>
-                    </div>
+                                    {/* 2 */}
+                                    <div className="card accordion ">
+                                        <div className="card-header accordion-header">
+                                        <h5 className="mb-0">
+                                            <button className="btn collapsed" data-toggle="collapse" data-target="#2" aria-expanded="false" aria-controls="collapseTwo">
+                                                Question 2
+                                            </button>
+                                        </h5>
+                                        </div>
+                                        <div id="2" className="collapse" data-parent="#accordion-qa">
+                                            <div className="card-body">
+                                                Answer 2
+                                            </div>
+                                             <div className="card-footer accordion-footer">
+                                                {/* answer button */}
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">Answer</span>
+                                                        </div>
+                                                        <input className="form-control form-input"  name="answer" /> 
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                                        </div>
+                                                    </div>  {/*  -input-group */}
+                                                </div> {/*  -form-group */}
+                                            </div> {/*  -card-footer */}
+                                        </div> {/*  -accordian content */}
+                                    </div> {/*  -card */}
+
+                                    {/* 3 */}
+                                    <div className="card accordion ">
+                                        <div className="card-header accordion-header">
+                                        <h5 className="mb-0">
+                                            <button className="btn collapsed" data-toggle="collapse" data-target="#3" aria-expanded="false" aria-controls="collapseThree">
+                                                Question 3
+                                            </button>
+                                        </h5>
+                                        </div>
+                                        <div id="3" className="collapse" data-parent="#accordion-qa">
+                                            <div className="card-body">
+                                                Answer 3
+                                            </div>
+                                            <div className="card-footer accordion-footer">
+                                                {/* answer button */}
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">Answer</span>
+                                                        </div>
+                                                        <input className="form-control form-input"  name="answer" /> 
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                                        </div>
+                                                    </div>  
+                                                </div> {/*  -form-group */}
+                                            </div> {/*  -card-footer */}
+                                        </div> {/*  -accordian content */}
+                                    </div> {/*  -card */}
+                                </div> {/*  -accordian-qa */}
+
+                            </div> {/* -card-block */}
+                        </div> {/*  -card */}
+                    </div> {/* -col-12 */}
+                </div> {/* -row */}
+
             </div>
         )
     }
