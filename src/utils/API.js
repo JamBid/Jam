@@ -20,5 +20,10 @@ export default {
   //function to save user account changes
   saveUserChange: function(userInfo, userId){
     return axios.post("/user/update",{userInfo:userInfo,userId:userId});
+  },
+  //function to signup new user
+  signUpNewUser: function(newUser){
+    console.log(newUser)
+    return axios.post("/user/signup",newUser);
   }
 };

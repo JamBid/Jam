@@ -13,6 +13,21 @@ router.route('/update')
         })
     })
 
+
+//sign up new user
+router.route('/signup')
+    .post(function(req, res){
+        db.users.insertOne(
+            ["email","userName","firstName","lastName","password","image","imageType"],
+            [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, req.body.image, req.body.imageType])
+        .then(function(result) {
+            res.send(result);
+        })
+        .catch(function(error){
+            res.send(error);
+        });
+    })
+
 //gets the info for a specific user
 router.route('/:id')
     .get(function(req, res){
