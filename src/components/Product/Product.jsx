@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
 import API from '../../utils/API';
 
 import QA from '../QA';
@@ -10,9 +12,15 @@ class Product extends Component {
         super(props);
 
         this.state = {
-            prodInfo: {
-                images: []
-            }
+            prodName: "",
+            category: "",
+            description: "",
+            startingPrice:"",
+            location: "",
+            endTimestamp: "",
+            sellerName: "",
+            sellerId: "",
+            images: []
         }
     }
 
@@ -26,8 +34,14 @@ class Product extends Component {
 
         API.getProduct(prodId)
         .then( res => {
-            console.log(res)
-            this.setState({prodInfo: res.data})
+            let prod = res.data;
+            API.getUser(prod.sellerId)
+            .then(seller => {
+                console.log(seller)
+                prod.sellerName = seller.data[0].userName;
+
+                this.setState(prod)
+            });
         })
         .catch(err => console.log(err))
     }
@@ -37,16 +51,13 @@ class Product extends Component {
             <div>
 
                 {/* Product */}
-                {/* <ProdImages images={this.state.prodInfo.images} />
-                <QA />
-            </div> */}
 
                 {/*<!-- New Product form -->*/}
                 <div className="row">
 
                     {/* media pane */}
                     <div className="col-4 ml-auto m-5">
-                        <ProdImages  images={this.state.prodInfo.images} />
+                        <ProdImages  images={this.state.images} />
                     </div>
 
                     {/* bid pane */}
@@ -61,7 +72,7 @@ class Product extends Component {
                                     {/* title */}
                                     <div className="form-group">
                                         <div className="form-control form-header">
-                                            <h5 id="title"> TITLE (REPLACE ME)</h5>
+                                            <h5 id="title">{this.state.prodName}</h5>
                                         </div> 
                                     </div>
 
@@ -72,7 +83,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text">CATEGORY > SUBCATEGORY (REPLACE ME)</span>
+                                                <span className="input-text">{this.state.category}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -84,7 +95,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Seller</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text">SELLER NAME or USERNAME (REPLACE ME)</span>
+                                                <span className="input-text"><Link to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></span>
                                             </label>
                                         </div>
                                     </div>
@@ -96,7 +107,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Location</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text" id="location">CITY, STATE (REPLACE ME)</span>                                            
+                                                <span className="input-text" id="location">{this.state.location}</span>                                            
                                             </label> 
                                         </div>
                                     </div>
@@ -108,7 +119,7 @@ class Product extends Component {
                                                 <span className="input-group-text input-md form-btn-b">End Time</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <TimeRemaining />
+                                                <TimeRemaining time={this.state.endTimestamp}/>
                                             </label> 
                                         </div>
                                     </div>
@@ -169,7 +180,7 @@ class Product extends Component {
                         <div className="card form-input">
                             <h4 className="card-header form-header">Description</h4>
                             <div className="card-body">
-                                <span id="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, officiis aliquam quidem ex veritatis maxime perspiciatis sed ducimus. Harum hic perspiciatis cumque architecto et, maiores suscipit reiciendis eligendi fuga ratione recusandae rem est at mollitia quos sit aliquam soluta voluptate expedita debitis odit similique, aut provident! Incidunt dolore nihil saepe!</span>
+                                <span id="description">{this.state.description}</span>
                             </div>
                         </div>
                     </div>
