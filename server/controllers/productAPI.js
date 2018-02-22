@@ -6,11 +6,11 @@ router.route('/recent')
     .get(function(req, res){
         db.prod_prodImages.selectRecentAllLimit(6)
         .then(function(results){
-            res.send(results);
+            res.json(results);
         })
         .catch(function(error){
             console.log(error);
-            res.send(error)
+            res.sendStatus(500);
         })
     })
 
@@ -19,11 +19,11 @@ router.route('/:id')
     .get(function(req, res){
         db.prod_prodImages.selectOneWithAllImage(req.params.id)
         .then(function(results){
-            res.send(results)
+            res.json(results)
         })
         .catch(function(error){
             console.log(error);
-            res.send({status:'error'});
+            res.sendStatus(500);
         });
     })
     /*.put(function(req, res){
@@ -67,11 +67,11 @@ router.route('/')
             images
         )
         .then(function(result){
-            res.send(result);
+            res.json(result);
         })
         .catch(function(error){
             console.log(error);
-            res.send({status:'error'});
+            res.sendStatus(500);
         });
     })
 
