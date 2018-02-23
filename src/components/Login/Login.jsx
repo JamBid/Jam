@@ -35,13 +35,15 @@ class Login extends Component {
                         <div className="card-body">
                             {/*<!--  <h3 className="text-center mb-4">Login</h3> -->*/}
                             <fieldset>
-                                <div className="form-group has-error">
-                                    <input className="form-control input-md form-input" placeholder="Username" name="userName" value={this.state.userName} onChange={this.handleChange} type="text" />
-                                </div>
-                                <div className="form-group has-success">
-                                    <input className="form-control input-md form-input" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} type="password" />
-                                </div>
-                                <button className="btn btn-md btn-block form-btn" onClick={this.handleClick} type="submit" id="login-btn">Login</button>
+                                <form>
+                                    <div className="form-group has-error">
+                                        <input className="form-control input-md form-input" autoComplete="username" placeholder="Username" name="userName" value={this.state.userName} onChange={this.handleChange} type="text" />
+                                    </div>
+                                    <div className="form-group has-success">
+                                        <input className="form-control input-md form-input" autoComplete="current-password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} type="password" />
+                                    </div>
+                                    <button className="btn btn-md btn-block form-btn" onClick={this.handleClick} type="submit" id="login-btn">Login</button>
+                                </form>
                             </fieldset>
                         </div>
                     </div>
