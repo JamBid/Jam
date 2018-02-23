@@ -5,7 +5,11 @@ import logoutSvg from './images/logout.svg';
 
 import {Link} from 'react-router-dom';
 
+import classnames from 'classnames';
+
+
 // sub-components 
+import Category from '../Category';
 import Signup from '../Signup';
 import Login from '../Login';
 
@@ -44,17 +48,9 @@ class Nav extends Component {
                         <div className="col-8">
                         <form className="form-inline float-right">
                             <div className="btn-group">
-                            <button type="button" className="btn btn-sm dropdown-toggle navbar-search" id="navbar-category-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Category
-                            </button>
-                            {/* category drop down */}
-                            <div className="dropdown-menu">
-                                <Link className="dropdown-item" to="/">All</Link>
-                                <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/">Cateogry 1</Link>
-                                <Link className="dropdown-item" to="/">Cateogry 2</Link>
-                                <Link className="dropdown-item" to="/">Cateogry 3</Link>
-                            </div>
+                                <Category className={classnames('form-control','btn', 'btn-sm', 'navbar-category-dropdown' )} />
+                                {/* category drop down */}
+                                
                             </div>
                             {/* search field */}
                             <input className="form-control form-control-sm navbar-search" id="navbar-search-input" type="search" placeholder="Search" aria-label="Search" />

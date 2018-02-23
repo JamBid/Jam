@@ -73,15 +73,15 @@ class QA extends Component {
                                             <div className="card-header accordion-header">
                                             <h5 className="mb-0">
                                                 <button className="btn" data-toggle="collapse" data-target={`#${i+1}`} aria-expanded="true" aria-controls="collapseOne">
-                                                Question {i+1}
-                                                </button><br/>
-                                                {q.note}
+                                                    Question {i+1}: {q.note}
+                                                </button>
+                                                <br/>
                                             </h5>
                                             </div>
                                             <div id={i+1} className={i===0?"collapse show":"collapse"} data-parent="#accordion-qa">
                                                 {q.answers.map((a,j) =>
                                                     <div key={j+1} className="card-body">
-                                                        Answer {j+1}:<br/>{a.note}
+                                                        Answer {j+1}: {a.note}
                                                     </div>
                                                 )}
                                                 <div className="card-footer accordion-footer">
