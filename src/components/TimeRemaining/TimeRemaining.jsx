@@ -6,14 +6,19 @@ class TimeRemaining extends Component {
         super(props);
 
         this.state = {
-            endTime: moment().add(8,'days').add(4, 'hours').add(3,'minutes')
+            endTime: moment(props.time,'YYYY-MM-DDTHH:mm:ss.SSSZ')
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            endTime: moment(nextProps.time,'YYYY-MM-DDTHH:mm:ss.SSSZ')
+        })
     }
 
     determineIfStillTime(){
         if(this.state.endTime){
             let current = moment();
-            let endTime = moment(this.state.endTime);
 
             if(this.state.endTime.isAfter(current)){
                 let remaining = this.state.endTime.diff(current)/1000;
