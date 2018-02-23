@@ -12,6 +12,7 @@ class Product extends Component {
         super(props);
 
         this.state = {
+            id: "",
             prodName: "",
             category: "",
             description: "",
@@ -25,19 +26,20 @@ class Product extends Component {
     }
 
     componentWillMount() {
-        this.loadProd();
+        let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/")+1);
+        this.setState({id: prodId})
+        this.loadProd(prodId);
     }
 
     //function for loading user info
-    loadProd = () => {
-        let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/"));
+    loadProd = (prodId) => {
+        
 
         API.getProduct(prodId)
         .then( res => {
             let prod = res.data;
             API.getUser(prod.sellerId)
             .then(seller => {
-                console.log(seller)
                 prod.sellerName = seller.data[0].userName;
 
                 this.setState(prod)
@@ -49,7 +51,6 @@ class Product extends Component {
     render() {
         return (
             <div>
-
                 {/* Product */}
 
                 {/*<!-- New Product form -->*/}
@@ -199,17 +200,8 @@ class Product extends Component {
                 </div>
 
                 {/* question answer */}
-                <QA />
-
-                </div>
-
-
-
-
-
-
-
-
+                <QA productId={this.state.id}/>
+            </div>
         )
     }
 }

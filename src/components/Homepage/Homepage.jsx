@@ -19,7 +19,6 @@ class Homepage extends Component {
     loadRecentProds = () => {
         API.getRecentProducts()
             .then( res => {
-                console.log(res)
                 this.setState({products: res.data})
             })
             .catch(err => console.log(err))
