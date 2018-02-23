@@ -115,6 +115,7 @@ git push heroku master
 * [Socket.io](https://socket.io/)
 * [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
 * [react-datepicker](https://www.npmjs.com/package/react-datepicker)
+* [classnames](https://github.com/JedWatson/classnames)
 
 
 ### Dev packages

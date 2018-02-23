@@ -171,7 +171,7 @@ class Account extends Component {
                     </div>
                 </div>
                 <div>
-                    <div className="row w-50 mx-auto">
+                    <div className="row  mx-auto">
                         <div className="col-12">
                             <h3 className="float-left">Personal Info</h3>
                             {!this.state.edit ?

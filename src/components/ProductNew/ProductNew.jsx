@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
+import API from '../../utils/API';
 import './ProductNew.css';
-
-import QA from '../QA';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import classnames from 'classnames';
 
-import API from '../../utils/API';
-import ProdImages from '../ProdImages';
+// import ProdImages from '../ProdImages';
+import Category from '../Category';
+import QA from '../QA';
+
 
 
 class ProductNew extends Component {
@@ -24,7 +26,7 @@ class ProductNew extends Component {
         this.handleChange = this.handleChange.bind(this);
       }
       
-    
+
       handleChange(date) {
         this.setState({
           startDate: date
@@ -42,7 +44,7 @@ class ProductNew extends Component {
         .catch(err => console.log(err))
     }
 
-    
+
     render() {
         return (
             <div>
@@ -54,7 +56,7 @@ class ProductNew extends Component {
                         {/* <ProdImages images={this.state.prodInfo.images} /> */}
 
                         <div className="card-image">
-                            <img className="product-img" src={'https://cdn.pixabay.com/photo/2018/02/17/19/25/mammal-3160684_960_720.jpg'} />
+                            <img className="product-img" src={'https://cdn.pixabay.com/photo/2018/02/17/19/25/mammal-3160684_960_720.jpg'} alt="stock" />
                         </div>
                     </div>
                     
@@ -84,24 +86,7 @@ class ProductNew extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
-                                            <select className="form-control category-dropdown" >
-                                                <option></option>
-                                                <option disabled>Automotives</option>
-                                                <option>Cars</option>
-                                                <option>SUVs</option>
-                                                <option>Parts</option>
-                                                <hr/>
-                                                <option disabled>Electronics</option>
-                                                <option>Phones</option>
-                                                <option>Computers</option>
-                                                <option>Parts</option>
-                                                <hr/>
-                                                <option disabled>Furniture</option>
-                                                <option>Indoor</option>
-                                                <option>Outdoor</option>
-                                                <option>Antique</option>
-                                                <hr/>
-                                            </select>
+                                            <Category className={classnames('form-control', 'category-dropdown')} />
                                         </div>
                                     </div>
 
@@ -112,7 +97,6 @@ class ProductNew extends Component {
                                                 <span className="input-group-text input-md form-btn-b">End Time:</span>
                                             </div>
                                             <DatePicker
-                                                className=""
                                                 selected={this.state.startDate}
                                                 onChange={this.handleChange}
                                                 showTimeSelect
