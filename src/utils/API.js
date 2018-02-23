@@ -23,7 +23,14 @@ export default {
   },
   //function to signup new user
   signUpNewUser: function(newUser){
-    console.log(newUser)
     return axios.post("/user/signup",newUser);
+  },
+  //gets all the questions for a product
+  getQuestions: function(prodId){
+    return axios.get("/questions/"+prodId);
+  },
+  //gets all the answers for a question
+  getAnswers: function(questId){
+    return axios.get("/answers/"+questId);
   }
 };
