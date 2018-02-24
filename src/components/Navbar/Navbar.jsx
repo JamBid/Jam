@@ -45,20 +45,7 @@ class Nav extends Component {
                         </div>
 
                         {/*<!-- navbar search -->*/}
-                        <div className="col-8">
-                        <form className="form-inline float-right">
-                            <div className="btn-group">
-                                <Category className={classnames('form-control','btn', 'btn-sm', 'navbar-category-dropdown' )} />
-                                {/* category drop down */}
-                                
-                            </div>
-                            {/* search field */}
-                            <input className="form-control form-control-sm navbar-search" id="navbar-search-input" type="search" placeholder="Search" aria-label="Search" />
-                            {/* search button */}
-                            <button className="btn btn-sm my-2 my-sm-0 navbar-search" id="navbar-search-btn" type="submit">Search</button>
-                        </form>
-                        </div>
-
+                        <Category className={classnames('form-control','btn', 'btn-sm', 'navbar-category-dropdown' )} />
                     </div>
                 </nav>
 
