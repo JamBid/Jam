@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import API from '../../utils/API';
 import './Account.css';
 
@@ -29,7 +30,8 @@ class Account extends Component {
     }
 
     componentDidMount() {
-        this.loadUser();
+        if(this.state.userId)
+            this.loadUser();
     }
 
     //function for loading user info
@@ -162,6 +164,7 @@ class Account extends Component {
     render() {
         return (
             <div>
+                {!this.state.userId ? <Redirect to="/"/>:null}
                 <div className="row">
                     <div className="col-12 text-center">
                         <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
