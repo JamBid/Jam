@@ -9,7 +9,8 @@ class Searchpage extends Component {
         this.state = {
             products: [],
             search:this.decodeUrl(props.location.search.split('='))||"",
-            category:props.location.state
+            category:props.location.state.category,
+            update:props.location.state.load //used to prevent a loop
         }
     }
 
@@ -23,7 +24,9 @@ class Searchpage extends Component {
     }
 
     componentDidUpdate(){
-        this.loadSearchProds();
+        //this if is to prevent a loop
+        if(!this.state.update)
+            this.loadSearchProds();
     }
 
     componentWillReceiveProps(nextProps){
@@ -33,7 +36,8 @@ class Searchpage extends Component {
         this.setState(
             {
                 search:values,
-                category:nextProps.location.state
+                category:nextProps.location.state.category,
+                update: nextProps.location.state.load
             }
         )
     }
@@ -41,7 +45,7 @@ class Searchpage extends Component {
     loadSearchProds = () => {
         API.getProdCategorySearch(this.state.category,this.state.search)
             .then( res => {
-                this.setState({products: res.data})
+                this.setState({products: res.data,update:true})
             })
             .catch(err => console.log(err))
     }

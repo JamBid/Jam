@@ -114,7 +114,7 @@ var orm = {
                 //part to build the in clause
                 if(Array.isArray(colsVals[i].vals)){
                     //ignores if the list is 1 and the value is all or ""
-                    if(colsVals[i].vals.length != 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
+                    if(colsVals[i].vals.length == 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
                         sql+=i +" IN (";
                         for(j in colsVals[i].vals){
                             if(j > 0 && j < colsVals[i].vals.length-1)
@@ -136,12 +136,15 @@ var orm = {
                     sql+=i +"= "+connection.escape(colsVals[i].vals);
                     colCount++;
                 }
-                
-                
             }
+            
+            //if the search is empty and no category was selected, then select all
+            if(colCount == 0)
+                sql = "SELECT * FROM ??"
+            
             connection.query(sql, [table], function(error, data){
                 if(error) return reject(error);
-                
+
                 return resolve(data);
             });
         });
