@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route } from 'react-router-dom'
 
 import list from '../../categoryList';
 
@@ -8,11 +9,26 @@ class Category extends Component {
 
         this.state = {
             select: "",
-            search: ""
+            search: "",
+            searchPath:"All"
         }
     }
 
-    //function that is used when there is a change on an input like field
+    //function that is used when there is a change on select
+    handleSelectChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        let path = event.target.options[event.target.selectedIndex].getAttribute('path');
+        path = path.split(" ").join(""); //removes the spaces
+
+        this.setState({
+            [name]:value,
+            searchPath:path
+        });
+    }
+
+    //function that is used when there is a change on an input
     handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -22,29 +38,36 @@ class Category extends Component {
         });
     }
 
-    //function for the click search button
-    handleClick = (event) => {
-        event.preventDefault();
+    // //function for the click search button
+    // submit = withRouter(({ history }) => {
 
-        console.log(this.state.search+"   "+this.state.select)
-    }
+    //     <button
+    //         className="btn btn-sm my-2 my-sm-0 navbar-search"
+    //         id="navbar-search-btn"
+    //         type="submit"
+    //         onClick={() => {history.push(`/search/${this.state.path}?search=${encodeURIComponent(this.state.search)}`)}}>
+    //         Search</button>
+        
+            
+    // })
 
-    getList(){
+    //function that generates a list of options from a specific formatted JSON
+    getList(classNames){
         let keys = Object.keys(list);
 
         return(
-            <select className={this.props.className} name="select" onChange={this.handleChange}>
+            <select className={classNames} name="select" onChange={this.handleSelectChange}>
                 {/* category dropdown */}
                 <option value="all">All Categories</option>
                 <option className="select-hr" disabled/>
                 {keys.map((ele, i) => {
                     if(Array.isArray(list[ele]) && i !== 0)
                         return(
-                            [<option className="select-hr" disabled/>,
-                            <option key={i} value={list[ele]}>{ele}</option>]
+                            [<option key={i+"_hr"} className="select-hr" disabled/>,
+                            <option key={i} path={ele} value={list[ele]}>{ele}</option>]
                         )
                     else
-                        return <option key={i} value={list[ele]}>{ele}</option>
+                        return <option key={i} path={ele} value={list[ele]}>{ele}</option>
                 })}
             </select>
         )
@@ -53,10 +76,10 @@ class Category extends Component {
     render() {
         return (
             <div className="col-8">
-                <form className="form-inline float-right">
+                <div className="form-inline float-right">
                     <div className="btn-group">
                         {/* category drop down */}
-                        {this.getList()}
+                        {this.getList(this.props.className)}
                     </div>
                     {/* search field */}
                     <input className="form-control form-control-sm navbar-search"
@@ -67,8 +90,13 @@ class Category extends Component {
                         name="search"
                         onChange={this.handleChange}/>
                     {/* search button */}
-                    <button className="btn btn-sm my-2 my-sm-0 navbar-search" id="navbar-search-btn" type="submit" onClick={this.handleClick}>Search</button>
-                </form>
+                    <Route render={({history})=><button
+                                        className="btn btn-sm my-2 my-sm-0 navbar-search"
+                                        id="navbar-search-btn"
+                                        type="submit"
+                                        onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`)}}>
+                                        Search</button>}/>
+                </div>
             </div>
         )
     }

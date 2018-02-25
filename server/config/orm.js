@@ -102,6 +102,40 @@ var orm = {
             });
         });
     },
+    //selects all columns in all the rows that matches the condition
+    selectAllWithConInWhereControl:function(table, colsVals, connection){
+        return new Promise(function(resolve, reject){
+            let sql = "SELECT * FROM ?? WHERE ";
+            let colCount = 0;
+            for(i in colsVals){
+                if(colCount > 0 && !Array.isArray(colsVals[i].vals))
+                    sql += " "+colsVals[i].where+" ";
+
+                //part to build the in clause
+                if(Array.isArray(colsVals[i].vals)){
+                    sql+=i +" IN (";
+                    for(j in colsVals[i].vals){
+                        if(j > 0 && j < colsVals[i].vals.length-1)
+                            sql+=',';
+
+                        sql+=connection.escape(colsVals[i].vals[j]);
+
+                        if(j === colsVals[i].vals.length-1)
+                            sql+=')';
+                    }
+                }
+                else
+                    sql+=i +"= "+connection.escape(colsVals[i]);
+                
+                colCount++;
+            }
+            connection.query(sql, [table], function(error, data){
+                if(error) return reject(error);
+
+                return resolve(data);
+            });
+        });
+    },
     selectLimitForOneCon:function(table, conCol, condition, limit, connection){
         return new Promise(function(resolve, reject){
             connection.query("SELECT * FROM ?? WHERE ?? = ? LIMIT ?", [table, conCol, condition, limit], function(error, data){
