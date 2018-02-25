@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import list from '../../categoryList';
+
 class Category extends Component {
     constructor(props){
         super(props);
@@ -27,38 +29,34 @@ class Category extends Component {
         console.log(this.state.search+"   "+this.state.select)
     }
 
+    getList(){
+        let keys = Object.keys(list);
+
+        return(
+            <select className={this.props.className} name="select" onChange={this.handleChange}>
+                {/* category dropdown */}
+                <option value="all">All Categories</option>
+                <option className="select-hr" disabled/>
+                {keys.map((ele, i) => {
+                    if(Array.isArray(list[ele]) && i !== 0)
+                        return(
+                            [<option className="select-hr" disabled/>,
+                            <option key={i} value={list[ele]}>{ele}</option>]
+                        )
+                    else
+                        return <option key={i} value={list[ele]}>{ele}</option>
+                })}
+            </select>
+        )
+    }
+
     render() {
         return (
             <div className="col-8">
                 <form className="form-inline float-right">
                     <div className="btn-group">
-                        
                         {/* category drop down */}
-                        <select className={this.props.className} name="select" onChange={this.handleChange}>
-                        {/* <select className="form-control category-dropdown"> */}
-
-                                {/* category dropdown */}
-                                <option value="all">All Categories</option>
-
-                                <option disabled>Automotives</option>
-                                <option value="cars">Cars</option>
-                                <option value="suvs">SUVs</option>
-                                <option value="carParts">Parts</option>
-
-                                <option className="select-hr" disabled></option>
-
-                                <option disabled>Electronics</option>
-                                <option value="phones">Phones</option>
-                                <option value="computers">Computers</option>
-                                <option value="electronicParts">Parts</option>
-                                
-                                <option className="select-hr" disabled></option>
-
-                                <option disabled>Furniture</option>
-                                <option value="indoor">Indoor</option>
-                                <option value="outdoor">Outdoor</option>
-                                <option value="anituqe">Antique</option>
-                        </select>
+                        {this.getList()}
                     </div>
                     {/* search field */}
                     <input className="form-control form-control-sm navbar-search"
