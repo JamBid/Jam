@@ -34,11 +34,12 @@ export default {
     return axios.get("/answers/"+questId);
   },
   //gets all products based on categories and/or search term
-  getProdCategorySearch: function(path,category,search){
-
-    return axios.get("/search/"+path,
-      {
-        search:search
+  getProdCategorySearch: function(category,search){
+    return axios.get("/prod/search",{
+      params:{
+          category:category,
+          search:search
+        }
       }
     )
   }

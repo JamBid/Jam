@@ -14,6 +14,19 @@ router.route('/recent')
         })
     })
 
+//path for searching
+router.route('/search')
+    .get(function(req,res){
+        db.prod_prodImages.selectAllCategoryAndSearch(req.query.category.split(','),req.query.search)
+        .then(function(results){
+            res.json(results);
+        })
+        .catch(function(error){
+            console.log(error);
+            res.sendStatus(500);
+        })
+    })
+
 //path to get a specific product info
 router.route('/:id')
     .get(function(req, res){

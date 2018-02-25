@@ -8,7 +8,7 @@ class Category extends Component {
         super(props);
 
         this.state = {
-            select: "",
+            select: "all",
             search: "",
             searchPath:"All"
         }
@@ -38,19 +38,6 @@ class Category extends Component {
         });
     }
 
-    // //function for the click search button
-    // submit = withRouter(({ history }) => {
-
-    //     <button
-    //         className="btn btn-sm my-2 my-sm-0 navbar-search"
-    //         id="navbar-search-btn"
-    //         type="submit"
-    //         onClick={() => {history.push(`/search/${this.state.path}?search=${encodeURIComponent(this.state.search)}`)}}>
-    //         Search</button>
-        
-            
-    // })
-
     //function that generates a list of options from a specific formatted JSON
     getList(classNames){
         let keys = Object.keys(list);
@@ -58,7 +45,7 @@ class Category extends Component {
         return(
             <select className={classNames} name="select" onChange={this.handleSelectChange}>
                 {/* category dropdown */}
-                <option value="all">All Categories</option>
+                <option value="all" path="All">All Categories</option>
                 <option className="select-hr" disabled/>
                 {keys.map((ele, i) => {
                     if(Array.isArray(list[ele]) && i !== 0)
@@ -94,7 +81,7 @@ class Category extends Component {
                                         className="btn btn-sm my-2 my-sm-0 navbar-search"
                                         id="navbar-search-btn"
                                         type="submit"
-                                        onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`)}}>
+                                        onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,this.state.select)}}>
                                         Search</button>}/>
                 </div>
             </div>

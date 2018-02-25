@@ -109,29 +109,39 @@ var orm = {
             let colCount = 0;
             for(i in colsVals){
                 if(colCount > 0 && !Array.isArray(colsVals[i].vals))
-                    sql += " "+colsVals[i].where+" ";
+                    sql += " "+colsVals[i].join+" ";
 
                 //part to build the in clause
                 if(Array.isArray(colsVals[i].vals)){
-                    sql+=i +" IN (";
-                    for(j in colsVals[i].vals){
-                        if(j > 0 && j < colsVals[i].vals.length-1)
-                            sql+=',';
+                    //ignores if the list is 1 and the value is all or ""
+                    if(colsVals[i].vals.length != 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
+                        sql+=i +" IN (";
+                        for(j in colsVals[i].vals){
+                            if(j > 0 && j < colsVals[i].vals.length-1)
+                                sql+=',';
 
-                        sql+=connection.escape(colsVals[i].vals[j]);
+                            sql+=connection.escape(colsVals[i].vals[j]);
 
-                        if(j === colsVals[i].vals.length-1)
-                            sql+=')';
+                            if(j == colsVals[i].vals.length-1)
+                                sql+=')';
+                        }
+                        colCount++;
                     }
                 }
-                else
-                    sql+=i +"= "+connection.escape(colsVals[i]);
+                else if(colsVals[i].where.toUpperCase() === 'LIKE'){
+                    sql+=i +" LIKE "+connection.escape('%'+colsVals[i].vals+'%');
+                    colCount++;
+                }
+                else{
+                    sql+=i +"= "+connection.escape(colsVals[i].vals);
+                    colCount++;
+                }
                 
-                colCount++;
+                
             }
             connection.query(sql, [table], function(error, data){
                 if(error) return reject(error);
-
+                
                 return resolve(data);
             });
         });

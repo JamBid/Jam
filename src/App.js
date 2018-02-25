@@ -9,6 +9,7 @@ import Account from './components/Account';
 import Product from './components/Product';
 import ProductNew from './components/ProductNew';
 import NoMatch from "./components/NoMatch";
+import Searchpage from "./components/Searchpage";
 
 class App extends Component {
   constructor(props){
@@ -41,6 +42,7 @@ class App extends Component {
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>
+              <Route path="/search/:category" component={Searchpage} />
               <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
               <Route path="/product/:id" component={Product} />
               <Route path="/product-new" component={ProductNew} />
