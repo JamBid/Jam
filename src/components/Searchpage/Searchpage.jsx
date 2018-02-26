@@ -8,9 +8,9 @@ class Searchpage extends Component {
 
         this.state = {
             products: [],
-            search:this.decodeUrl(props.location.search.split('='))||"",
-            category:props.location.state.category,
-            update:props.location.state.load //used to prevent a loop
+            search:props.location.search ? this.decodeUrl(props.location.search.split('=')) : "",
+            category:props.location.state ? props.location.state.category : 'all',
+            update:props.location.state ? props.location.state.load : false //used to prevent a loop
         }
     }
 
