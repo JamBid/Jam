@@ -24,7 +24,6 @@ class App extends Component {
     let obj = this;
     API.logUserIn(userName, password)
     .then(function(result){
-      console.log(result.data[0])
       if(result.data[0]){
         obj.setState({userId: result.data[0].id});
       }
@@ -44,7 +43,7 @@ class App extends Component {
               <Route exact path="/" component={Homepage}/>
               <Route path="/search/:category" component={Searchpage} />
               <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
-              <Route path="/product/:id" component={Product} />
+              <Route path="/product/:id" render={props => <Product userId={this.state.userId} />}/>
               <Route path="/product-new" component={ProductNew} />
               <Route component={NoMatch} />
             </Switch>

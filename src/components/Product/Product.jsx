@@ -12,6 +12,7 @@ class Product extends Component {
         super(props);
 
         this.state = {
+            userId: null,
             id: "",
             prodName: "",
             category: "",
@@ -27,14 +28,18 @@ class Product extends Component {
 
     componentWillMount() {
         let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/")+1);
-        this.setState({id: prodId})
+        this.setState({
+            id: prodId
+        })
         this.loadProd(prodId);
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({userId:nextProps.userId})
     }
 
     //function for loading user info
     loadProd = (prodId) => {
-        
-
         API.getProduct(prodId)
         .then( res => {
             let prod = res.data;
@@ -47,6 +52,14 @@ class Product extends Component {
         })
         .catch(err => console.log(err))
     }
+
+    //function to determine if the bidding should be allowed
+    setAllowBid = (flag) => {
+        if(this.state.allowBids !== flag)
+            this.setState({allowBids:flag});
+    }
+
+    
 
     render() {
         return (
@@ -120,7 +133,7 @@ class Product extends Component {
                                                 <span className="input-group-text input-md form-btn-b">End Time</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <TimeRemaining time={this.state.endTimestamp}/>
+                                                <TimeRemaining time={this.state.endTimestamp} setAllowBid={this.setAllowBid}/>
                                             </label> 
                                         </div>
                                     </div>
@@ -138,18 +151,19 @@ class Product extends Component {
                                     </div>
 
                                     {/* user bid */}
-                                    <div className="form-group">
-                                        <div className="input-group">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text form-btn-b">Your Bid:</span>
-                                            </div>
-                                            <textarea className="form-control form-textarea" name="userBid">$30.00 (REPLACE ME)</textarea>
-                                            <div className="input-group-append">
-                                                <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                    {this.state.userId && this.state.allowBids ?
+                                        <div className="form-group">
+                                            <div className="input-group">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text form-btn-b">Your Bid:</span>
+                                                </div>
+                                                <textarea className="form-control form-textarea" name="userBid">$30.00 (REPLACE ME)</textarea>
+                                                <div className="input-group-append">
+                                                    <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    :null}
                                 </form>
                             </div> {/* -card body */}
                         </div> {/* -card form */}
