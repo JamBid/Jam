@@ -10,12 +10,27 @@ class TimeRemaining extends Component {
         }
     }
 
+    componentDidMount(){
+        let obj = this;
+        if(obj.state.endTime && !obj.timeInterval)
+            obj.timeInterval = setInterval(()=>obj.setState(this.forceUpdate()),1000);
+    }
+
     componentWillReceiveProps(nextProps){
         this.setState({
             endTime: moment(nextProps.time,'YYYY-MM-DDTHH:mm:ss.SSSZ')
+        },function(){
+            let obj = this;
+            if(obj.state.endTime && !obj.timeInterval)
+                obj.timeInterval = setInterval(()=>obj.setState(this.forceUpdate()),1000);
         })
     }
 
+    componentWillUnmount(){
+        clearInterval(this.timeInterval);
+    }
+
+    //function to generate the time remaining
     determineIfStillTime(){
         if(this.state.endTime){
             let current = moment();
