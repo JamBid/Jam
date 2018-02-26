@@ -171,7 +171,11 @@ const prod_prodimage = {
                 }
             }
 
-            prods.selectAllwithMultConInLike(colsVals)
+            let sortCols = [
+                { 'category':'asc'}
+            ]
+
+            prods.selectAllwithMultConInLikeOrder(colsVals, sortCols)
             .then(function(results){
                 let arrayPromises = [];
                 for(i in results){

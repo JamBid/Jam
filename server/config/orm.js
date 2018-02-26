@@ -114,7 +114,7 @@ var orm = {
                 //part to build the in clause
                 if(Array.isArray(colsVals[i].vals)){
                     //ignores if the list is 1 and the value is all or ""
-                    if(colsVals[i].vals.length == 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
+                    if(colsVals[i].vals.length >= 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
                         sql+=i +" IN (";
                         for(j in colsVals[i].vals){
                             if(j > 0 && j < colsVals[i].vals.length-1)
@@ -141,6 +141,79 @@ var orm = {
             //if the search is empty and no category was selected, then select all
             if(colCount == 0)
                 sql = "SELECT * FROM ??"
+            
+            connection.query(sql, [table], function(error, data){
+                if(error) return reject(error);
+
+                return resolve(data);
+            });
+        });
+    },
+    selectLimitForOneCon:function(table, conCol, condition, limit, connection){
+        return new Promise(function(resolve, reject){
+            connection.query("SELECT * FROM ?? WHERE ?? = ? LIMIT ?", [table, conCol, condition, limit], function(error, data){
+                if(error) return reject(error);
+
+                return resolve(data);
+            });
+        });
+    },
+    //selects all columns in all the rows that matches the condition and orders it
+    selectAllWithConInWhereControlOrder:function(table, colsVals, sortCols, connection){
+        return new Promise(function(resolve, reject){
+            let sql = "SELECT * FROM ?? WHERE ";
+            let colCount = 0;
+            for(i in colsVals){
+                if(colCount > 0 && !Array.isArray(colsVals[i].vals))
+                    sql += " "+colsVals[i].join+" ";
+
+                //part to build the in clause
+                if(Array.isArray(colsVals[i].vals)){
+                    //ignores if the list is 1 and the value is all or ""
+                    if(colsVals[i].vals.length >= 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
+                        sql+=i +" IN (";
+                        for(j in colsVals[i].vals){
+                            if(j > 0 && j < colsVals[i].vals.length-1)
+                                sql+=',';
+
+                            sql+=connection.escape(colsVals[i].vals[j]);
+
+                            if(j == colsVals[i].vals.length-1)
+                                sql+=')';
+                        }
+                        colCount++;
+                    }
+                }
+                else if(colsVals[i].where.toUpperCase() === 'LIKE'){
+                    sql+=i +" LIKE "+connection.escape('%'+colsVals[i].vals+'%');
+                    colCount++;
+                }
+                else{
+                    sql+=i +"= "+connection.escape(colsVals[i].vals);
+                    colCount++;
+                }
+            }
+            
+            //if the search is empty and no category was selected, then select all
+            if(colCount == 0)
+                sql = "SELECT * FROM ??"
+
+            //builds the order by section (NOTE: no need to escape character as the application controls these values and not the user)
+            if(sortCols != null && sortCols != []){
+
+                sql += " ORDER BY ";
+
+                for(i in sortCols){
+                    //adds in a comma and space if there are more than 1 col to sort by
+                    if(i > 0)
+                        sql += ", ";
+
+                    //adds the column (key in the JSON) and condition of asc or desc
+                    for(j in sortCols[i]){
+                        sql += j +" "+sortCols[i][j];
+                    }
+                }
+            }
             
             connection.query(sql, [table], function(error, data){
                 if(error) return reject(error);
