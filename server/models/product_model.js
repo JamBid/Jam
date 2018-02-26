@@ -90,6 +90,23 @@ const products = {
     });
   },
 
+  //selects all rows based on likes and in
+  selectAllwithMultConInLike: function(colsVals){
+    return new Promise(function(resolve, reject){
+      pool.getConnection().then(function(connection){
+        orm.selectAllWithConInWhereControl('products', colsVals, connection)
+        .then(function(res) {
+          pool.closeConnection(connection);
+          return resolve(res);
+        })
+        .catch(function(error){
+          pool.closeConnection(connection);
+          return reject(error);
+        });
+      });
+    });
+  },
+
   //selects all rows in an order
   selectLimitForOneCon: function(cols, vals, limit) {
     return new Promise(function(resolve, reject){

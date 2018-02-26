@@ -121,6 +121,7 @@ git push heroku master
 ### Dev packages
 * [Faker](https://github.com/marak/Faker.js/)
 * [Concurrently](https://github.com/kimmobrunfeldt/concurrently)
+* [nodemon](https://nodemon.io/)
 
 ## Authors
 

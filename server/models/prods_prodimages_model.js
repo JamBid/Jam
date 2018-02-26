@@ -146,6 +146,61 @@ const prod_prodimage = {
                 });
             });
         });
+    },
+
+    //function get a list of products in catgory and matching search term if there is one
+    selectAllCategoryAndSearch: function(categories,search){
+        return new Promise(function(resolve, reject){
+            //builds the colVals object
+            let colsVals = {};
+            if(categories){
+                colsVals.category = {
+                    vals:categories,
+                    where:'IN',
+                    join:'AND'
+                }
+            }
+
+            if(search){
+                if(search.toLowerCase() !== 'all' && search !== ''){
+                    colsVals.prodName = {
+                        where: 'LIKE',
+                        vals:search,
+                        join:'AND'
+                    }
+                }
+            }
+
+            prods.selectAllwithMultConInLike(colsVals)
+            .then(function(results){
+                let arrayPromises = [];
+                for(i in results){
+                    arrayPromises.push(new Promise(function(resolve, reject){
+                        let prod = results[i];
+                        prodImgs.selectAllWithMultCon({"productId":prod.id})
+                        .then(function(results){
+                            if(results)
+                                prod.images=results;
+                            else
+                                prod.images=[];
+
+                            return resolve(prod);
+                        })
+                        .catch(function(error){
+                            return reject(error);
+                        });
+                    }));
+                };
+
+                Promise.all(arrayPromises)
+                .then(function(results){
+                    return resolve(results);
+                })
+                .catch(function(errors){
+                    return reject(errors);
+                });
+            });
+        });
     }
 }
 
