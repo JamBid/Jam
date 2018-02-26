@@ -58,11 +58,11 @@ class Searchpage extends Component {
                     <div className="d-flex align-content-between flex-wrap justify-content-center">
                         {this.state.products.map((p,i) => (
                             i === 0 || p.category !== this.state.products[i-1].category ?
-                                <div className="row">
+                                <div key={"c_"+(i+1)} className="row">
                                     <h3>{p.category}</h3>
                                     {this.state.products.map((p2,j) => (
                                         p2.category === p.category ?
-                                        <div key={j} className="p-4 my-flex-item">
+                                        <div key={"p_"+(j+1)} className="p-4 my-flex-item">
                                             <Link to={`/product/${p.id}`} >
                                                 <div className="card rounded-circle border-dark">
                                                     <div className="card-body home-category text-center">
