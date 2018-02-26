@@ -6,16 +6,32 @@ class TimeRemaining extends Component {
         super(props);
 
         this.state = {
-            endTime: moment(props.time,'YYYY-MM-DDTHH:mm:ss.SSSZ')
+            endTime: moment(props.time,'YYYY-MM-DDTHH:mm:ss.SSSZ'),
+            setAllowBidFunc:props.setAllowBid //function used to tell the parent component that it is ok to allow bidding
         }
+    }
+
+    componentDidMount(){
+        let obj = this;
+        if(obj.state.endTime && !obj.timeInterval)
+            obj.timeInterval = setInterval(()=>obj.setState(this.forceUpdate()),1000);
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({
-            endTime: moment(nextProps.time,'YYYY-MM-DDTHH:mm:ss.SSSZ')
+            endTime: moment(nextProps.time,'YYYY-MM-DDTHH:mm:ss.SSSZ'),
+            setAllowBidFunc:nextProps.setAllowBid
+        },function(){
+            if(this.state.endTime && !this.timeInterval)
+                this.timeInterval = setInterval(()=>this.setState(this.forceUpdate()),1000);
         })
     }
 
+    componentWillUnmount(){
+        clearInterval(this.timeInterval);
+    }
+
+    //function to generate the time remaining
     determineIfStillTime(){
         if(this.state.endTime){
             let current = moment();
@@ -31,7 +47,9 @@ class TimeRemaining extends Component {
 
                 let minutes = Math.floor(remaining / 60);
                 let seconds = Math.floor(remaining % 60);
-                
+
+                this.state.setAllowBidFunc(true);
+
                 return (
                     <div>
                         {days > 0 ? `Days: ${days}`: null}
@@ -42,6 +60,8 @@ class TimeRemaining extends Component {
                 );
             }
             else{
+                this.state.setAllowBidFunc(false);
+
                 return (
                     <div>
                         Sold!
@@ -49,6 +69,8 @@ class TimeRemaining extends Component {
                 )
             }
         }
+
+        this.state.setAllowBidFunc(false);
 
         return (
             <div>

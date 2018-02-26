@@ -8,9 +8,13 @@ class Searchpage extends Component {
 
         this.state = {
             products: [],
-            search:this.decodeUrl(props.location.search.split('='))||"",
-            category:props.location.state.category,
-            update:props.location.state.load //used to prevent a loop
+            search:props.location.search ? this.decodeUrl(props.location.search.split('=')) : "",
+            category:props.location.state ? props.location.state.category :
+                                window.location.pathname.substr(window.location.pathname.lastIndexOf('/')+1,
+                                window.location.pathname.indexOf('?') >-1 ?
+                                    window.location.pathname.indexOf('?')-window.location.pathname.lastIndexOf('/') :
+                                    window.location.pathname.length - window.location.pathname.lastIndexOf('/')-1),
+            update:props.location.state ? props.location.state.load : false //used to prevent a loop
         }
     }
 
@@ -57,17 +61,26 @@ class Searchpage extends Component {
                 <div className="container ">
                     <div className="d-flex align-content-between flex-wrap justify-content-center">
                         {this.state.products.map((p,i) => (
-                            <div key={i} className="p-4 my-flex-item">
-                                <Link to={`/product/${p.id}`} >
-                                    <div className="card rounded-circle border-dark">
-                                        <div className="card-body home-category text-center">
-                                            <img className="imgCard" src={p.images[0].image} alt=""/>
-                                            <p>{p.prodName}</p>
+                            i === 0 || p.category !== this.state.products[i-1].category ?
+                                <div key={"c_"+(i+1)} className="row">
+                                    <h3>{p.category}</h3>
+                                    {this.state.products.map((p2,j) => (
+                                        p2.category === p.category ?
+                                        <div key={"p_"+(j+1)} className="p-4 my-flex-item">
+                                            <Link to={`/product/${p.id}`} >
+                                                <div className="card rounded-circle border-dark">
+                                                    <div className="card-body home-category text-center">
+                                                        <img className="imgCard" src={p.images[0].image} alt=""/>
+                                                        <p>{p.prodName}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
                                         </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}                    
+                                    :null))}
+                                </div>
+                            :
+                            null
+                        ))}
                     </div>
                 </div>
             </div>
