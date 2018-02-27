@@ -68,3 +68,36 @@
 #pills-tab {
     border: solid 1px #7f4db8;
 }
+
+/* highbid / yourbid containers */
+.split {
+    width: 49%;
+}
+
+/* highbid / yourbid headers */
+.split-header {
+    background: none;
+    border-bottom: none;
+    border-radius: 0px !important;
+    border: solid 1px #7f4db8;
+  }
+  
+/* dollar symbol in "your bid" area */
+#dollar-sign {
+    text-align: center;
+    width: 40px !important; 
+    padding: 5px 0 0 0;
+}
+
+/* submit form */
+#submit-btn {
+    color: #7f4db8;
+    border: solid 1px #7f4db8;
+    background: none;
+    border-radius: 0px;
+  }
+
+  #submit-btn:hover {
+    color:white;
+    background: #7f4db8;
+  }

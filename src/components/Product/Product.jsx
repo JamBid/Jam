@@ -109,7 +109,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Seller</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text"><Link to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></span>
+                                                <u><Link className="form-text"  to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></u>
                                             </label>
                                         </div>
                                     </div>
@@ -139,31 +139,37 @@ class Product extends Component {
                                     </div>
 
                                     {/* high bid */}
-                                    <div className="form-group">
-                                        <div className="input-group">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text form-btn-b">High Bid</span>
-                                            </div>
-                                            <label className="form-control form-input">
-                                                <span id="high-bid"> $50.00 (REPLACE ME)</span>
-                                            </label> 
-                                        </div>
-                                    </div>
-
-                                    {/* user bid */}
-                                    {this.state.userId && this.state.allowBids ?
-                                        <div className="form-group">
+                                    <div className="input-group d-flex justify-content-between">
+                                        <div className="form-group split">
                                             <div className="input-group">
-                                                <div className="input-group-prepend">
-                                                    <span className="input-group-text form-btn-b">Your Bid:</span>
-                                                </div>
-                                                <textarea className="form-control form-textarea" name="userBid">$30.00 (REPLACE ME)</textarea>
-                                                <div className="input-group-append">
-                                                    <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
+                                                    <label className="form-control form-header text-center">High Bid</label>                                            
+                                                <div className="input-group">
+                                                    <label className="form-control form-textarea form-input text-center" id="high-bid">$50.00 (REPLACE ME)</label>
                                                 </div>
                                             </div>
-                                        </div>
-                                    :null}
+                                        </div> 
+
+                                        {/* user bid */}
+                                        {this.state.userId && this.state.allowBids && this.state.userId !== this.state.sellerId ? 
+                                            <div className="form-group split">
+                                                <div className="input-group">
+                                                        <label className="form-control form-header text-center" name="userBid">
+                                                            Your Bid
+                                                        </label>                                            
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                        </div>
+                                                        <label contentEditable="true" type="text" className="form-control form-textarea form-input text-center" name="userBid"></label>
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-md form-btn" type="submit">Bid</button>
+                                                        </div>                                         
+                                                    </div>
+                                                </div> {/* -input-group */}
+                                            </div>
+                                         :null}
+                                    </div>  {/* -input-group */}
+
                                 </form>
                             </div> {/* -card body */}
                         </div> {/* -card form */}
@@ -171,7 +177,7 @@ class Product extends Component {
                 </div>  {/* -row */}
 
                 {/* map */}
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-12">
                         <div className="card form-input">
                                 <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>

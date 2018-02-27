@@ -5,12 +5,12 @@ import './ProductNew.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import classnames from 'classnames';
 
-// import ProdImages from '../ProdImages';
-import Category from '../Category';
 import QA from '../QA';
 
+import list from '../../categoryList';
+
+// import ProdImages from '../ProdImages';
 
 
 class ProductNew extends Component {
@@ -44,6 +44,27 @@ class ProductNew extends Component {
         .catch(err => console.log(err))
     }
 
+    //function that generates a list of options from a specific formatted JSON
+    getList(){
+        let keys = Object.keys(list);
+
+        return(
+            <select className='form-control category-dropdown' name="select" onChange={this.handleSelectChange}>
+                {/* category dropdown */}
+                <option disabled selected value>↓</option>
+                {keys.map((ele, i) => {
+                    if(Array.isArray(list[ele]) && i !== 0)
+                        return(
+                            [<option key={i+"_hr"} className="select-hr" disabled/>,
+                            <option key={i} path={ele} value={list[ele]} disabled={Array.isArray(list[ele])?true:false}>{ele}</option>]
+                        )
+                    else
+                        return <option key={i} path={ele} value={list[ele]} disabled={Array.isArray(list[ele])?true:false}>{ele}</option>
+                })}
+            </select>
+            )
+        }
+
 
     render() {
         return (
@@ -65,11 +86,12 @@ class ProductNew extends Component {
                         {/* card */}
                         <div className="card form-area">
                             <div className="card-body form-area">
-                                <h4 className="card-title">New Product</h4>
+                                {/* submit form */}
+                                <input className="btn btn-md btn-block mt-5" value="Create Ad" type="submit" id="submit-btn" />
                                 {/* <hr className="hr-full"/> */}
 
                                 {/* form */}
-                                <form action='' method='POST' className="form-sign-up" encType="multipart/form-data">
+                                <form action='' method='POST' className="form-sign-up mt-3" encType="multipart/form-data">
                                     {/* title */}
                                     <div className="form-group">
                                         <div className="input-group">
@@ -86,7 +108,7 @@ class ProductNew extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
-                                            <Category className={classnames('form-control', 'category-dropdown')} />
+                                                {this.getList()}
                                         </div>
                                     </div>
 
@@ -94,7 +116,7 @@ class ProductNew extends Component {
                                     <div className="form-group form-input">
                                         <div className="input-group">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text input-md form-btn-b">End Time:</span>
+                                                <span className="input-group-text input-md form-btn-b">End Time</span>
                                             </div>
                                             <DatePicker
                                                 selected={this.state.startDate}
@@ -107,37 +129,41 @@ class ProductNew extends Component {
                                     </div>
 
                                     {/* add image */}
-                                    <ul className="nav nav-pills mb-3 form-toggle" id="pills-tab" role="tablist">
-                                        <li className="nav-item w-50 text-center">
-                                            <a className="nav-link form-toggle active" id="img-url-tab" data-toggle="pill" href="#img-url" role="tab" aria-selected="true">Add Image URL</a>
-                                        </li>
-                                        <li className="nav-item w-50 text-center">
-                                            <a className="nav-link form-toggle" id="img-upload-tab" data-toggle="pill" href="#img-upload" role="tab" aria-selected="false">Upload Image</a>
-                                        </li>
-                                    </ul>
-                                    <div className="tab-content" id="pills-tabContent">
-                                        {/* image URL */}
-                                        <div className="tab-pane fade show active" id="img-url" role="tabpanel" aria-labelledby="pills-image-tab">
-                                            <div className="form-group">
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend">
-                                                        <span className="input-group-text form-btn-b">URL</span>
+                                    <div className="">
+                                    {/* <div className="card-area"> */}
+                                        <ul className="nav nav-pills mb-3 form-toggle" id="pills-tab" role="tablist">
+                                            <li className="nav-item w-50 text-center">
+                                                <a className="nav-link form-toggle active" id="img-url-tab" data-toggle="pill" href="#img-url" role="tab" aria-selected="true">Add Image URL</a>
+                                            </li>
+                                            <li className="nav-item w-50 text-center">
+                                                <a className="nav-link form-toggle" id="img-upload-tab" data-toggle="pill" href="#img-upload" role="tab" aria-selected="false">Upload Image</a>
+                                            </li>
+                                        </ul>
+
+                                        <div className="card-body">
+                                            <div className="tab-content" id="pills-tabContent">
+                                                {/* image URL */}
+                                                <div className="tab-pane fade show active" id="img-url" role="tabpanel" aria-labelledby="pills-image-tab">
+                                                    <div className="form-group">
+                                                        <div className="input-group">
+                                                            <div className="input-group-prepend">
+                                                                <span className="input-group-text form-btn-b">URL</span>
+                                                            </div>
+                                                            <input className="form-control form-input"  name="imgUrl" /> 
+                                                        </div>
+                                                        <small className="form-text text-muted">File types:  .png .jpg .jpeg</small>
                                                     </div>
-                                                    <input className="form-control form-input"  name="imgUrl" /> 
                                                 </div>
-                                                <small className="form-text text-muted">File types:  .png .jpg .jpeg</small>
-                                            </div>
-                                        </div>
-                                        {/* image upload */}
-                                        <div className="tab-pane fade" id="img-upload" role="tabpanel" aria-labelledby="pills-upload-tab">
-                                            <div className="form-group">
-                                                <input type="file" className="form-control-file form-input" name="imgUpload" aria-describedby="fileHelp"/>
-                                                <small className="form-text text-muted">File should be less than 1 mb</small>
+                                                {/* image upload */}
+                                                <div className="tab-pane fade" id="img-upload" role="tabpanel" aria-labelledby="pills-upload-tab">
+                                                    <div className="form-group">
+                                                        <input type="file" className="form-control-file form-input" name="imgUpload" aria-describedby="fileHelp"/>
+                                                        <small className="form-text text-muted">File should be less than 1 mb</small>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* submit */}
-                                    <input className="btn btn-md btn-block form-btn" value="Update" type="submit" id="update" />
                                 </form>
 
                             </div> {/*  -card-body */}
@@ -146,12 +172,12 @@ class ProductNew extends Component {
                 </div> {/*  -row */}
 
                 {/* description */}
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-12">
                         <div className="card">
                             <h4 className="card-header form-header">Description</h4>
                             <div className="card-block">
-                                <textarea type="text" className="form-control form-textarea-e" name="description" placeholder="Be thorough!"></textarea>
+                                <textarea type="text" className="form-control form-textarea-e" name="description" placeholder="500 character max"></textarea>
                             </div>
                         </div>
                     </div>
@@ -163,14 +189,11 @@ class ProductNew extends Component {
                         <div className="card">
                             <h4 className="card-header form-header">Policy</h4>
                             <div className="card-block">
-                                <textarea type="text" className="form-control form-textarea-e" name="policy" placeholder="Be thorough!"></textarea>
+                                <textarea type="text" className="form-control form-textarea-e" name="policy" placeholder="500 character max"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {/* question answer */}
-                <QA />
 
             </div>
         )

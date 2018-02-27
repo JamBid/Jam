@@ -55,8 +55,7 @@
     border: none;
 }
 /*  */
-.log-btn {
-    /*Icon: https://www.flaticon.com/free-icon/login_149408#term=login&page=1&position=1*/
+.svg-btn {
     width: 30px;
     margin: 0 0 20px 0;
 }

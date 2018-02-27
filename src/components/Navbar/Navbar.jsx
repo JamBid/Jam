@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import './Navbar.css';
+import accountSvg from './images/account.svg';
+import newAdSvg from './images/newAd.svg';
+import notificationSvg from './images/notification.svg';
+import shopSvg from './images/shop.svg';
 import loginSvg from './images/login.svg';
 import logoutSvg from './images/logout.svg';
+
+
 
 import {Link} from 'react-router-dom';
 
@@ -45,7 +51,7 @@ class Nav extends Component {
                         </div>
 
                         {/*<!-- navbar search -->*/}
-                        <Category className={classnames('form-control','btn', 'btn-sm', 'navbar-category-dropdown' )} />
+                        <Category />
                     </div>
                 </nav>
 
@@ -63,30 +69,44 @@ class Nav extends Component {
 
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/account" id="account-btn">Account</Link>
+                                        <Link className="nav-link" to="/account">
+                                            <img src={accountSvg} className="svg-btn" alt=""/> 
+                                        </Link>
+                                    </li>
+                                : null}
+                                
+                                {this.state.userId !== null ?
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/product-new">
+                                            <img src={newAdSvg} className="svg-btn" alt=""/> 
+                                        </Link>
                                     </li>
                                 : null}
 
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="" id="notifiction-btn">Notification</Link>
+                                        <Link className="nav-link" to="">
+                                            <img src={notificationSvg} className="svg-btn" alt=""/> 
+                                        </Link>
                                     </li>
                                 : null}
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="" id="shop-btn">Shop</Link>
+                                    <Link className="nav-link" to="" id="shop-btn">
+                                        <img src={shopSvg} className="svg-btn" alt=""/> 
+                                    </Link>
                                 </li>
 
                                 {/*<!-- login button -->*/}
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
                                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                        <img src={logoutSvg} className="log-btn" id="logout" alt=""/>
+                                            <img src={logoutSvg} className="svg-btn" id="logout" alt=""/>
                                         </button>
                                     </li> 
                                 :  <li className="nav-item">
                                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                            <img src={loginSvg} className="log-btn" id="login" alt=""/> 
+                                            <img src={loginSvg} className="svg-btn" id="login" alt=""/> 
                                         </button>
                                     </li> 
                                 }
@@ -102,6 +122,20 @@ class Nav extends Component {
                     <div id="navcollapse" className="collapse navbar-collapse" >
                         <div className="navbar-nav" id="accordion">
                             <div className="mx-auto">
+
+                                {/*<!-- options: sign up or login  -->*/}
+                                <div className="card text-center" id="accordian-header">
+                                    <div className="card-body">
+                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label className="btn btn-outline-secondary form-toggle active" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <input type="radio" name="options" /> Sign Up
+                                        </label>
+                                        <label className="btn btn-outline-secondary form-toggle" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <input type="radio" name="options" /> Login
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <Signup />
                                 <Login onClick={this.state.handleLogin}/>
                             </div>
