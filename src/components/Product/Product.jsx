@@ -109,7 +109,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Seller</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text"><Link to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></span>
+                                                <u><Link className="form-text"  to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></u>
                                             </label>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@ class Product extends Component {
                                         </div> 
 
                                         {/* user bid */}
-                                        {this.state.userId && this.state.allowBids ?
+                                        {this.state.userId && this.state.allowBids && this.state.userId !== this.state.sellerId ? 
                                             <div className="form-group split">
                                                 <div className="input-group">
                                                         <label className="form-control form-header text-center" name="userBid">

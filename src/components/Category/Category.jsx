@@ -39,11 +39,11 @@ class Category extends Component {
     }
 
     //function that generates a list of options from a specific formatted JSON
-    getList(classNames){
+    getList(){
         let keys = Object.keys(list);
 
         return(
-            <select className={classNames} name="select" onChange={this.handleSelectChange}>
+            <select className="form-control btn btn-sm navbar-category-dropdown" name="select" onChange={this.handleSelectChange}>
                 {/* category dropdown */}
                 <option value="all" path="All">All Categories</option>
                 <option className="select-hr" disabled/>
@@ -64,27 +64,38 @@ class Category extends Component {
         return (
             <div className="col-8">
                 <div className="form-inline float-right">
-                    <div className="btn-group">
-                        {/* category drop down */}
-                        {this.getList(this.props.className)}
-                    </div>
-                    {/* search field */}
-                    <input className="form-control form-control-sm navbar-search"
-                        id="navbar-search-input"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                        name="search"
-                        onChange={this.handleChange}/>
-                    {/* search button */}
-                    <Route render={({history})=>
-                        <button
-                            className="btn btn-sm my-2 my-sm-0 navbar-search"
-                            id="navbar-search-btn"
-                            type="submit"
-                            onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,{category:this.state.select,load:false})}}>
-                            Search
-                        </button>}/>
+                <Route render={({history})=>
+                    <form  onSubmit={(e) => {
+                        e.preventDefault();
+                        history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,
+                        {category:this.state.select,load:false})}
+                    }>
+
+                        <div className="btn-group">
+                            {/* category drop down */}
+                            {this.getList()}
+                        </div>
+                        {/* search field */}
+                            <input className="form-control form-control-sm navbar-search"
+                                id="navbar-search-input"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                name="search"
+                                onChange={this.handleChange}
+                            />
+                        {/* search button */}
+                        <Route render={({history})=>
+                            <button
+                                className="btn btn-sm my-2 my-sm-0 navbar-search"
+                                id="navbar-search-btn"
+                                type="submit"
+                                onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`, 
+                                    {category:this.state.select,load:false})}
+                                }>
+                                Search
+                            </button>}/>
+                    </form> }/>
                 </div>
             </div>
         )

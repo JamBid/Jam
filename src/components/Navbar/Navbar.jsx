@@ -51,7 +51,7 @@ class Nav extends Component {
                         </div>
 
                         {/*<!-- navbar search -->*/}
-                        <Category className={classnames('form-control','btn', 'btn-sm', 'navbar-category-dropdown' )} />
+                        <Category />
                     </div>
                 </nav>
 

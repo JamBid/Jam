@@ -5,11 +5,12 @@ import './ProductNew.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-// import classnames from 'classnames';
 
 import QA from '../QA';
+
+import list from '../../categoryList';
+
 // import ProdImages from '../ProdImages';
-// import Category from '../Category';
 
 
 class ProductNew extends Component {
@@ -42,6 +43,27 @@ class ProductNew extends Component {
         })
         .catch(err => console.log(err))
     }
+
+    //function that generates a list of options from a specific formatted JSON
+    getList(){
+        let keys = Object.keys(list);
+
+        return(
+            <select className='form-control category-dropdown' name="select" onChange={this.handleSelectChange}>
+                {/* category dropdown */}
+                <option disabled selected value>↓</option>
+                {keys.map((ele, i) => {
+                    if(Array.isArray(list[ele]) && i !== 0)
+                        return(
+                            [<option key={i+"_hr"} className="select-hr" disabled/>,
+                            <option key={i} path={ele} value={list[ele]} disabled={Array.isArray(list[ele])?true:false}>{ele}</option>]
+                        )
+                    else
+                        return <option key={i} path={ele} value={list[ele]} disabled={Array.isArray(list[ele])?true:false}>{ele}</option>
+                })}
+            </select>
+            )
+        }
 
 
     render() {
@@ -86,32 +108,7 @@ class ProductNew extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
-                                            <select className='form-control category-dropdown'>
-                                                {/* category dropdown */}
-                                                <option disabled selected value></option>
-
-                                                {/* ================== */}
-                                                {/* CHECK FOR PROPER VALUES */}
-                                                {/* ================== */}
-                                                <option disabled>Automotives</option>
-                                                <option value="cars">Cars</option>
-                                                <option value="suvs">SUVs</option>
-                                                <option value="carParts">Parts</option>
-
-                                                <option className="select-hr" disabled></option>
-
-                                                <option disabled>Electronics</option>
-                                                <option value="phones">Phones</option>
-                                                <option value="computers">Computers</option>
-                                                <option value="electronicParts">Parts</option>
-                                                
-                                                <option className="select-hr" disabled></option>
-
-                                                <option disabled>Furniture</option>
-                                                <option value="indoor">Indoor</option>
-                                                <option value="outdoor">Outdoor</option>
-                                                <option value="anituqe">Antique</option>
-                                            </select>
+                                                {this.getList()}
                                         </div>
                                     </div>
 

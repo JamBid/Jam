@@ -115,6 +115,10 @@ select{
   resize: vertical;
 }
 
+.form-text {
+  color: #7f4db8;
+}
+
 .form-footer {
 }
 
