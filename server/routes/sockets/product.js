@@ -1,3 +1,5 @@
+const db = require('../../models/models');
+
 //channel for socket.io for a specific product
 module.exports = function(io){
     const nsp = io.of("/prod");
@@ -17,7 +19,40 @@ module.exports = function(io){
         //sending messages out to the room
         socket.on('bid', (msg) => {
             console.log(msg)
-            nsp.in("prod"+msg.room).emit('bid', 'I placed a bid.');
+            db.bids.selectAllWithMultConOrderLimit(
+                {
+                    prodId:{
+                        vals:msg.msg.prodId,
+                        where:"EQUALS",
+                        join:"AND"
+                    }
+                },
+                [
+                    {amount:"desc"}
+                ],
+            1)
+            .then(function(result){
+                if(result.length === 0 || result[0].amount < msg.msg.bid){
+                    db.bids.insertOne(
+                        ['amount','buyerId','prodId'],
+                        [msg.msg.bid, msg.msg.userId, msg.msg.prodId]
+                    ).
+                    then(res => {
+                        nsp.in("prod"+msg.room).emit('bid', {msg:'success'});
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        socket.emit('bid','error')
+                    })
+                }
+                    
+                else
+                    socket.emit('bid',{msg:'too low'})
+            })
+            .catch(function(error){
+                console.log(error);
+                socket.emit('bid',{msg:'error'})
+            });
         })
 
         // disconnect is fired when a client leaves the server

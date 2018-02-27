@@ -90,6 +90,13 @@ class Product extends Component {
     receive = () => {
         this.state.socket.on('bid', (msg) => {
             console.log(msg);
+            if(msg.msg === 'success')
+                this.getHighBid();
+            else if(msg.msg === 'too low')
+                console.log("too low")
+            else
+                console.log(msg.msg)
+            
         });
     }
 
@@ -102,7 +109,7 @@ class Product extends Component {
             if(isNaN(parseFloat(this.state.userBid)) === false)
                 this.state.socket.emit('bid', {room: this.state.id,
                                                 "msg":{
-                                                    bid:Math.round(parseFloat(this.state.userBid),2),
+                                                    bid:Math.round(parseFloat(this.state.userBid*100))/100,
                                                     prodId: this.state.id,
                                                     userId:this.state.userId
                                                 }
