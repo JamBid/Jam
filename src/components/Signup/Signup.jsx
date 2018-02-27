@@ -29,13 +29,26 @@ class Signup extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
+
+      if (!this.state.firstName || !this.state.lastName) {
+          alert("First and Last name is required");
+      } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email))){
+        alert("We need a valid email")
+      } else if (this.state.password.length < 5 || this.state.retypePassword.length < 5) {
+        alert(`Choose a more secure password ${this.state.firstName} ${this.state.lastName}`);
+      } else{
+        alert(`Hello ${this.state.firstName} ${this.state.lastName}`);
+      }
+      
         API.signUpNewUser({email:this.state.email,
                 firstName:this.state.firstName,
                 lastName:this.state.lastName,
                 password:this.state.password,
+                retypePassword: this.state.retypePassword,
                 userName:this.state.userName,
                 image:null,
                 imageType:null})
+     
         .then(function(data){
             console.log("You signed up!");
         })
