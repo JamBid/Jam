@@ -63,10 +63,9 @@ class Category extends Component {
     render() {
         return (
             <div className="col-8">
-            <Route render={({history})=><form onSubmit={(e) => {e.preventDefault();history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,{category:this.state.select,load:false})}}>
                 <div className="form-inline float-right">
                 <Route render={({history})=>
-                    <form  onSubmit={(e) => {
+                    <form onSubmit={(e) => {
                         e.preventDefault();
                         history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,
                         {category:this.state.select,load:false})}
@@ -98,7 +97,6 @@ class Category extends Component {
                             </button>}/>
                     </form> }/>
                 </div>
-        </form>}/>
             </div>
         )
     }

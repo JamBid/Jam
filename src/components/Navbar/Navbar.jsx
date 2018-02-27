@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
+
 import './Navbar.css';
 import accountSvg from './images/account.svg';
 import newAdSvg from './images/newAd.svg';
@@ -6,13 +9,6 @@ import notificationSvg from './images/notification.svg';
 import shopSvg from './images/shop.svg';
 import loginSvg from './images/login.svg';
 import logoutSvg from './images/logout.svg';
-
-
-
-import {Link} from 'react-router-dom';
-
-import classnames from 'classnames';
-
 
 // sub-components 
 import Category from '../Category';
