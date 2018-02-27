@@ -7,14 +7,18 @@ class TimeRemaining extends Component {
 
         this.state = {
             endTime: moment(props.time,'YYYY-MM-DDTHH:mm:ss.SSSZ'),
-            setAllowBidFunc:props.setAllowBid //function used to tell the parent component that it is ok to allow bidding
+            setAllowBidFunc:props.setAllowBid, //function used to tell the parent component that it is ok to allow bidding
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
         }
     }
 
     componentDidMount(){
         let obj = this;
         if(obj.state.endTime && !obj.timeInterval)
-            obj.timeInterval = setInterval(()=>obj.setState(this.forceUpdate()),1000);
+            obj.timeInterval = setInterval(()=>obj.setState(this.determineIfStillTime()),1000);
     }
 
     componentWillReceiveProps(nextProps){
@@ -23,7 +27,7 @@ class TimeRemaining extends Component {
             setAllowBidFunc:nextProps.setAllowBid
         },function(){
             if(this.state.endTime && !this.timeInterval)
-                this.timeInterval = setInterval(()=>this.setState(this.forceUpdate()),1000);
+                this.timeInterval = setInterval(()=>this.setState(this.determineIfStillTime()),1000);
         })
     }
 
@@ -50,40 +54,33 @@ class TimeRemaining extends Component {
 
                 this.state.setAllowBidFunc(true);
 
-                return (
-                    <div>
-                        {days > 0 ? `Days: ${days}`: null}
-                        {hours > 0 ? `Hours: ${hours}`: null}
-                        {minutes > 0 ? `Miuntes: ${minutes}`: null}
-                        Seconds: {seconds}
-                    </div>
-                );
+                this.setState({
+                    days: days,
+                    hours: hours,
+                    minutes: minutes,
+                    seconds: seconds
+                })
             }
-            else{
+            else
                 this.state.setAllowBidFunc(false);
-
-                return (
-                    <div>
-                        Sold!
-                    </div>
-                )
-            }
         }
-
-        this.state.setAllowBidFunc(false);
-
-        return (
-            <div>
-                Not Available.
-            </div>
-        );
     }
 
     render() {
+        let current = moment();
         return(
-            <div>
-                {this.determineIfStillTime()}
-            </div>
+            this.state.endTime ?
+                this.state.endTime.isAfter(current)?
+                <div>
+                    {this.state.days > 0 ? `Days: ${this.state.days}`: null}
+                    {this.state.hours > 0 ? `Hours: ${this.state.hours}`: null}
+                    {this.state.minutes > 0 ? `Miuntes: ${this.state.minutes}`: null}
+                    Seconds: {this.state.seconds}
+                </div>
+                :
+                <div>Sold!</div>
+            :
+            <div>Not Available.</div>
         )
     }
 }
