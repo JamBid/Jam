@@ -25,7 +25,11 @@ class Product extends Component {
             sellerId: "",
             images: [],
             socket: null,
-            allowBids:false
+            allowBids:false,
+            userBid: 0,
+            highestBid:{
+                amount:"None"
+            }
         }
     }
 
@@ -51,6 +55,7 @@ class Product extends Component {
 
     //function for loading user info
     loadProd = (prodId) => {
+        let obj = this;
         API.getProduct(prodId)
         .then( res => {
             let prod = res.data;
@@ -58,8 +63,19 @@ class Product extends Component {
             .then(seller => {
                 prod.sellerName = seller.data[0].userName;
 
-                this.setState(prod)
+                this.setState(prod,obj.getHighBid)
             });
+        })
+        .catch(err => console.log(err))
+    }
+
+    //function to retrieve highest bid
+    getHighBid = () => {
+        let obj = this;
+        API.getHighestBid(this.state.id)
+        .then( res => {
+            if(res.data.length > 0)
+                obj.setState({highestBid:res.data[0]})
         })
         .catch(err => console.log(err))
     }
@@ -78,10 +94,34 @@ class Product extends Component {
     }
 
     // method for emitting a socket.io event
-    send = (e) => {
+    sendBid = (e) => {
         console.log('sending to socket')
         e.preventDefault();
-        this.state.socket.emit('bid', {room: this.state.id, "msg":"andy"});
+
+        if(this.state.userBid !== 0){
+            if(isNaN(parseFloat(this.state.userBid)) === false)
+                this.state.socket.emit('bid', {room: this.state.id,
+                                                "msg":{
+                                                    bid:Math.round(parseFloat(this.state.userBid),2),
+                                                    prodId: this.state.id,
+                                                    userId:this.state.userId
+                                                }
+                                            });
+            else
+                console.log("Not a bid")
+        }
+        else
+            console.log("bid must be greater than 0")
+    }
+
+    //function that is used when there is a change on an input
+    handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]:value
+        });
     }
 
     render() {
@@ -161,31 +201,43 @@ class Product extends Component {
                                         </div>
                                     </div>
 
-                                    {/* high bid */}
                                     <div className="input-group d-flex justify-content-between">
+                                        {/* high bid */}
                                         <div className="form-group split">
-                                            <div className="input-group">
-                                                    <label className="form-control form-header text-center">High Bid</label>                                            
                                                 <div className="input-group">
-                                                    <label className="form-control form-textarea form-input text-center" id="high-bid">$50.00 (REPLACE ME)</label>
-                                                </div>
+                                                    <label className="form-control form-header text-center">
+                                                        Highest Bid
+                                                    </label>                                            
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                        </div>
+                                                        <label className="form-control form-textarea form-input text-center" id="high-bid">
+                                                            {this.state.highestBid.amount}
+                                                        </label>                                         
+                                                    </div>
+                                                </div> {/* -bid-group */}
                                             </div>
-                                        </div> 
 
                                         {/* user bid */}
                                         {this.state.userId && this.state.allowBids && this.state.userId !== this.state.sellerId ? 
                                             <div className="form-group split">
                                                 <div className="input-group">
-                                                        <label className="form-control form-header text-center" name="userBid">
-                                                            Your Bid
-                                                        </label>                                            
+                                                    <label className="form-control form-header text-center">
+                                                        Your Bid
+                                                    </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
                                                             <span className="form-btn-b" id="dollar-sign"> $ </span>
                                                         </div>
-                                                        <label contentEditable="true" type="text" className="form-control form-textarea form-input text-center" name="userBid"></label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control form-textarea form-input text-center"
+                                                            name="userBid"
+                                                            value={this.state.yourBid}
+                                                            onChange={this.handleChange}/>
                                                         <div className="input-group-append">
-                                                            <button className="btn btn-md form-btn" type="submit">Bid</button>
+                                                            <button className="btn btn-md form-btn" type="submit" onClick={this.sendBid}>Bid</button>
                                                         </div>                                         
                                                     </div>
                                                 </div> {/* -input-group */}

@@ -16,7 +16,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userId: null
+      userId: 1//null
     }
   }
 
