@@ -42,7 +42,14 @@ export default {
         }
       }
     )
+  },
+  //gets the highest bid for a product
+  getHighestBid: function(prodId){
+    return axios.get("/bids",{
+      params:{
+          prodId:prodId
+        }
+      }
+    )
   }
-
-  
 };
