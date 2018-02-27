@@ -12,6 +12,7 @@ class Product extends Component {
         super(props);
 
         this.state = {
+            userId: null,
             id: "",
             prodName: "",
             category: "",
@@ -27,14 +28,18 @@ class Product extends Component {
 
     componentWillMount() {
         let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/")+1);
-        this.setState({id: prodId})
+        this.setState({
+            id: prodId
+        })
         this.loadProd(prodId);
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({userId:nextProps.userId})
     }
 
     //function for loading user info
     loadProd = (prodId) => {
-        
-
         API.getProduct(prodId)
         .then( res => {
             let prod = res.data;
@@ -47,6 +52,14 @@ class Product extends Component {
         })
         .catch(err => console.log(err))
     }
+
+    //function to determine if the bidding should be allowed
+    setAllowBid = (flag) => {
+        if(this.state.allowBids !== flag)
+            this.setState({allowBids:flag});
+    }
+
+    
 
     render() {
         return (
@@ -120,13 +133,13 @@ class Product extends Component {
                                                 <span className="input-group-text input-md form-btn-b">End Time</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <TimeRemaining time={this.state.endTimestamp}/>
+                                                <TimeRemaining time={this.state.endTimestamp} setAllowBid={this.setAllowBid}/>
                                             </label> 
                                         </div>
                                     </div>
 
+                                    {/* high bid */}
                                     <div className="input-group d-flex justify-content-between">
-                                        {/* high bid */}
                                         <div className="form-group split">
                                             <div className="input-group">
                                                     <label className="form-control form-header text-center">High Bid</label>                                            
@@ -137,23 +150,24 @@ class Product extends Component {
                                         </div> 
 
                                         {/* user bid */}
-                                        <div className="form-group split">
-                                            <div className="input-group">
-                                                    <label className="form-control form-header text-center" name="userBid">
-                                                        Your Bid
-                                                    </label>                                            
+                                        {this.state.userId && this.state.allowBids ?
+                                            <div className="form-group split">
                                                 <div className="input-group">
-                                                    <div className="input-group-prepend">
-                                                        <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                        <label className="form-control form-header text-center" name="userBid">
+                                                            Your Bid
+                                                        </label>                                            
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                        </div>
+                                                        <label contentEditable="true" type="text" className="form-control form-textarea form-input text-center" name="userBid"></label>
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-md form-btn" type="submit">Bid</button>
+                                                        </div>                                         
                                                     </div>
-                                                    <label contentEditable="true" type="text" className="form-control form-textarea form-input text-center" name="userBid">
-                                                    </label>
-                                                    <div className="input-group-append">
-                                                        <button className="btn btn-md form-btn" type="submit">Bid</button>
-                                                    </div>                                            
-                                                </div>
-                                            </div> {/* -input-group */}
-                                        </div> {/* -form-group */}
+                                                </div> {/* -input-group */}
+                                            </div>
+                                         :null}
                                     </div>  {/* -input-group */}
 
                                 </form>
@@ -163,7 +177,7 @@ class Product extends Component {
                 </div>  {/* -row */}
 
                 {/* map */}
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-12">
                         <div className="card form-input">
                                 <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>

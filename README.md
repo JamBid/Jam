@@ -115,13 +115,16 @@ git push heroku master
 * [Socket.io](https://socket.io/)
 * [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
 * [react-datepicker](https://www.npmjs.com/package/react-datepicker)
-* [classnames](https://github.com/JedWatson/classnames)
-
+* [passport](https://github.com/themikenicholson/passport)
+* [passport-jwt](https://github.com/themikenicholson/passport-jwt)
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 
 ### Dev packages
 * [Faker](https://github.com/marak/Faker.js/)
 * [Concurrently](https://github.com/kimmobrunfeldt/concurrently)
 * [nodemon](https://nodemon.io/)
+* [morgan](https://www.npmjs.com/package/morgan)
+
 
 ## Authors
 
