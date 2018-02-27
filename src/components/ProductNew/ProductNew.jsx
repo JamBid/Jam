@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import API from '../../utils/API';
-import './ProductNew.css';
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
-import QA from '../QA';
-
+import './ProductNew.css';
+import API from '../../utils/API';
 import list from '../../categoryList';
 
 // import ProdImages from '../ProdImages';

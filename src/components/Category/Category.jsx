@@ -65,7 +65,7 @@ class Category extends Component {
             <div className="col-8">
                 <div className="form-inline float-right">
                 <Route render={({history})=>
-                    <form  onSubmit={(e) => {
+                    <form onSubmit={(e) => {
                         e.preventDefault();
                         history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,
                         {category:this.state.select,load:false})}

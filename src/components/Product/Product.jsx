@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import io from 'socket.io-client';
 
 import API from '../../utils/API';
 
@@ -12,7 +13,7 @@ class Product extends Component {
         super(props);
 
         this.state = {
-            userId: null,
+            userId: props.userId||null,
             id: "",
             prodName: "",
             category: "",
@@ -22,19 +23,29 @@ class Product extends Component {
             endTimestamp: "",
             sellerName: "",
             sellerId: "",
-            images: []
+            images: [],
+            socket: null,
+            allowBids:false
         }
     }
 
     componentWillMount() {
         let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/")+1);
         this.setState({
-            id: prodId
+            id: prodId,
+            socket: io("/prod")
         })
         this.loadProd(prodId);
     }
 
+    componentDidMount(){
+        this.state.socket.emit('room', this.state.id);
+        this.receive();
+        console.log("I mounted")
+    }
+
     componentWillReceiveProps(nextProps){
+        console.log("I got a new id")
         this.setState({userId:nextProps.userId})
     }
 
@@ -59,7 +70,19 @@ class Product extends Component {
             this.setState({allowBids:flag});
     }
 
-    
+    //method to receive messages from socket
+    receive = () => {
+        this.state.socket.on('bid', (msg) => {
+            console.log(msg);
+        });
+    }
+
+    // method for emitting a socket.io event
+    send = (e) => {
+        console.log('sending to socket')
+        e.preventDefault();
+        this.state.socket.emit('bid', {room: this.state.id, "msg":"andy"});
+    }
 
     render() {
         return (
