@@ -77,12 +77,14 @@ class Category extends Component {
                         name="search"
                         onChange={this.handleChange}/>
                     {/* search button */}
-                    <Route render={({history})=><button
-                                        className="btn btn-sm my-2 my-sm-0 navbar-search"
-                                        id="navbar-search-btn"
-                                        type="submit"
-                                        onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,{category:this.state.select,load:false})}}>
-                                        Search</button>}/>
+                    <Route render={({history})=>
+                        <button
+                            className="btn btn-sm my-2 my-sm-0 navbar-search"
+                            id="navbar-search-btn"
+                            type="submit"
+                            onClick={() => {history.push(`/search/${this.state.searchPath}?search=${encodeURIComponent(this.state.search)}`,{category:this.state.select,load:false})}}>
+                            Search
+                        </button>}/>
                 </div>
             </div>
         )

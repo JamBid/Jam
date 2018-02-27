@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
+import './Signup.css';
+
 
 class Signup extends Component {
     constructor(props){
@@ -45,19 +47,6 @@ class Signup extends Component {
     render() {
         return (
             <div>
-                {/*<!-- options: sign up or login  -->*/}
-                <div className="card text-center" id="accordian-header">
-                    <div className="card-body">
-                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label className="btn btn-outline-secondary form-toggle active" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <input type="radio" name="options" /> Sign Up
-                        </label>
-                        <label className="btn btn-outline-secondary form-toggle" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <input type="radio" name="options" /> Login
-                        </label>
-                        </div>
-                    </div>
-                </div>
 
                 {/*<!-- sign-up form -->*/}
                 <div className="card form-area ">
@@ -90,7 +79,8 @@ class Signup extends Component {
                                                 name="lastName"
                                                 type="text"
                                                 value={this.state.lastName}
-                                                onChange={this.handleChange}/>
+                                                onChange={this.handleChange}
+                                                id="last-name"/>
                                         </div>
                                     </div>
                                     <div className="form-group has-error">

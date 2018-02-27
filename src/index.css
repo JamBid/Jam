@@ -14,10 +14,37 @@ select{
   margin-bottom: 100px;
 }
 
+
+
+.card-area {
+  border-radius: 0px;
+  border: solid 1px #7f4db8;
+}
+
+.card-image {
+  max-height: 200px;
+  max-width: 200px;
+  border-radius: 0px;
+  background: rgba(127, 77, 184, 1);
+  overflow: hidden;
+}
+
+.card-img-overlay {
+  font-size: 8pt;
+  color: white;
+  position: absolute;
+  /* top: 0%; */
+  height: 150px;
+  background: rgba(127, 77, 184, .3);
+  overflow: hidden;
+}
+
+
+
 /* form area */
 .form-area {
   border: none;
-  background: #f6f3ff;
+  background: none;
 }
 
 /* input field */
@@ -25,6 +52,7 @@ select{
   color: #7f4db8;
   border-radius: 0px !important;
   border: solid 1px #7f4db8;
+  background: white;
 }
 
 /* input field - placeholder */
@@ -102,4 +130,9 @@ select{
 .accordion-footer {
   border-top: none;
   background: none;
+}
+
+
+.input-group-text {
+  width: 100px !important;
 }
