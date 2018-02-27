@@ -125,7 +125,6 @@ git push heroku master
 * [nodemon](https://nodemon.io/)
 * [morgan](https://www.npmjs.com/package/morgan)
 
-
 ## Authors
 
 * **Andrew Damico** - [AndrewD14](https://github.com/AndrewD14)
