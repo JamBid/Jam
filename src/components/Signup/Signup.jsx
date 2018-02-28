@@ -115,7 +115,7 @@ class Signup extends Component {
 
                                     <div className="checkbox">
                                         <label className="small">
-                                            <input name="terms" type="checkbox"/> I have read and agree to the <Link to="toa.html" target="_blank">terms of service</Link>
+                                            <input name="terms" type="checkbox"/> I have read and agree to the terms of service.
                                         </label>
                                     </div>
 

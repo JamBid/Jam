@@ -1,14 +1,14 @@
-.card-image {
-    max-width: 150px;
-    max-height: 150px;
+.home-image {
+    max-width: 150px !important;
+    max-height: 150px !important;
     padding: 20px;
 }
 
-.card-img-overlay:hover {
+.home-img-overlay:hover {
     background: rgba(127, 77, 184, .8);
 }
 
-.card-img-overlay-text {
+.home-img-overlay-text {
     font-size: 14pt;
     font-weight: 600;
     text-shadow: 0px 0px 8px #7f4db8;

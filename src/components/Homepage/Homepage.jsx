@@ -19,9 +19,9 @@ class Homepage extends Component {
                     <Link to="/search/Automotives">
                         <div className="p-2 my-flex-item">
                             <div className="card card-area">
-                                <img className="card card-image card-image-homepage" src={automotiveSvg} alt=""/>
-                                <div className="card-img-overlay text-center homepage2">
-                                    <span className="card-img-overlay-text">Automotive</span>
+                                <img className="card card-image home-image" src={automotiveSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center ">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Automotive</span>
                                 </div>
                             </div>
                         </div>
@@ -30,9 +30,9 @@ class Homepage extends Component {
                     <Link to="/search/Electronics">
                         <div className="p-2 my-flex-item">
                             <div className="card card-area">
-                                <img className="card card-image" src={electronicSvg} alt=""/>
-                                <div className="card-img-overlay text-center">
-                                    <span className="card-img-overlay-text">Electronics</span>
+                                <img className="card card-image home-image" src={electronicSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Electronics</span>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +41,9 @@ class Homepage extends Component {
                     <Link to="/search/Furniture">
                         <div className="p-2 my-flex-item">
                             <div className="card card-area">
-                                <img className="card card-image" src={furnitureSvg} alt=""/>
-                                <div className="card-img-overlay text-center homepage2">
-                                    <span className="card-img-overlay-text">Furniture</span>
+                                <img className="card card-image home-image" src={furnitureSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Furniture</span>
                                 </div>
                             </div>
                         </div>

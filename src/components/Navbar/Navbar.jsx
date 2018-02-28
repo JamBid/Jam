@@ -107,13 +107,13 @@ class Nav extends Component {
                                 {/*<!-- login button -->*/}
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link to="" className="nav-link nav-icon" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                            <img src={logoutSvg} className="svg-btn" id="logout" alt=""/>
+                                        <Link to="" className="nav-link nav-icon log-btn" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                            <img src={logoutSvg} className="svg-btn" alt=""/>
                                         </Link>
                                     </li> 
                                 :  <li className="nav-item">
-                                        <Link to="" className="nav-link nav-icon" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                            <img src={loginSvg} className="svg-btn" id="login" alt=""/> 
+                                        <Link to="" className="nav-link nav-icon log-btn" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                            <img src={loginSvg} className="svg-btn" alt=""/> 
                                         </Link>
                                     </li> 
                                 }
