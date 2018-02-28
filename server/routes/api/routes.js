@@ -6,7 +6,7 @@ const answerRoutes = require("../../controllers/answerAPI");
 const bidRoutes = require("../../controllers/bidAPI");
 
 //Jam Bids routes
-router.use("/prod", prodRoutes);
+router.use("/product", prodRoutes);
 router.use("/user", userRoutes);
 router.use("/questions", questionRoutes);
 router.use("/answers", answerRoutes);
