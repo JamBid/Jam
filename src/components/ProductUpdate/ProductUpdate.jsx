@@ -219,13 +219,12 @@ class ProductNew extends Component {
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text input-md form-btn-b">End Time</span>
                                                 </div>
-                                                <DatePicker
+                                                {/* <DatePicker
                                                     selected={this.state.endTimestamp}
                                                     onChange={this.handleChange}
                                                     showTimeSelect
                                                     timeIntervals={30}
-                                                    dateFormat="LLL"
-                                                />
+                                                    dateFormat="LLL" /> */}
                                                 {/* <TimeRemaining time={this.state.endTimestamp} setAllowBid={this.setAllowBid}/> */}
                                             </div>
                                         </div>

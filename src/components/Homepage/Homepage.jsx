@@ -18,7 +18,7 @@ class Homepage extends Component {
 
                     <Link to="/search/Automotives">
                         <div className="p-2 my-flex-item">
-                            <div className="card card-area">
+                            <div className="card home-card">
                                 <img className="card card-image home-image" src={automotiveSvg} alt=""/>
                                 <div className="card-img-overlay home-img-overlay text-center ">
                                     <span className="card-img-overlay-text home-img-overlay-text">Automotive</span>
