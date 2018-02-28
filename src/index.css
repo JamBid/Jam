@@ -14,31 +14,36 @@ select{
   margin-bottom: 100px;
 }
 
+/* child of nav-items */
+.nav-link {
+  color: #440066;
+}
 
-
+/* card shape and border */
 .card-area {
   border-radius: 0px;
   border: solid 1px #7f4db8;
 }
 
-.card-image {
+/* card image area */
+.card-image{
   max-height: 200px;
   max-width: 200px;
   border-radius: 0px;
   background: rgba(127, 77, 184, 1);
+  border: none;
   overflow: hidden;
 }
 
+/* text over card image */
 .card-img-overlay {
   font-size: 8pt;
   color: white;
   position: absolute;
-  /* top: 0%; */
   height: 150px;
   background: rgba(127, 77, 184, .3);
   overflow: hidden;
 }
-
 
 
 /* form area */
@@ -120,12 +125,17 @@ select{
 }
 
 .form-footer {
+  margin: 0px 0 0 0;
+  color: white;
+  background: #7f4db8;
+  text-decoration: none;
 }
 
 .accordion {
   border-radius: 0px !important;
   border: solid 1px #7f4db8;
 }
+
 
 .accordion-header {
   background: none;

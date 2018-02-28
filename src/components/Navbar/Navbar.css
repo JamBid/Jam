@@ -1,28 +1,47 @@
 /* Navbar*/
 #nav-background{
     background-image: linear-gradient(to bottom, #cd9cf2 0%, #f6f3ff 100%) !important;
-    height: 146px;
+    height: 100px;
     border-bottom: solid 1px #a778d2;
+}
+
+.navbar-dark, .container {
+    height: 50px;
+    padding: none;
+    margin: none;
 }
 
 /* logo text */
 .navbar-brand {
-    margin-top: -10px;
-    /* font-family: 'Indie Flower', cursive; */
     height: 50px;
     font-size: 50px;
+    user-select: none;
 }
 
 /* site quote under logo */
 .navbar-quote {
-    /* font-family: 'Indie Flower', cursive; */
     color: #440066;
-    font-size: 25px;
+    font-size: 20px;
+    user-select: none;
 }
 
-/* nav links */
-.nav-link {
+.bold {
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    color: #7f4db8;
+}
+
+.thin {
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
     color: #440066;
+    font-variant: small-caps;
+}
+
+/* navbar icons */
+.nav-icon {
+    padding: 0;
+    margin: 10px 10px 0 0;
 }
 
 /* nav search group */
@@ -42,7 +61,7 @@
 }
 /* seach field */
 #navbar-search-input {
-    width: 130px;
+    width: 100px;
 }
 /* search btn */
 #navbar-search-btn {
@@ -52,11 +71,13 @@
 
 /* login logout button */
 .navbar-toggler {
+    padding: 10px 0 0 10px; 
     border: none;
 }
-/*  */
+
+/* nav icons */
 .svg-btn {
-    width: 30px;
+    width: 25px;
     margin: 0 0 20px 0;
 }
 
@@ -67,7 +88,7 @@
 
 /*  Navbar - Accordian (login & signup)  */
 #accordion {
-    margin: 50px 0;
+    margin: 30px 0;
     background: none;
 }
 

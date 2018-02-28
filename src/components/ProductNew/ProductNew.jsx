@@ -48,7 +48,7 @@ class ProductNew extends Component {
         return(
             <select className='form-control category-dropdown' name="select" onChange={this.handleSelectChange}>
                 {/* category dropdown */}
-                <option disabled selected value>↓</option>
+                <option disabled selected value></option>
                 {keys.map((ele, i) => {
                     if(Array.isArray(list[ele]) && i !== 0)
                         return(
@@ -69,22 +69,13 @@ class ProductNew extends Component {
                 {/*<!-- New Product form -->*/}
                 <div className="row">
 
-                    {/* media pane */}
-                    <div className="col-5">
-                        {/* <ProdImages images={this.state.prodInfo.images} /> */}
-
-                        <div className="card-image">
-                            <img className="product-img" src={'https://cdn.pixabay.com/photo/2018/02/17/19/25/mammal-3160684_960_720.jpg'} alt="stock" />
-                        </div>
-                    </div>
-                    
                     {/* bid pane */}
-                    <div className="col-7">
+                    <div className="col-md-7 col-sm-12">
                         {/* card */}
                         <div className="card form-area">
-                            <div className="card-body form-area">
+                            <div className="card-body form-area form-shrink">
                                 {/* submit form */}
-                                <input className="btn btn-md btn-block mt-5" value="Create Ad" type="submit" id="submit-btn" />
+                                <input className="btn btn-md btn-block" value="Create Ad" type="submit" id="submit-btn" />
                                 {/* <hr className="hr-full"/> */}
 
                                 {/* form */}
@@ -109,6 +100,16 @@ class ProductNew extends Component {
                                         </div>
                                     </div>
 
+                                    {/* category */}
+                                    <div className="form-group">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text form-btn-b">Location</span>
+                                            </div>
+                                            <input className="form-control form-input"  name="imgUrl" /> 
+                                        </div>
+                                    </div>
+
                                     {/* end time */}
                                     <div className="form-group form-input">
                                         <div className="input-group">
@@ -126,9 +127,9 @@ class ProductNew extends Component {
                                     </div>
 
                                     {/* add image */}
-                                    <div className="">
+                                    <div className="form-group form-shrink">
                                     {/* <div className="card-area"> */}
-                                        <ul className="nav nav-pills mb-3 form-toggle" id="pills-tab" role="tablist">
+                                        <ul className="nav nav-pills form-toggle" id="pills-tab" role="tablist">
                                             <li className="nav-item w-50 text-center">
                                                 <a className="nav-link form-toggle active" id="img-url-tab" data-toggle="pill" href="#img-url" role="tab" aria-selected="true">Add Image URL</a>
                                             </li>
@@ -137,8 +138,8 @@ class ProductNew extends Component {
                                             </li>
                                         </ul>
 
-                                        <div className="card-body">
-                                            <div className="tab-content" id="pills-tabContent">
+                                        <div className="card-body form-shrink">
+                                            <div className="tab-content form-shrink" id="pills-tabContent">
                                                 {/* image URL */}
                                                 <div className="tab-pane fade show active" id="img-url" role="tabpanel" aria-labelledby="pills-image-tab">
                                                     <div className="form-group">
@@ -153,8 +154,8 @@ class ProductNew extends Component {
                                                 </div>
                                                 {/* image upload */}
                                                 <div className="tab-pane fade" id="img-upload" role="tabpanel" aria-labelledby="pills-upload-tab">
-                                                    <div className="form-group">
-                                                        <input type="file" className="form-control-file form-input" name="imgUpload" aria-describedby="fileHelp"/>
+                                                    <div className="form-group ">
+                                                        <input type="file" className="form-control form-input" multiple/>
                                                         <small className="form-text text-muted">File should be less than 1 mb</small>
                                                     </div>
                                                 </div>
@@ -166,10 +167,17 @@ class ProductNew extends Component {
                             </div> {/*  -card-body */}
                         </div> {/*  -card */}
                     </div> {/*  -card */}
+
+                    {/* media pane */}
+                    <div className="col-md-5 col-sm-12 mb-5 text-center">
+                        {/* <ProdImages images={this.state.prodInfo.images} /> */}
+                        <img className="product-img mx-auto mt-5" src={'https://cdn.pixabay.com/photo/2018/02/17/19/25/mammal-3160684_960_720.jpg'} alt="stock" />
+                    </div>
+                    
                 </div> {/*  -row */}
 
                 {/* description */}
-                <div className="row mt-3">
+                <div className="row mt-2">
                     <div className="col-12">
                         <div className="card">
                             <h4 className="card-header form-header">Description</h4>

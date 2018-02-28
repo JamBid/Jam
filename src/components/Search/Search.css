@@ -1,0 +1,18 @@
+.card-image-search{
+    max-height: 200px;
+    max-width: 200px;
+    border-radius: 0px;
+    background: rgba(127, 77, 184, 1);
+    border: none;
+    overflow: hidden;
+  }
+
+  .card-img-overlay {
+    font-size: 8pt;
+    color: white;
+    position: absolute;
+    height: 100%;
+    background: rgba(127, 77, 184, .3);
+    overflow: hidden;
+  }
+  

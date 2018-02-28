@@ -91,29 +91,38 @@ class Signup extends Component {
                                             type="email" value={this.state.email}
                                             onChange={this.handleChange} />
                                     </div>
-                                    <div className="form-group has-success">
-                                        <input className="form-control input-md form-input"
-                                            placeholder="Password"
-                                            name="password"
-                                            type="password"
-                                            autoComplete="new-password"
-                                            value={this.state.password}
-                                            onChange={this.handleChange}/>
+
+                                    <div className="form-inline mb-3">
+                                        <div className="form-group has-success">
+                                            <input className="form-control input-md form-input"
+                                                placeholder="Password"
+                                                name="password"
+                                                type="password"
+                                                autoComplete="new-password"
+                                                value={this.state.password}
+                                                onChange={this.handleChange}/>
+                                        </div>
+                                        <div className="form-group has-success">
+                                            <input className="form-control input-md form-input" id="confirm-password"
+                                                placeholder="Confirm Password"
+                                                name="retypePassword"
+                                                type="password"
+                                                autoComplete="new-password"
+                                                value={this.state.retypePassword}
+                                                onChange={this.handleChange}/>
+                                        </div>
                                     </div>
-                                    <div className="form-group has-success">
-                                        <input className="form-control input-md form-input"
-                                            placeholder="Confirm Password"
-                                            name="retypePassword"
-                                            type="password"
-                                            autoComplete="new-password"
-                                            value={this.state.retypePassword}
-                                            onChange={this.handleChange}/>
-                                    </div>
+
                                     <div className="checkbox">
                                         <label className="small">
                                             <input name="terms" type="checkbox"/> I have read and agree to the <Link to="toa.html" target="_blank">terms of service</Link>
                                         </label>
                                     </div>
+
+                                    <div className="form-group">
+                                        <input type="file" className="form-control form-input"/>
+                                    </div>
+
                                     <input className="btn btn-md btn-block form-btn"
                                         value="Sign Me Up"
                                         type="submit"

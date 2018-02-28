@@ -42,7 +42,14 @@ class Nav extends Component {
                         {/*<!-- navbar logo -->*/}
                         <div className="col-4">
                             <div className="mx-auto">
-                                <Link className="navbar-brand nav-link" to="/">JAM</Link>
+                                <Link className="navbar-brand" to="/">
+                                    <span className="bold">
+                                        J
+                                    </span>
+                                    <span className="thin">
+                                        am
+                                    </span>   
+                                </Link>
                             </div>
                         </div>
 
@@ -56,7 +63,11 @@ class Nav extends Component {
                     <div className="container">
                         {/* moto */}
                         <div className="col-6">
-                            <div className="navbar-quote">Sweet deals that stick.</div>
+                            <div className="navbar-quote">
+                                    <span className="thin">
+                                        Sweet deals that stick
+                                    </span>    
+                                </div>
                         </div>
 
                         {/*<!-- Nav links -->*/}
@@ -65,15 +76,15 @@ class Nav extends Component {
 
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/account">
-                                            <img src={accountSvg} className="svg-btn" alt=""/> 
+                                        <Link className="nav-link nav-icon" to="/account">
+                                            <img src={accountSvg} className="svg-btn" alt=""/>
                                         </Link>
                                     </li>
                                 : null}
                                 
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/product-new">
+                                        <Link className="nav-link nav-icon" to="/product-new">
                                             <img src={newAdSvg} className="svg-btn" alt=""/> 
                                         </Link>
                                     </li>
@@ -81,14 +92,14 @@ class Nav extends Component {
 
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="">
+                                        <Link className="nav-link nav-icon" to="">
                                             <img src={notificationSvg} className="svg-btn" alt=""/> 
                                         </Link>
                                     </li>
                                 : null}
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="" id="shop-btn">
+                                    <Link className="nav-link nav-icon" to="" id="shop-btn">
                                         <img src={shopSvg} className="svg-btn" alt=""/> 
                                     </Link>
                                 </li>
@@ -96,14 +107,14 @@ class Nav extends Component {
                                 {/*<!-- login button -->*/}
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                        <Link to="" className="nav-link nav-icon" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                             <img src={logoutSvg} className="svg-btn" id="logout" alt=""/>
-                                        </button>
+                                        </Link>
                                     </li> 
                                 :  <li className="nav-item">
-                                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                        <Link to="" className="nav-link nav-icon" data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                             <img src={loginSvg} className="svg-btn" id="login" alt=""/> 
-                                        </button>
+                                        </Link>
                                     </li> 
                                 }
                                 

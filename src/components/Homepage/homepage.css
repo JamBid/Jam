@@ -1,5 +1,18 @@
-.imgCard {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
+.card-image {
+    max-width: 150px;
+    max-height: 150px;
+    padding: 20px;
+}
+
+.card-img-overlay:hover {
+    background: rgba(127, 77, 184, .8);
+}
+
+.card-img-overlay-text {
+    font-size: 14pt;
+    font-weight: 600;
+    text-shadow: 0px 0px 8px #7f4db8;
+    height: 100%;
+    position: relative;
+    top: 40%;
 }
