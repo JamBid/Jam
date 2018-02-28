@@ -3,11 +3,11 @@ import axios from "axios";
 export default {
   // Gets all recent products
   getRecentProducts: function() {
-    return axios.get("/product/recent");
+    return axios.get("/prod/recent");
   },
   // Gets the product with the given id
   getProduct: function(id) {
-    return axios.get("/product/" + id);
+    return axios.get("/prod/" + id);
   },
   //gets a specific user info
   getUser: function(id) {
