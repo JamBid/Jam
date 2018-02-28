@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import io from 'socket.io-client';
+import '../Product.css';
 
 import API from '../../utils/API';
 
 import QA from '../QA';
 import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
+
 
 class Product extends Component {
     constructor(props){
@@ -139,23 +141,18 @@ class Product extends Component {
                 {/*<!-- New Product form -->*/}
                 <div className="row">
 
-                    {/* media pane */}
-                    <div className="col-4 ml-auto m-5">
-                        <ProdImages  images={this.state.images} />
-                    </div>
-
                     {/* bid pane */}
-                    <div className="col-7">
+                    <div className="col-md-7 col-sm-12">
                         {/* card */}
                         <div className="card form-area">
-                            <div className="card-body form-area">
+                            <div className="card-body form-area form-shrink">
 
                                 {/* form */}
                                 <form action='' method='POST' className="form-sign-up" encType="multipart/form-data">
                                     
                                     {/* title */}
                                     <div className="form-group">
-                                        <div className="form-control form-header">
+                                        <div className="form-control form-header text-center">
                                             <h5 id="title">{this.state.prodName}</h5>
                                         </div> 
                                     </div>
@@ -197,7 +194,7 @@ class Product extends Component {
                                     </div>
 
                                     {/* end time */}
-                                    <div className="form-group field-input">
+                                    <div className="form-group field-input form-shrink">
                                         <div className="input-group">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text input-md form-btn-b">End Time</span>
@@ -256,10 +253,16 @@ class Product extends Component {
                             </div> {/* -card body */}
                         </div> {/* -card form */}
                     </div> {/* -col */}
+
+                    {/* media pane */}
+                    <div className="col-md-4  col-sm-12 h-100">
+                        <ProdImages  images={this.state.images} />
+                    </div>
+
                 </div>  {/* -row */}
 
                 {/* map */}
-                <div className="row mt-3">
+                <div className="form-group">
                     <div className="col-12">
                         <div className="card form-input">
                                 <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>
@@ -278,7 +281,7 @@ class Product extends Component {
 
 
                 {/* description */}
-                <div className="row mt-5">
+                <div className="form-group">
                     <div className="col-12">
                         <div className="card form-input">
                             <h4 className="card-header form-header">Description</h4>
@@ -290,7 +293,7 @@ class Product extends Component {
                 </div>
 
                 {/* return policy */}
-                <div className="row mt-5">
+                <div className="form-group">
                     <div className="col-12">
                         <div className="card form-input">
                             <h4 className="card-header form-header">Policy</h4>

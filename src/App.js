@@ -8,6 +8,7 @@ import Homepage from './components/Homepage';
 import Account from './components/Account';
 import Product from './components/Product';
 import ProductNew from './components/ProductNew';
+import ProductUpdate from './components/ProductUpdate';
 import NoMatch from "./components/NoMatch";
 import Search from "./components/Search";
 
@@ -45,6 +46,7 @@ class App extends Component {
               <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
               <Route path="/product/:id" render={props => <Product userId={this.state.userId} />}/>
               <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} />} />
+              <Route path="/product-update/:id"render={props => <ProductUpdate userId={this.state.userId} />} />
               <Route component={NoMatch} />
             </Switch>
           </div>
