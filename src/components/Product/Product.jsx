@@ -5,7 +5,7 @@ import '../Product.css';
 
 import API from '../../utils/API';
 
-import QA from '../QA';
+import Questions from '../Questions';
 import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
 
@@ -305,7 +305,7 @@ class Product extends Component {
                 </div>
 
                 {/* question answer */}
-                <QA productId={this.state.id}/>
+                <Questions productId={this.state.id}/>
             </div>
         )
     }

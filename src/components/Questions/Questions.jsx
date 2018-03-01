@@ -1,22 +1,27 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import API from '../../utils/API';
+import Answers from '../Answers';
 
-import './QA.css';
+import './Questions.css';
 
 
-class QA extends Component {
+class Questions extends Component {
     constructor(props){
         super(props);
 
         this.state = {
             prodId: props.productId,
+            userId: props.userId || null,
             questions: []
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({prodId:nextProps.productId});
+        this.setState({
+            prodId:nextProps.productId,
+            userId: nextProps.userId
+        });
     }
 
     componentWillMount() {
@@ -62,6 +67,11 @@ class QA extends Component {
         .catch(err => console.log(err));
     }
 
+    //function to submit an answer
+    submitAnswer = (qId) => {
+
+    }
+
     render() {
         return (
             <div>
@@ -83,28 +93,7 @@ class QA extends Component {
                                                 <br/>
                                             </div>
                                             <div id={i+1} className={i===0?"collapse":"collapse"} data-parent="#accordion-qa">
-                                            <div className="list-group list-group-flush">
-                                                {q.answers.map((a,j) =>
-                                                    <div key={j+1} className="list-group-item form-text">
-                                                        <div>{a.note}</div>
-                                                        <footer className="blockquote-footer float-left">[username], {moment(a.createdTs).format('LLL')}</footer>
-                                                    </div>
-                                                )}
-                                            </div>
-                                                <div className="card-footer accordion-footer">
-                                                    {/* answer button */}
-                                                    <div className="form-group">
-                                                        <div className="input-group">
-                                                            <div className="input-group-prepend">
-                                                                <span className="input-group-text form-btn-b">Answer</span>
-                                                            </div>
-                                                            <input className="form-control form-input"  name="answer" /> 
-                                                            <div className="input-group-append">
-                                                                <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
-                                                            </div>
-                                                        </div>  {/*  -input-group */}
-                                                    </div> {/*  -form-group */}
-                                                </div> {/*  -card-footer */}
+                                                <Answers answers={q.answers} questionId={q.id} userId={this.state.userId}/>
                                             </div> {/*  -accordian content */}
                                         </div>
                                     )}
@@ -122,4 +111,4 @@ class QA extends Component {
     }
 }
 
-export default QA;
+export default Questions;
