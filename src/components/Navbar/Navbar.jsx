@@ -75,27 +75,21 @@ class Nav extends Component {
                             <ul className="nav float-right">
 
                                 {this.state.userId !== null ?
-                                    <li className="nav-item">
+                                    [<li key={"a"} className="nav-item">
                                         <Link className="nav-link nav-icon" to="/account">
                                             <img src={accountSvg} className="svg-btn" alt=""/>
                                         </Link>
-                                    </li>
-                                : null}
-                                
-                                {this.state.userId !== null ?
-                                    <li className="nav-item">
+                                    </li>,
+                                    <li key={"new"} className="nav-item">
                                         <Link className="nav-link nav-icon" to="/product-new">
                                             <img src={newAdSvg} className="svg-btn" alt=""/> 
                                         </Link>
-                                    </li>
-                                : null}
-
-                                {this.state.userId !== null ?
-                                    <li className="nav-item">
+                                    </li>,
+                                    <li key={"not"}className="nav-item">
                                         <Link className="nav-link nav-icon" to="">
                                             <img src={notificationSvg} className="svg-btn" alt=""/> 
                                         </Link>
-                                    </li>
+                                    </li>]
                                 : null}
 
                                 <li className="nav-item">
