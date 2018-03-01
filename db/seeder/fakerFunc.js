@@ -1,4 +1,8 @@
+//imports the faker js library
 const faker = require('faker');
+
+//imports the list of accepted categories
+const list = require('../../src/categoryList');
 
 const getRandomPerson = function(){
     let firstName = faker.name.firstName();
@@ -25,10 +29,17 @@ const getRandomBid = function(min, max){
 
 const getRandomProd = function(){
     let productName = faker.commerce.productName();
-    let department = faker.commerce.department();
+    let department = null;
     let price = faker.commerce.price(10, 999, 2);
     let description = faker.lorem.sentences();
     let endDate = faker.date.future();
+
+    //logic to pull a random category
+    let keys = Object.keys(list);
+    //loops till an array is not picked
+    do{
+        department = list[keys[Math.floor(Math.random()*keys.length)]];
+    }while(Array.isArray(department));
 
     return ({
         'productName': productName,

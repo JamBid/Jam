@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import API from '../../utils/API';
 import './Search.css';
 
+import list from '../../categoryList';
+
 class Search extends Component {
     constructor(props){
         super(props);
@@ -56,6 +58,7 @@ class Search extends Component {
     }
 
     render() {
+        let keys = Object.keys(list);
         return (
             <div>
                 {/*<!-- search results -->*/}
@@ -63,14 +66,20 @@ class Search extends Component {
                     {this.state.products.map((p,i) => (
                         i === 0 || p.category !== this.state.products[i-1].category ?
                             <div key={"c_"+(i+1)}>
+                                {/*figures out the header name*/}
+                                {keys.map((k,i) => (
+                                    list[k] === p.category ?
+                                    <h2 key={"h_"+i}>{k}</h2>
+                                    :null
+                                ))}
                                 {this.state.products.map((p2,j) => (
                                     p2.category === p.category ?
                                     <div key={"p_"+(j+1)} className="p-2 my-flex-item">
-                                        <Link to={`/product/${p.id}`} >
+                                        <Link to={`/product/${p2.id}`} >
                                             <div className="card card-area">
-                                                <img className="card card-image search-image " src={p.images[0].image} alt=""/>
+                                                <img className="card card-image search-image " src={p2.images[0].image} alt=""/>
                                                 <div className="card-img-overlay search-img-overlay">
-                                                    <p>{p.category}: {p.prodName}</p>
+                                                    <p>{p2.prodName}</p>
                                                 </div>
                                             </div>
                                         </Link>
