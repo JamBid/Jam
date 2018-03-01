@@ -12,70 +12,149 @@ class Answers extends Component {
         this.state = {
             questionId: props.questionId,
             userId: props.userId || null,
-            answers: props.answers || []
+            productId: props.productId,
+            answers: [],
+            socket: props.socket,
+            userAnswer: ""
         }
+    }
+
+    componentDidMount(){
+        this.loadAs();
+        this.receive();
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({
             questionId:nextProps.questionId,
             userId: nextProps.userId,
-            answers: nextProps.answers
+            productId: nextProps.productId,
+            socket: nextProps.socket
+        },this.loadAs);
+    }
+
+    //function that is used when there is a change on an input
+    handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]:value
         });
     }
 
-    //function for loading user info
-    loadQs = () => {
+    //promise function to get user info for an answer
+    getUs = (a) =>{
+        return new Promise(function(resolve, reject){
+            API.getUser(a.userId)
+            .then(res => {
+                if(res.data)
+                    a.userInfo = res.data[0];
+                else
+                    a.userInfo = {}
+                return resolve(a);
+            })
+            .catch(function(error){
+                return reject(error);
+            });
+        });
+    }
+
+    //function get answers
+    loadAs = () => {
         let obj = this;
 
-        API.getQuestions(this.state.prodId)
-        .then( res => {
-            let questions = res.data;
-            //generates an array of the promises
-            let qPromises = [];
-            for(let i in questions){
-                qPromises.push(this.getAs(questions[i]))
-            }
+        if(obj.state.questionId){
+            API.getAnswers(obj.state.questionId)
+            .then( res => {
+                let answers = res.data;
+                //generates an array of the promises
+                let aPromises = [];
+                for(let i in answers){
+                    aPromises.push(this.getUs(answers[i]))
+                }
 
-            //runs through all the promises
-            Promise.all(qPromises)
-                .then(function(results){
-                    obj.setState({questions:results});
+                //runs through all the promises
+                Promise.all(aPromises)
+                    .then(function(results){
+                        obj.setState({answers:results});
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+        }
+    }
+
+    //function get 1 answer
+    loadSpecificAnswer = (answerId) => {
+        let obj = this;
+        if(obj.state.questionId){
+            API.getSpecificAnswer(obj.state.questionId, answerId)
+            .then( res => {
+                let answers = res.data[0];
+                this.getUs(answers)
+                .then(results => {
+                    let As = [
+                        ...this.state.answers,
+                        results
+                    ];
+                    obj.setState({answers:As,userAnswer:""});
                 })
                 .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+        }
     }
 
     //function to submit an answer
-    submitAnswer = (qId) => {
+    submitAnswer = (event) => {
+        event.preventDefault();
+        if(this.state.userAnswer && this.state.userAnswer !== "")
+            this.state.socket.emit('answer',
+                {questionId:this.state.questionId,
+                 userId:this.state.userId,
+                 answer:this.state.userAnswer,
+                 room: this.state.productId
+                }
+            );
+    }
 
+    //function to receive socket messages
+    receive = () => {
+        this.state.socket.on('answer', (msg) => {
+            if(msg.msg === 'success')
+                this.loadSpecificAnswer(msg.answerId);
+            else
+                console.log(msg.msg)
+        });
     }
 
     render() {
         return (
-            [<div className="list-group list-group-flush">
+            [<div key={"ap_"+this.state.questionId} className="list-group list-group-flush">
                 {this.state.answers.map((a,j) =>
                     <div key={j+1} className="list-group-item form-text">
                         <div>{a.note}</div>
-                        <footer className="blockquote-footer float-left">[username], {moment(a.createdTs).format('LLL')}</footer>
+                        <footer className="blockquote-footer float-left">{a.userInfo ? a.userInfo.userName : null}, {moment(a.createTs).format('LLL')}</footer>
                     </div>
                 )}
             </div>,
-            <div className="card-footer accordion-footer">
-                {/* answer button */}
-                <div className="form-group">
-                    <div className="input-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text form-btn-b">Answer</span>
-                        </div>
-                        <input className="form-control form-input" name="answer" /> 
-                        <div className="input-group-append">
-                            <button className="btn btn-md btn-block form-btn" type="submit">Submit</button>
-                        </div>
-                    </div>  {/*  -input-group */}
-                </div> {/*  -form-group */}
-            </div>]
+            this.state.userId ?
+                <div key={"ai"} className="card-footer accordion-footer">
+                    {/* answer button */}
+                    <form className="form-group">
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text form-btn-b">Answer</span>
+                            </div>
+                            <input className="form-control form-input" name="userAnswer" value={this.state.userAnswer} onChange={this.handleChange}/> 
+                            <div className="input-group-append">
+                                <button className="btn btn-md btn-block form-btn" type="submit" onClick={this.submitAnswer}>Submit</button>
+                            </div>
+                        </div>  {/*  -input-group */}
+                    </form> {/*  -form-group */}
+                </div>
+            :null]
         )
     }
 }

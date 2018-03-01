@@ -13,14 +13,16 @@ class Questions extends Component {
         this.state = {
             prodId: props.productId,
             userId: props.userId || null,
-            questions: []
+            questions: [],
+            socket: props.socket
         }
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({
             prodId:nextProps.productId,
-            userId: nextProps.userId
+            userId: nextProps.userId,
+            socket: nextProps.socket
         });
     }
 
@@ -35,7 +37,6 @@ class Questions extends Component {
             API.getAnswers(q.id)
             .then(answers => {
                 q.answers = answers.data;
-                console.log(q);
                 return resolve(q);
             })
             .catch(function(error){
@@ -82,7 +83,6 @@ class Questions extends Component {
                             <h4 className="card-header form-header">Q&A</h4>
                             <div className="card-block">
                                 <div id="accordion-qa" className="">
-
                                     {this.state.questions.map((q,i) => 
                                         <div key={i+1} className="card accordion">
                                             <div className="card-header accordion-header">
@@ -93,12 +93,10 @@ class Questions extends Component {
                                                 <br/>
                                             </div>
                                             <div id={i+1} className={i===0?"collapse":"collapse"} data-parent="#accordion-qa">
-                                                <Answers answers={q.answers} questionId={q.id} userId={this.state.userId}/>
+                                                <Answers questionId={q.id} userId={this.state.userId} socket={this.state.socket} productId={this.state.prodId}/>
                                             </div> {/*  -accordian content */}
                                         </div>
                                     )}
-                                    
-
                                 </div> {/*  -accordian-qa */}
 
                             </div> {/* -card-block */}

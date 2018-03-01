@@ -33,6 +33,10 @@ export default {
   getAnswers: function(questId){
     return axios.get("/answers/"+questId);
   },
+  //gets all the answers for a question
+  getSpecificAnswer: function(questId,answerId){
+    return axios.get("/answers/"+questId+"/"+answerId);
+  },
   //gets all products based on categories and/or search term
   getProdCategorySearch: function(category,search){
     return axios.get("/prod/search",{

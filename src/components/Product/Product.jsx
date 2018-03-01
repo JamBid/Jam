@@ -47,11 +47,9 @@ class Product extends Component {
     componentDidMount(){
         this.state.socket.emit('room', this.state.id);
         this.receive();
-        console.log("I mounted")
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("I got a new id")
         this.setState({userId:nextProps.userId})
     }
 
@@ -305,7 +303,7 @@ class Product extends Component {
                 </div>
 
                 {/* question answer */}
-                <Questions productId={this.state.id}/>
+                <Questions productId={this.state.id} userId={this.state.userId} socket={this.state.socket}/>
             </div>
         )
     }
