@@ -51,19 +51,20 @@ class Questions extends Component {
 
         API.getQuestions(this.state.prodId)
         .then( res => {
-            let questions = res.data;
-            //generates an array of the promises
-            let qPromises = [];
-            for(let i in questions){
-                qPromises.push(this.getAs(questions[i]))
-            }
+            //let questions = res.data;
+            obj.setState({questions:res.data});
+            // //generates an array of the promises
+            // let qPromises = [];
+            // for(let i in questions){
+            //     qPromises.push(this.getAs(questions[i]))
+            // }
 
-            //runs through all the promises
-            Promise.all(qPromises)
-                .then(function(results){
-                    obj.setState({questions:results});
-                })
-                .catch(err => console.log(err));
+            // //runs through all the promises
+            // Promise.all(qPromises)
+            //     .then(function(results){
+                //     obj.setState({questions:results});
+                // })
+                // .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
     }
