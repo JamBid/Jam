@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import jwt from 'jsonwebtoken';
+
+
 import Nav from './components/Navbar';
 import API from './utils/API';
 
@@ -12,6 +15,8 @@ import ProductUpdate from './components/ProductUpdate';
 import NoMatch from "./components/NoMatch";
 import Search from "./components/Search";
 
+const cert = "phrase";
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -21,12 +26,33 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    let obj = this;
+    let token = JSON.parse(sessionStorage.getItem("JamBid"));
+    if(token){
+      if(token.token)
+        jwt.verify(token.token, cert, (err, decode) => {
+          if(err) console.log("err",err);
+
+          if(decode)
+            obj.setState({userId:decode.userId})
+        });
+    }
+  }
+
+  //login method
   handleClick = (userName, password) => {
     let obj = this;
     API.logUserIn(userName, password)
     .then(function(result){
       if(result.data[0]){
-        obj.setState({userId: result.data[0].id});
+        jwt.sign({userId: result.data[0].id}, cert, (err, token) => {
+          if (err) console.log("err", err);
+          else {
+            sessionStorage.setItem("JamBid", JSON.stringify({ token:token, time: new Date() }));
+            obj.setState({userId: result.data[0].id});
+          }
+        });
       }
     })
     .catch(function(error){
