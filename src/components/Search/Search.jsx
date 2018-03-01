@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
+import './Search.css';
 
 class Search extends Component {
     constructor(props){
@@ -10,10 +11,10 @@ class Search extends Component {
             products: [],
             search:props.location.search ? this.decodeUrl(props.location.search.split('=')) : "",
             category:props.location.state ? props.location.state.category :
-            window.location.pathname.substr(window.location.pathname.lastIndexOf('/')+1,
-            window.location.pathname.indexOf('?') >-1 ?
-            window.location.pathname.indexOf('?')-window.location.pathname.lastIndexOf('/') :
-            window.location.pathname.length - window.location.pathname.lastIndexOf('/')-1),
+                window.location.pathname.substr(window.location.pathname.lastIndexOf('/')+1,
+                window.location.pathname.indexOf('?') >-1 ?
+                window.location.pathname.indexOf('?')-window.location.pathname.lastIndexOf('/') :
+                window.location.pathname.length - window.location.pathname.lastIndexOf('/')-1),
             update:props.location.state ? props.location.state.load : false //used to prevent a loop
         }
     }
@@ -57,33 +58,28 @@ class Search extends Component {
     render() {
         return (
             <div>
-                {/*<!-- breadcrumb or search menu -->*/}
-
-
                 {/*<!-- search results -->*/}
-                <div className="container ">
-                    <div className="d-flex align-content-between flex-wrap justify-content-center">
-                        {this.state.products.map((p,i) => (
-                            i === 0 || p.category !== this.state.products[i-1].category ?
-                                <div key={"c_"+(i+1)}>
-                                    {this.state.products.map((p2,j) => (
-                                        p2.category === p.category ?
-                                        <div key={"p_"+(j+1)} className="p-4 my-flex-item">
-                                            <Link to={`/product/${p.id}`} >
-                                                <div className="card card-area">
-                                                    <img className="card card-image" src={p.images[0].image} alt=""/>
-                                                    <div className="card-img-overlay">
-                                                        <p>{p.category}: {p.prodName}</p>
-                                                    </div>
+                <div className="d-flex align-content-between flex-wrap justify-content-center">
+                    {this.state.products.map((p,i) => (
+                        i === 0 || p.category !== this.state.products[i-1].category ?
+                            <div key={"c_"+(i+1)}>
+                                {this.state.products.map((p2,j) => (
+                                    p2.category === p.category ?
+                                    <div key={"p_"+(j+1)} className="p-2 my-flex-item">
+                                        <Link to={`/product/${p.id}`} >
+                                            <div className="card card-area">
+                                                <img className="card card-image search-image " src={p.images[0].image} alt=""/>
+                                                <div className="card-img-overlay search-img-overlay">
+                                                    <p>{p.category}: {p.prodName}</p>
                                                 </div>
-                                            </Link>
-                                        </div>
-                                    :null))}
-                                </div>
-                            :
-                            null
-                        ))}
-                    </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                :null))}
+                            </div>
+                        :
+                        null
+                    ))}
                 </div>
             </div>
         )

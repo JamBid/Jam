@@ -72,15 +72,15 @@ class TimeRemaining extends Component {
             this.state.endTime ?
                 this.state.endTime.isAfter(current)?
                 <div>
-                    {this.state.days > 0 ? `Days: ${this.state.days}`: null}
-                    {this.state.hours > 0 ? `Hours: ${this.state.hours}`: null}
-                    {this.state.minutes > 0 ? `Miuntes: ${this.state.minutes}`: null}
-                    Seconds: {this.state.seconds}
+                    {this.state.days > 0 ? `${this.state.days} days, `: null}
+                    {this.state.hours > 0 ? `${this.state.hours} hours, `: null}
+                    {this.state.minutes > 0 ? `${this.state.minutes} min, `: null}
+                   {this.state.seconds} sec
                 </div>
                 :
-                <div>Sold!</div>
+                <div className="text-muted">>Sold!</div>
             :
-            <div>Not Available.</div>
+            <div className="text-muted">Not Available.</div>
         )
     }
 }
