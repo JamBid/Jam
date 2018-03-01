@@ -1,52 +1,58 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import API from '../../utils/API';
 import './homepage.css';
 
+import automotiveSvg from './images/automotive.svg';
+import electronicSvg from './images/electronic.svg';
+import furnitureSvg from './images/furniture.svg';
+
+
 class Homepage extends Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            products: []
-        }
-    }
-
-    componentDidMount() {
-        this.loadRecentProds();
-    }
-
-    loadRecentProds = () => {
-        API.getRecentProducts()
-            .then( res => {
-                this.setState({products: res.data})
-            })
-            .catch(err => console.log(err))
-    }
 
     render() {
         return (
+
             <div>
                 {/*<!-- Homepage -->*/}
-                <div className="container ">
-                    <div className="d-flex align-content-between flex-wrap justify-content-center">
-                        {this.state.products.map((p,i) => (
-                            <div key={i} className="p-4 my-flex-item">
-                                <Link to={`/product/${p.id}`} >
-                                    <div className="card rounded-circle border-dark">
-                                        <div className="card-body home-category text-center">
-                                            <img className="imgCard" src={p.images[0].image} alt=""/>
-                                            <p>{p.prodName}</p>
-                                        </div>
-                                    </div>
-                                </Link>
+                <div className="d-flex align-content-between flex-wrap justify-content-center">
+
+                    <Link to="/search/Automotives">
+                        <div className="p-2 my-flex-item">
+                            <div className="card home-card">
+                                <img className="card card-image home-image" src={automotiveSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center ">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Automotive</span>
+                                </div>
                             </div>
-                        ))}                    
-                    </div>
+                        </div>
+                    </Link>
+
+                    <Link to="/search/Electronics">
+                        <div className="p-2 my-flex-item">
+                            <div className="card card-area">
+                                <img className="card card-image home-image" src={electronicSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Electronics</span>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link to="/search/Furniture">
+                        <div className="p-2 my-flex-item">
+                            <div className="card card-area">
+                                <img className="card card-image home-image" src={furnitureSvg} alt=""/>
+                                <div className="card-img-overlay home-img-overlay text-center">
+                                    <span className="card-img-overlay-text home-img-overlay-text">Furniture</span>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+
                 </div>
             </div>
         )
-    }
+    } 
 }
 
 export default Homepage;

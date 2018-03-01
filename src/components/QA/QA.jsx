@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import API from '../../utils/API';
+
+import './QA.css';
+
 
 class QA extends Component {
     constructor(props){
@@ -26,6 +30,7 @@ class QA extends Component {
             API.getAnswers(q.id)
             .then(answers => {
                 q.answers = answers.data;
+                console.log(q);
                 return resolve(q);
             })
             .catch(function(error){
@@ -61,7 +66,7 @@ class QA extends Component {
         return (
             <div>
                 {/* question answer */}
-                <div className="row mt-5">
+                <div className="form-group">
                     <div className="col-12">
                         <div className="card">
                             <h4 className="card-header form-header">Q&A</h4>
@@ -69,21 +74,23 @@ class QA extends Component {
                                 <div id="accordion-qa" className="">
 
                                     {this.state.questions.map((q,i) => 
-                                        <div key={i+1} className="card accordion ">
+                                        <div key={i+1} className="card accordion">
                                             <div className="card-header accordion-header">
-                                            <h5 className="mb-0">
-                                                <button className="btn" data-toggle="collapse" data-target={`#${i+1}`} aria-expanded="true" aria-controls="collapseOne">
-                                                    Question {i+1}: {q.note}
-                                                </button>
+                                                <blockquote className="blockquote form-text" data-toggle="collapse" data-target={`#${i+1}`} aria-expanded="true" aria-controls="collapseOne">
+                                                        <h5>{q.note}</h5> 
+                                                        <footer className="blockquote-footer float-left">[username], {moment(q.createdTs).format('LLL')}</footer>
+                                                </blockquote>
                                                 <br/>
-                                            </h5>
                                             </div>
-                                            <div id={i+1} className={i===0?"collapse show":"collapse"} data-parent="#accordion-qa">
+                                            <div id={i+1} className={i===0?"collapse":"collapse"} data-parent="#accordion-qa">
+                                            <div className="list-group list-group-flush">
                                                 {q.answers.map((a,j) =>
-                                                    <div key={j+1} className="card-body">
-                                                        Answer {j+1}: {a.note}
+                                                    <div key={j+1} className="list-group-item form-text">
+                                                        <div>{a.note}</div>
+                                                        <footer className="blockquote-footer float-left">[username], {moment(a.createdTs).format('LLL')}</footer>
                                                     </div>
                                                 )}
+                                            </div>
                                                 <div className="card-footer accordion-footer">
                                                     {/* answer button */}
                                                     <div className="form-group">

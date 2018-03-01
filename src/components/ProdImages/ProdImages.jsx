@@ -20,7 +20,7 @@ class ProdImages extends Component {
 
     render() {
         return (
-            <Carousel className="carousel">
+            <Carousel className="carousel mx-auto">
                 {this.state.images.map((img, i) => (
                     <div key={i}>
                         <img src={img.image} alt={`slide ${i}`}/>

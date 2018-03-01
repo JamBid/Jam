@@ -1,5 +1,31 @@
-.imgCard {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
+.home-card {
+    border: none;
+}
+
+.home-image {
+    width: 150px !important;
+    height: 150px !important;
+    padding: 20px;
+    margin: -1px;
+    background: rgba(127, 77, 184, 1);
+    border-radius: 0px;
+    border: none;
+}
+
+.home-img-overlay {
+    border: none;
+}
+
+.home-img-overlay:hover {
+    background: rgba(127, 77, 184, .8);
+}
+
+.home-img-overlay-text {
+    font-size: 14pt;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0px 0px 8px #7f4db8;
+    height: 100%;
+    position: relative;
+    top: 40%;
 }
