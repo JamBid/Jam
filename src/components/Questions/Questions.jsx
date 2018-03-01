@@ -31,40 +31,13 @@ class Questions extends Component {
             this.loadQs();
     }
 
-    //promise function to get answers for a question
-    getAs = (q) =>{
-        return new Promise(function(resolve, reject){
-            API.getAnswers(q.id)
-            .then(answers => {
-                q.answers = answers.data;
-                return resolve(q);
-            })
-            .catch(function(error){
-                return reject(error);
-            });
-        });
-    }
-
     //function for loading user info
     loadQs = () => {
         let obj = this;
 
         API.getQuestions(this.state.prodId)
         .then( res => {
-            //let questions = res.data;
             obj.setState({questions:res.data});
-            // //generates an array of the promises
-            // let qPromises = [];
-            // for(let i in questions){
-            //     qPromises.push(this.getAs(questions[i]))
-            // }
-
-            // //runs through all the promises
-            // Promise.all(qPromises)
-            //     .then(function(results){
-                //     obj.setState({questions:results});
-                // })
-                // .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
     }

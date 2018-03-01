@@ -30,7 +30,7 @@ class Product extends Component {
             allowBids:false,
             userBid: 0,
             highestBid:{
-                amount:"None"
+                amount:null
             }
         }
     }
@@ -208,14 +208,14 @@ class Product extends Component {
                                         <div className="form-group split">
                                                 <div className="input-group">
                                                     <label className="form-control form-header text-center">
-                                                        Highest Bid
+                                                        {this.state.highestBid.amount ? "Highest Bid" : "Starting Price"}
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
                                                             <span className="form-btn-b" id="dollar-sign"> $ </span>
                                                         </div>
                                                         <label className="form-control form-textarea form-input text-center" id="high-bid">
-                                                            {this.state.highestBid.amount}
+                                                            {this.state.highestBid.amount ? this.state.highestBid.amount : this.state.startingPrice}
                                                         </label>                                         
                                                     </div>
                                                 </div> {/* -bid-group */}

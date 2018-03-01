@@ -17,7 +17,31 @@ placeBid = (msg, socket, nsp) => {
         1
     )
     .then(function(result){
-        if(result.length === 0 || result[0].amount < msg.msg.bid){
+        if(result.length === 0){
+            db.products.selectAllWithMultCon({'id':msg.msg.prodId})
+            .then(result =>{
+                if(result[0].startingPrice < msg.msg.bid){
+                    db.bids.insertOne(
+                        ['amount','buyerId','prodId'],
+                        [msg.msg.bid, msg.msg.userId, msg.msg.prodId]
+                    ).
+                    then(res => {
+                        nsp.in("prod"+msg.room).emit('bid', {msg:'success'});
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        socket.emit('bid','error')
+                    })
+                }
+                else
+                    socket.emit('bid',{msg:'too low'})
+            })
+            .catch(function(error){
+                console.log(error);
+                socket.emit('bid',{msg:'error'})
+            });
+        }      
+        else if(result[0].amount < msg.msg.bid){
             db.bids.insertOne(
                 ['amount','buyerId','prodId'],
                 [msg.msg.bid, msg.msg.userId, msg.msg.prodId]
@@ -61,8 +85,6 @@ module.exports = function(io){
 
         //handles joining
         socket.on('room',(msg) =>{
-            console.log('Chat msg:', msg+" ID: "+socket.client.id);
-
             if(socket.room)
                 socket.leave(socket.room);
             
