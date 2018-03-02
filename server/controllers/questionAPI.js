@@ -1,6 +1,19 @@
 const db = require('../models/models');
 const router = require("express").Router();
 
+//route for /question/prod id/question id
+router.route('/:pid/:qid')
+    .get(function(req, res){
+        db.questions.selectAllWithMultCon({'productId':req.params.pid, 'id':req.params.qid})
+        .then(function(results){
+            res.json(results)
+        })
+        .catch(function(error){
+            console.log(error);
+            res.sendStatus(500);
+        });
+    })
+
 //route for /question/id where id is the product id
 router.route('/:id')
     .get(function(req, res){
