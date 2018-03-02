@@ -77,6 +77,21 @@ submitAnswer = (msg,socket,nsp) => {
     })
 }
 
+//function to handle new answers
+submitQuestion = (msg,socket,nsp) => {
+    db.questions.insertOne(
+        ['productId','userId','note'],
+        [msg.prodId,msg.userId,msg.question]
+    )
+    .then(res => {
+        nsp.in("prod"+msg.room).emit('question', {msg:'success',questionId:res});
+    })
+    .catch(error => {
+        console.log(error);
+        socket.emit('question','error')
+    })
+}
+
 //channel for socket.io for a specific product
 module.exports = function(io){
     const nsp = io.of("/prod");
@@ -99,6 +114,11 @@ module.exports = function(io){
         //sending messages out to the room for new answers
         socket.on('answer', (msg) => {
             submitAnswer(msg,socket,nsp)
+        })
+
+        //sending messages out to the room for new questions
+        socket.on('question', (msg) => {
+            submitQuestion(msg,socket,nsp)
         })
 
         // disconnect is fired when a client leaves the server

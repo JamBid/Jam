@@ -95,7 +95,7 @@ class Product extends Component {
             else if(msg.msg === 'too low')
                 console.log("too low")
             else
-                console.log(msg.msg)
+                console.log(msg)
             
         });
     }

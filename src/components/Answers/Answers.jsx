@@ -125,7 +125,7 @@ class Answers extends Component {
             if(msg.msg === 'success')
                 this.loadSpecificAnswer(msg.answerId);
             else
-                console.log(msg.msg)
+                console.log(msg)
         });
     }
 
