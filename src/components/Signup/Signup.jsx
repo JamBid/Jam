@@ -15,12 +15,12 @@ const required = (value, props) => {
   }
 };
 
-const letterNumber = /^[a-zA-Z0-9\-_]{4,}$/;
+const letterNumber = /^[a-zA-Z0-9\-_]{4,10}$/;
 
 const userName = (value) =>{
 if (!value.match(letterNumber)){
     return <span className="form-error is-visible">
-    {value} Select letters, numbers and at least 4 characters</span>;
+    {value} Your Username can be 4-10 characters and it must consist of letters and numbers only.</span>;
     }
 };
 
