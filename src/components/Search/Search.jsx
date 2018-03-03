@@ -36,8 +36,6 @@ class Search extends Component {
         if(!this.state.update)
             this.loadSearchProds();
             this.state.currentTime = new Date();
-
-            // console.log(this.state.products)
     }
 
     componentWillReceiveProps(nextProps){
