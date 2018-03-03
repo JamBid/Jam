@@ -115,8 +115,6 @@ git push heroku master
 * [Socket.io](https://socket.io/)
 * [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
 * [react-datepicker](https://www.npmjs.com/package/react-datepicker)
-* [passport](https://github.com/themikenicholson/passport)
-* [passport-jwt](https://github.com/themikenicholson/passport-jwt)
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 
 ### Dev packages
