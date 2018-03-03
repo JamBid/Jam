@@ -61,7 +61,7 @@ class App extends Component {
 
     //logout method
     handleClickLogout = () => {
-      sessionStorage.removeItem("JamBid");
+      this.setState({userId:null},sessionStorage.removeItem("JamBid"));
     }
 
   render() {

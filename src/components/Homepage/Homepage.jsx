@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 import Moment from 'react-moment';
 import API from '../../utils/API';
+import list from '../../categoryList';
 import './homepage.css';
 
 import automotiveSvg from './images/automotive.svg';
@@ -38,8 +39,8 @@ class Homepage extends Component {
                 {/*<!-- Homepage -->*/}
                 <div className="d-flex align-content-between flex-wrap justify-content-center">
 
-                    <Link to="/search/Automotive?search=">
-                        <div className="p-2 my-flex-item">
+                    <Route render={({history})=> 
+                        <div className="p-2 my-flex-item" onClick={ () =>{history.push('/search/Automotive?search=', {category: list["Automotive"].join(",") , load:false} )}} >
                             <div className="card home-card">
                                 <img className="card-image home-image" src={automotiveSvg} alt=""/>
                                 <div className="card-img-overlay home-img-overlay text-center ">
@@ -47,10 +48,10 @@ class Homepage extends Component {
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    }/>
 
-                    <Link to="/search/Electronics?search=">
-                        <div className="p-2 my-flex-item">
+                    <Route render={({history})=> 
+                        <div className="p-2 my-flex-item" onClick={ () =>{history.push('/search/Electronic?search=', {category: list["Electronics"].join(",") , load:false} )}} >
                             <div className="card card-area">
                                 <img className="card-image home-image" src={electronicSvg} alt=""/>
                                 <div className="card-img-overlay home-img-overlay text-center">
@@ -58,10 +59,10 @@ class Homepage extends Component {
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    }/>
 
-                    <Link to="/search/Furniture?search=">
-                        <div className="p-2 my-flex-item">
+                    <Route render={({history})=> 
+                        <div className="p-2 my-flex-item" onClick={ () =>{history.push('/search/Furniture?search=', {category: list["Furniture"].join(",") , load:false} )}} >
                             <div className="card card-area">
                                 <img className="card-image home-image" src={furnitureSvg} alt=""/>
                                 <div className="card-img-overlay home-img-overlay text-center">
@@ -69,7 +70,7 @@ class Homepage extends Component {
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    }/>
 
                 </div>
 

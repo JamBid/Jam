@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
+import list from '../../categoryList';
 import './Search.css';
 
 
@@ -61,7 +62,7 @@ class Search extends Component {
     }
 
     render() {
-
+        let keys = Object.keys(list);
 
         return (
             <div>                
@@ -69,7 +70,13 @@ class Search extends Component {
                     i === 0 || p.category !== this.state.products[i-1].category ?
 
                         <div key={"p_"+(i+1)} className="row card card-area form-area mb-5">
-                             <h4 className="card-header text-center form-header">{p.category}</h4>
+
+                            {/*figures out the header name*/}
+                            {keys.map((k,i) => (
+                                list[k] === p.category ?
+                                <h4 className="card-header text-center form-header" key={"h_"+i}>{k}</h4>
+                                :null
+                            ))}
 
                             <div className="col-12 p-5">
                                 <div className="row  justify-content-center">

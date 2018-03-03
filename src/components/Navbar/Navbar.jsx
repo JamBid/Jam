@@ -32,12 +32,6 @@ class Nav extends Component {
         this.setState({userId: nextProps.userId});
     }
 
-
-    handleClickLogout = (event) => {
-        this.setState({userId: null})
-    }
-
-
     render() {
       return (
         <div>
@@ -108,7 +102,7 @@ class Nav extends Component {
                                 {/*<!-- login button -->*/}
                                 {this.state.userId !== null ?
                                     <li className="nav-item">
-                                        <Link to="/" className="nav-link nav-icon log-btn"  data-toggle="collapse" data-target="#navcollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">      
+                                        <Link to="/" className="nav-link nav-icon log-btn"  aria-label="Toggle navigation">      
                                             <img src={logoutSvg} className="svg-btn" alt="" onClick={this.state.handleLogout}/>
                                         </Link>
                                     </li> 
