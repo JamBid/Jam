@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Moment from 'react-moment';
+import API from '../../utils/API';
 import './homepage.css';
 
 import automotiveSvg from './images/automotive.svg';
@@ -9,6 +11,26 @@ import furnitureSvg from './images/furniture.svg';
 
 class Homepage extends Component {
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            products: []
+        }
+    }
+
+    componentDidMount() {
+        this.loadRecentProds();
+    }
+
+    loadRecentProds = () => {
+        API.getRecentProducts()
+            .then( res => {
+                this.setState({products: res.data})
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
         return (
 
@@ -16,7 +38,7 @@ class Homepage extends Component {
                 {/*<!-- Homepage -->*/}
                 <div className="d-flex align-content-between flex-wrap justify-content-center">
 
-                    <Link to="/search/Automotives">
+                    <Link to="/search/Automotive?search=">
                         <div className="p-2 my-flex-item">
                             <div className="card home-card">
                                 <img className="card-image home-image" src={automotiveSvg} alt=""/>
@@ -27,7 +49,7 @@ class Homepage extends Component {
                         </div>
                     </Link>
 
-                    <Link to="/search/Electronics">
+                    <Link to="/search/Electronics?search=">
                         <div className="p-2 my-flex-item">
                             <div className="card card-area">
                                 <img className="card-image home-image" src={electronicSvg} alt=""/>
@@ -38,7 +60,7 @@ class Homepage extends Component {
                         </div>
                     </Link>
 
-                    <Link to="/search/Furniture">
+                    <Link to="/search/Furniture?search=">
                         <div className="p-2 my-flex-item">
                             <div className="card card-area">
                                 <img className="card-image home-image" src={furnitureSvg} alt=""/>
@@ -50,6 +72,44 @@ class Homepage extends Component {
                     </Link>
 
                 </div>
+
+                    <div className="d-flex align-content-between flex-wrap justify-content-center">
+                        <div className="card card area form-area mt-5">
+                            <h4 className="card-header text-center form-header">Recent Sweet Deals</h4>
+                            <div className="col-12">
+                                <div className="row  justify-content-center">
+
+                                    {this.state.products.map((p,i) => (
+                                        
+                                        // result image and text overlay
+                                        <div key={i} className="p-4 my-flex-item">
+                                            <div className="card">
+                                                <div className="card-block">
+                                                    <Link to={`/product/${p.id}`} >
+                                                        <div className="card-img search-image">
+                                                                <img className="card-img search-image" src={p.images[0].image} alt=""/>
+                                                                <div className="card-img-overlay search-img-overlay">
+                                                                    <p className="card-text">{p.prodName}</p>
+                                                                </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+
+                                            {/* end timestamp */}
+                                            <div className="timestamp text-center">
+                                                Ends:  
+                                                <span> <Moment format="DD/MM LTS">{p.endTimestamp}</Moment></span>
+                                            </div>
+                                        </div>
+
+                                    ))}  
+
+                                </div>   
+                            </div>
+                        </div>    
+                    </div>
+
             </div>
         )
     } 
