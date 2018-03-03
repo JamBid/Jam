@@ -7,7 +7,7 @@ class Login extends Component {
         this.state = {
             userName: "",
             password: "",
-            handleClick: props.onClick
+            handleClickLogin: props.onClick,
         }
     }
 
@@ -21,9 +21,9 @@ class Login extends Component {
         });
     }
 
-    handleClick = (event) => {
+    handleClickLogin = (event) => {
         event.preventDefault();
-        this.state.handleClick(this.state.userName, this.state.password);
+        this.state.handleClickLogin(this.state.userName, this.state.password);
     }
 
     render() {
@@ -42,7 +42,7 @@ class Login extends Component {
                                     <div className="form-group has-success">
                                         <input className="form-control input-md form-input" autoComplete="current-password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} type="password" />
                                     </div>
-                                    <button className="btn btn-md btn-block form-btn" onClick={this.handleClick} type="submit" id="login-btn">Login</button>
+                                    <button className="btn btn-md btn-block form-btn" onClick={this.handleClickLogin} type="submit" id="login-btn">Login</button>
                                 </form>
                             </fieldset>
                         </div>

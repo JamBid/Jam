@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt from 'jsonwebtoken';
 
-
 import Nav from './components/Navbar';
 import API from './utils/API';
 
@@ -41,7 +40,7 @@ class App extends Component {
   }
 
   //login method
-  handleClick = (userName, password) => {
+  handleClickLogin = (userName, password) => {
     let obj = this;
     API.logUserIn(userName, password)
     .then(function(result){
@@ -60,11 +59,16 @@ class App extends Component {
     })
   }
 
+    //logout method
+    handleClickLogout = () => {
+      sessionStorage.removeItem("JamBid");
+    }
+
   render() {
     return (
       <Router>
         <div>
-          <Nav userId={this.state.userId} handleLogin={this.handleClick}/>
+        <Nav userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

@@ -16,6 +16,7 @@ class Signup extends Component {
             userName:""
         }
     }
+    
     //function to update the state when the element detects a change
     handleChange = (event) => {
         const name = event.target.name;
