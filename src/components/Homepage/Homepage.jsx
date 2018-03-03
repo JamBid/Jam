@@ -99,8 +99,8 @@ class Homepage extends Component {
 
                                             {/* end timestamp */}
                                             <div className="timestamp text-center">
-                                                Ends:  
-                                                <span> <Moment format="DD/MM LTS">{p.endTimestamp}</Moment></span>
+                                                <span>Ends: </span>
+                                                <span><Moment format="MM/DD/YY LT">{p.endTimestamp}</Moment></span>
                                             </div>
                                         </div>
 
