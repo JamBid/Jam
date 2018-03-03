@@ -16,9 +16,9 @@ class NoMatch extends Component {
                                 Sorry, an error has occured, Requested page not found!
                             </div>
                             <div className="error-actions mt-4">
-                                <a href="/" className="btn btn-primary btn-md">
-                                    <span className="glyphicon glyphicon-home" role="img" aria-labelledby="house glyph icon">🏚️</span>
-                                     Take Me Home 
+                                <a href="/" className="btn form-toggle">
+                                Take Me Home  <br/>
+                                    <span className="glyphicon glyphicon-home" role="img" aria-labelledby="house glyph icon" style={{"fontSize" : "80px"}}>🏚️</span>
                                 </a>
                             </div>
                         </div>

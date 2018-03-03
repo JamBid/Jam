@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
+import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
 import './Search.css';
 
-import list from '../../categoryList';
 
 class Search extends Component {
     constructor(props){
@@ -34,6 +34,9 @@ class Search extends Component {
         //this if is to prevent a loop
         if(!this.state.update)
             this.loadSearchProds();
+            this.state.currentTime = new Date();
+
+            // console.log(this.state.products)
     }
 
     componentWillReceiveProps(nextProps){
@@ -58,39 +61,45 @@ class Search extends Component {
     }
 
     render() {
-        let keys = Object.keys(list);
+
+
         return (
-            <div>
-                {/*<!-- search results -->*/}
-                <div className="d-flex align-content-between flex-wrap justify-content-center">
-                    {this.state.products.map((p,i) => (
-                        i === 0 || p.category !== this.state.products[i-1].category ?
-                            <div key={"c_"+(i+1)}>
-                                {/*figures out the header name*/}
-                                {keys.map((k,i) => (
-                                    list[k] === p.category ?
-                                    <h2 key={"h_"+i}>{k}</h2>
-                                    :null
-                                ))}
-                                {this.state.products.map((p2,j) => (
-                                    p2.category === p.category ?
-                                    <div key={"p_"+(j+1)} className="p-2 my-flex-item">
-                                        <Link to={`/product/${p2.id}`} >
-                                            <div className="card card-area">
-                                                <img className="card card-image search-image " src={p2.images[0].image} alt=""/>
-                                                <div className="card-img-overlay search-img-overlay">
-                                                    <p>{p2.prodName}</p>
-                                                </div>
+            <div>                
+                {this.state.products.map((p,i) => (
+                    i === 0 || p.category !== this.state.products[i-1].category ?
+
+                        <div key={"p_"+(i+1)} className="row card card-area form-area mb-5">
+                             <h4 className="card-header text-center form-header">{p.category}</h4>
+
+                            <div className="col-12 p-5">
+                                <div className="row  justify-content-center">
+                                {/* <div className="row  justify-content-around"> */}
+
+                                    {this.state.products.map((p2,j) => (
+                                        p2.category === p.category ?
+
+                                        <div  key={"p2_"+(j+1)} className="card m-2">
+                                            <div className="card-block">
+                                                <Link to={`/product/${p.id}`} >
+                                                    <img className="card-img search-image" src={p2.images[0].image} alt=""/>
+                                                    <div className="card-img-overlay search-img-overlay">
+                                                        <p className="card-text">{p2.prodName}</p>
+                                                    </div>
+                                                </Link>  
                                             </div>
-                                        </Link>
-                                    </div>
-                                :null))}
+                                        </div>
+
+                                    :null))}
+                                
+                                </div>
                             </div>
-                        :
-                        null
-                    ))}
-                </div>
+                        </div>
+                    :
+                    null
+                ))}
+
             </div>
+
         )
     }
 }

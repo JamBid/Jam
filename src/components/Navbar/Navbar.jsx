@@ -44,10 +44,10 @@ class Nav extends Component {
                             <div className="mx-auto">
                                 <Link className="navbar-brand" to="/">
                                     <span className="bold">
-                                        J
+                                        JAM
                                     </span>
                                     <span className="thin">
-                                        am
+                                        BID
                                     </span>   
                                 </Link>
                             </div>
@@ -64,7 +64,7 @@ class Nav extends Component {
                         {/* moto */}
                         <div className="col-6">
                             <div className="navbar-quote">
-                                    <span className="thin">
+                                    <span>
                                         Sweet deals that stick
                                     </span>    
                                 </div>
