@@ -9,7 +9,7 @@ import moment from 'moment';
 import API from '../../utils/API';
 import list from '../../categoryList';
 
-import QA from '../QA';
+import Questions from '../Questions';
 import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
 
@@ -342,7 +342,7 @@ class ProductNew extends Component {
                     </div>
 
                     {/* question answer */}
-                    <QA productId={this.state.id}/>
+                    <Questions productId={this.state.id}/>
 
                 </form>
             </div>

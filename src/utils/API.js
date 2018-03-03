@@ -29,9 +29,17 @@ export default {
   getQuestions: function(prodId){
     return axios.get("/questions/"+prodId);
   },
+  //gets all the questions for a product
+  getSpecificQuestion: function(qId,pId){
+    return axios.get("/questions/"+pId+"/"+qId);
+  },
   //gets all the answers for a question
   getAnswers: function(questId){
     return axios.get("/answers/"+questId);
+  },
+  //gets a specified answer
+  getSpecificAnswer: function(questId,answerId){
+    return axios.get("/answers/"+questId+"/"+answerId);
   },
   //gets all products based on categories and/or search term
   getProdCategorySearch: function(category,search){

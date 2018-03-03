@@ -5,7 +5,7 @@ import '../Product.css';
 
 import API from '../../utils/API';
 
-import QA from '../QA';
+import Questions from '../Questions';
 import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
 
@@ -30,7 +30,7 @@ class Product extends Component {
             allowBids:false,
             userBid: 0,
             highestBid:{
-                amount:"None"
+                amount:null
             }
         }
     }
@@ -47,11 +47,9 @@ class Product extends Component {
     componentDidMount(){
         this.state.socket.emit('room', this.state.id);
         this.receive();
-        console.log("I mounted")
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("I got a new id")
         this.setState({userId:nextProps.userId})
     }
 
@@ -97,7 +95,7 @@ class Product extends Component {
             else if(msg.msg === 'too low')
                 console.log("too low")
             else
-                console.log(msg.msg)
+                console.log(msg)
             
         });
     }
@@ -210,14 +208,14 @@ class Product extends Component {
                                         <div className="form-group split">
                                                 <div className="input-group">
                                                     <label className="form-control form-header text-center">
-                                                        Highest Bid
+                                                        {this.state.highestBid.amount ? "Highest Bid" : "Starting Price"}
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
                                                             <span className="form-btn-b" id="dollar-sign"> $ </span>
                                                         </div>
                                                         <label className="form-control form-textarea form-input text-center" id="high-bid">
-                                                            {this.state.highestBid.amount}
+                                                            {this.state.highestBid.amount ? this.state.highestBid.amount : this.state.startingPrice}
                                                         </label>                                         
                                                     </div>
                                                 </div> {/* -bid-group */}
@@ -305,7 +303,7 @@ class Product extends Component {
                 </div>
 
                 {/* question answer */}
-                <QA productId={this.state.id}/>
+                <Questions productId={this.state.id} userId={this.state.userId} socket={this.state.socket}/>
             </div>
         )
     }
