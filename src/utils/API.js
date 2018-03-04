@@ -59,5 +59,14 @@ export default {
         }
       }
     )
+  },
+  //function to get the lat and lon with google api
+  getLatLon: function(loc){
+    return axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+      params:{
+        key:process.env.REACT_APP_GOOGLEMAP,
+        address:loc
+      }
+    });
   }
 };

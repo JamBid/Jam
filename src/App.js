@@ -40,7 +40,7 @@ class App extends Component {
     }
   }
 
-  //login method
+  //login method (will tokenized the userId and store in the sessionStorage)
   handleClick = (userName, password) => {
     let obj = this;
     API.logUserIn(userName, password)
