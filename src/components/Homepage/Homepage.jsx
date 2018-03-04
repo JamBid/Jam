@@ -33,6 +33,11 @@ class Homepage extends Component {
     }
 
     render() {
+
+        // let keys = Object.keys(list);
+        // console.log(list["Automotive"].join(","));
+        // console.log(JSON.stringify(list["Automotive"].join(",")));
+
         return (
 
             <div>
@@ -40,7 +45,7 @@ class Homepage extends Component {
                 <div className="d-flex align-content-between flex-wrap justify-content-center">
 
                     <Route render={({history})=> 
-                        <div className="p-2 my-flex-item" onClick={ () =>{history.push('/search/Automotive?search=', {category: list["Automotive"].join(",") , load:false} )}} >
+                        <div className="p-2 my-flex-item" onClick={ () =>{history.push('/search/Automotive?search=', {category:list["Automotive"].join(", ") , load:false} )}} >
                             <div className="card home-card">
                                 <img className="card-image home-image" src={automotiveSvg} alt=""/>
                                 <div className="card-img-overlay home-img-overlay text-center ">
