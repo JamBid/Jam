@@ -131,7 +131,7 @@ class Answers extends Component {
 
     render() {
         return (
-            [<div key={"ap_"+this.state.questionId} className="list-group list-group-flush px-4">
+            [<div key={"ap_"+this.state.questionId} className="list-group list-group-flush px-4 mb-4">
                 {this.state.answers.map((a,j) =>
                     <div key={j+1} className="list-group-item form-text">
                         <div>{a.note}</div>
