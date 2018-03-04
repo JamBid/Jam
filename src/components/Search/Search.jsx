@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
 import list from '../../categoryList';
@@ -35,7 +34,6 @@ class Search extends Component {
         //this if is to prevent a loop
         if(!this.state.update)
             this.loadSearchProds();
-            this.state.currentTime = new Date();
     }
 
     componentWillReceiveProps(nextProps){
