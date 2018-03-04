@@ -30,7 +30,7 @@ cd jam
 run `yarn install`
 ```
 
-**THIS STEP CANNOT BE SKIPPED ON ANY ENVIRONMENT**
+**THIS STEP CANNOT BE SKIPPED ON ANY ENVIRONMENT (where an .env file is needed)**
 
 *In the root directory of the app (Jam folder), create .env file with the following property: REACT_APP_GOOGLEMAP=**_Google Api Key_**
 
