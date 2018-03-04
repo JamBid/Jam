@@ -11,7 +11,6 @@ select{
 /* content container wrapper */
 .content {
   padding-top: 50px !important;
-  margin-bottom: 100px;
 }
 
 /* child of nav-items */
@@ -113,15 +112,15 @@ select{
 .accordion {
   border-radius: 0px !important;
   border: solid 1px #7f4db8;
-  border-top: none;
 }
-
 
 .accordion-header {
   background: none;
+  border-bottom: none;
 }
 
 .accordion-footer {
+  padding-top: 25px;
   border-top: none;
   background: none;
 }
