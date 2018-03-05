@@ -261,25 +261,7 @@ class Product extends Component {
                 </div>  {/* -row */}
 
                 {/* map */}
-                {this.state.location?
-                    <div className="form-group">
-                        <div className="col-12">
-                            <div className="card form-input">
-                                <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>
-                                <div className="card-body">
-                                    <div id="accordion-map" className="">
-                                        <div id="map" className="collapse" data-parent="#accordion-map">
-                                            <div style={{height:'500px'}}>
-                                                <Map address={this.state.location}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> {/* -accordion-qa */}
-                            </div> {/*  -card */}
-                        </div> {/*  -col-12 */}
-                    </div>
-                :null}
-
+                {this.state.location? <Map address={this.state.location}/> :null}
 
                 {/* description */}
                 <div className="form-group">
