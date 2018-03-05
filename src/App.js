@@ -22,7 +22,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userId: null
+      userId: null,
+      loginFailed:false
     }
   }
 
@@ -50,9 +51,12 @@ class App extends Component {
           if (err) console.log("err", err);
           else {
             sessionStorage.setItem("JamBid", JSON.stringify({ token:token, time: new Date() }));
-            obj.setState({userId: result.data[0].id});
+            obj.setState({userId: result.data[0].id, loginFailed:false});
           }
         });
+      }
+      else{
+        obj.setState({loginFailed:true});
       }
     })
     .catch(function(error){
@@ -64,7 +68,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav userId={this.state.userId} handleLogin={this.handleClick}/>
+          <Nav userId={this.state.userId} handleLogin={this.handleClick} loginFailed={this.state.loginFailed}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

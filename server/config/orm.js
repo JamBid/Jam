@@ -117,7 +117,7 @@ var orm = {
                     if(colsVals[i].vals.length >= 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
                         sql+=i +" IN (";
                         for(j in colsVals[i].vals){
-                            if(j > 0 && j < colsVals[i].vals.length-1)
+                            if(j > 0 && j < colsVals[i].vals.length)
                                 sql+=',';
 
                             sql+=connection.escape(colsVals[i].vals[j]);
@@ -173,7 +173,7 @@ var orm = {
                     if(colsVals[i].vals.length >= 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
                         sql+=i +" IN (";
                         for(j in colsVals[i].vals){
-                            if(j > 0 && j < colsVals[i].vals.length-1)
+                            if(j > 0 && j < colsVals[i].vals.length)
                                 sql+=',';
 
                             sql+=connection.escape(colsVals[i].vals[j]);
@@ -237,7 +237,7 @@ var orm = {
                     if(colsVals[i].vals.length >= 1 && colsVals[i].vals[0].toLowerCase() != 'all' && colsVals[i].vals[0].toLowerCase() != ''){
                         sql+=i +" IN (";
                         for(j in colsVals[i].vals){
-                            if(j > 0 && j < colsVals[i].vals.length-1)
+                            if(j > 0 && j < colsVals[i].vals.length)
                                 sql+=',';
 
                             sql+=connection.escape(colsVals[i].vals[j]);

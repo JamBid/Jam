@@ -23,12 +23,13 @@ class Nav extends Component {
 
         this.state={
             userId: props.userId,
-            handleLogin: props.handleLogin
+            handleLogin: props.handleLogin,
+            loginFailed:props.loginFailed
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({userId: nextProps.userId});
+        this.setState({userId: nextProps.userId, loginFailed: nextProps.loginFailed});
     }
 
     render() {
@@ -138,7 +139,7 @@ class Nav extends Component {
                                     </div>
                                 </div>
                                 <Signup />
-                                <Login onClick={this.state.handleLogin}/>
+                                <Login onClick={this.state.handleLogin} loginFailed={this.state.loginFailed}/>
                             </div>
                         </div>
                     </div>
