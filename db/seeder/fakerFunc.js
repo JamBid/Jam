@@ -1,8 +1,11 @@
 //imports the faker js library
-const faker = require('faker');
+const faker = require('faker/locale/en_us');
 
 //imports the list of accepted categories
 const list = require('../../src/categoryList');
+
+//imports a list of starbucks for real addresses
+const addressList = require('./starbucks_us_locations.json')
 
 const getRandomPerson = function(){
     let firstName = faker.name.firstName();
@@ -33,6 +36,9 @@ const getRandomProd = function(){
     let price = faker.commerce.price(10, 999, 2);
     let description = faker.lorem.sentences();
     let endDate = faker.date.future();
+    let location = addressList[Math.floor(Math.random()*addressList.length)].address;
+
+    location = location.substr(location.indexOf("_")+1,location.length).split("_").join(" ");
 
     //logic to pull a random category
     let keys = Object.keys(list);
@@ -46,7 +52,8 @@ const getRandomProd = function(){
         'department': department,
         'price': price,
         'description': description,
-        'endDate': endDate
+        'endDate': endDate,
+        'location': location
     });
 }
 

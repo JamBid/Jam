@@ -104,12 +104,6 @@ const insertRandomUser = function(count, max){
         person.userName = userName;
         person.password = password;
 
-        //sets up the product
-        let product = faker.getRandomProd();
-
-        //sets up random images for the product
-        let prodImages = faker.getRandomProdImage(Math.floor(Math.random() * 4)+1);
-
         let userId = null;
                 
         db.users.insertOne(
@@ -149,7 +143,7 @@ const insertRandomProd = function(count, max){
             db.prod_prodImages.insertNewProd(
                 ['prodName','category','description','startingPrice','location','endTimestamp','sellerId'],
                 ['productId','image','imageType'],
-                [product.productName,product.department,product.description,product.price,null,product.endDate,userId],
+                [product.productName,product.department,product.description,product.price,product.location,product.endDate,userId],
                 prodImages
             )
             .then(function(data){

@@ -8,9 +8,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the software and how to install them:
 
 * node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
+* Google Map API Key (You can obtain one here: [Get API Key](https://developers.google.com/maps/documentation/javascript/get-api-key))_You will need to create an .env file in the root directory._
 
 ### Installing
 
@@ -28,6 +29,11 @@ run `git clone https://github.com/JamBid/Jam.git` (If there are errors due to pe
 cd jam
 run `yarn install`
 ```
+
+**THIS STEP CANNOT BE SKIPPED ON ANY ENVIRONMENT (where an .env file is needed)**
+
+*In the root directory of the app (Jam folder), create .env file with the following property: REACT_APP_GOOGLEMAP=**_Google Api Key_**
+
 
 To run the app locally, use the following command:
 ```
@@ -72,29 +78,9 @@ After the seeder has finished, the login info will be as follow:
 In you editor of choice or cml, connect to the database and then run and commit the following code to the database:
 
 * [db/create_tables.sql](db/create_tables.sql)
+* In the settings of your app, reveal the Config Vars and add **REACT_APP_GOOGLEMAP** with a value of your Google API Key.
 
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
@@ -115,15 +101,14 @@ git push heroku master
 * [Socket.io](https://socket.io/)
 * [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
 * [react-datepicker](https://www.npmjs.com/package/react-datepicker)
-* [passport](https://github.com/themikenicholson/passport)
-* [passport-jwt](https://github.com/themikenicholson/passport-jwt)
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+* [react-google-maps](https://github.com/tomchentw/react-google-maps)
+* [Google Maps API](https://developers.google.com/maps/documentation/javascript/)
 
 ### Dev packages
 * [Faker](https://github.com/marak/Faker.js/)
 * [Concurrently](https://github.com/kimmobrunfeldt/concurrently)
 * [nodemon](https://nodemon.io/)
-* [morgan](https://www.npmjs.com/package/morgan)
 
 ## Authors
 
