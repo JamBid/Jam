@@ -17,3 +17,12 @@ button {
  /* font-weight: bold;*/
   font-size: 17px;
 }
+
+span {
+color:red;
+position:relative;
+}
+
+.error {
+	border-color: red;
+}

@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "classnames": "^2.2.5",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.1",
     "moment": "^2.20.1",
@@ -18,7 +19,6 @@
     "react-responsive-carousel": "^3.1.33",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",
-    "react-validation": "^3.0.7",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
     "validator": "^9.4.1"
