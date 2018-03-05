@@ -43,6 +43,7 @@ export default {
   },
   //gets all products based on categories and/or search term
   getProdCategorySearch: function(category,search){
+    console.log(category)
     return axios.get("/prod/search",{
       params:{
           category:category,
