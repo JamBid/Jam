@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 
 
 import './Navbar.css';
@@ -77,9 +77,13 @@ class Nav extends Component {
 
                                 {this.state.userId !== null ?
                                     [<li key={"a"} className="nav-item">
-                                        <Link className="nav-link nav-icon" to="/account">
-                                            <img src={accountSvg} className="svg-btn" alt=""/>
-                                        </Link>
+                                        <Route render={({history})=>
+                                            <div className="nav-link nav-icon"
+                                                style={{cursor: "pointer"}}
+                                                onClick={() => {history.push(`/account`, {viewUser:null})}}>
+                                                <img src={accountSvg} className="svg-btn" alt=""/>
+                                            </div>
+                                        }/>
                                     </li>,
                                     <li key={"new"} className="nav-item">
                                         <Link className="nav-link nav-icon" to="/product-new">

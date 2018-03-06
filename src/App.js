@@ -41,6 +41,10 @@ class App extends Component {
     }
   }
 
+  handleSessionCheck = () =>{
+    
+  }
+
   //login method (will tokenized the userId and store in the sessionStorage)
   handleClick = (userName, password) => {
     let obj = this;
@@ -73,7 +77,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Homepage}/>
               <Route path="/search/:category" component={Search} />
-              <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
+              <Route exact path="/account" render={props => <Account userId={this.state.userId} location={props.location} cert={cert}/>}/>
               <Route path="/product/:id" render={props => <Product userId={this.state.userId} />}/>
               <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} />} />
               <Route path="/product-update/:id"render={props => <ProductUpdate userId={this.state.userId} />} />

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import io from 'socket.io-client';
+import { Route } from 'react-router-dom';
+
+
 import '../Product.css';
 
 import API from '../../utils/API';
@@ -175,7 +177,13 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Seller</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <u><Link className="form-text"  to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></u>
+                                                <u><Route render={({history})=>
+                                                    <span className="form-text" style={{cursor: "pointer"}}
+                                                        onClick={() => {history.push(`/account`, {viewUser:this.state.sellerId})}}>
+                                                            {this.state.sellerName}
+                                                    </span>
+                                                    }/>
+                                                </u>
                                             </label>
                                         </div>
                                     </div>
