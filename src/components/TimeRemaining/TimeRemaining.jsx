@@ -78,7 +78,7 @@ class TimeRemaining extends Component {
                    {this.state.seconds} sec
                 </div>
                 :
-                <div className="text-muted">>Sold!</div>
+                <div className="text-muted">Sold!</div>
             :
             <div className="text-muted">Not Available.</div>
         )
