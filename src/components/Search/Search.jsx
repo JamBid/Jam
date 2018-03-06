@@ -40,17 +40,32 @@ class Search extends Component {
         let values = nextProps.location.search.split('=');
         values = this.decodeUrl(values);
 
+        let category = nextProps.location.state ? nextProps.location.state.category :
+                window.location.pathname.substr(window.location.pathname.lastIndexOf('/')+1,
+                window.location.pathname.indexOf('?') >-1 ?
+                window.location.pathname.indexOf('?')-window.location.pathname.lastIndexOf('/') :
+                window.location.pathname.length - window.location.pathname.lastIndexOf('/')-1);
+
+        let update = nextProps.location.state ? nextProps.location.state.load : false;
+
         this.setState(
             {
                 search:values,
-                category:nextProps.location.state.category,
-                update: nextProps.location.state.load
+                category:category,
+                update: update
             }
         )
     }
 
     loadSearchProds = () => {
-        API.getProdCategorySearch(this.state.category,this.state.search)
+        let category = list[this.state.category.substr(0,1).toUpperCase()+this.state.category.substr(1)];
+
+        if(Array.isArray(category))
+            category = category.join(",");
+        else if(!category)
+            category = this.state.category;
+
+        API.getProdCategorySearch(category,this.state.search)
             .then( res => {
                 this.setState({products: res.data,update:true})
             })

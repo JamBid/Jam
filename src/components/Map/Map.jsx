@@ -11,7 +11,7 @@ class ReactGoogleMaps extends Component{
         this.state = {
             position:props.position||null,
             defaultZoom: 11,
-            address:props.location||null
+            address:props.address||null
         }
     }
 
@@ -42,7 +42,8 @@ class ReactGoogleMaps extends Component{
     }
 
     componentDidMount(){
-        this.getLatLon();
+        if(this.state.address)
+            this.getLatLon();
     }
 
     componentWillReceiveProps(nextProps){
@@ -51,7 +52,22 @@ class ReactGoogleMaps extends Component{
 
     render(){
         return (
-            this.state.position ? this.MyMapComponent({position:this.state.position, defaultZoom:this.state.defaultZoom}) : null
+            <div className="form-group">
+                <div className="col-12">
+                    <div className="card form-input">
+                        <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>
+                        <div className="card-body">
+                            <div id="accordion-map" className="">
+                                <div id="map" className="collapse" data-parent="#accordion-map">
+                                    <div style={{height:'500px'}}>
+                                        {this.state.position ? this.MyMapComponent({position:this.state.position, defaultZoom:this.state.defaultZoom}) : null}
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {/* -accordion-qa */}
+                    </div> {/*  -card */}
+                </div> {/*  -col-12 */}
+            </div>
         )
     }
 }

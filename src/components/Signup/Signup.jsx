@@ -15,14 +15,20 @@ class Signup extends Component {
             retypePassword: {value:"", isValid: true, message:[], isRequired: true},
             userName: {value:"", isValid: true, message:[], isRequired: true},
             image: {value:"", isValid: true, message:[], isRequired: true},
-            terms: {checked: false , isValid: true, message:[], isRequired: true}
+            terms: {value: false , isValid: true, message:[], isRequired: true}
         }
     }
     //function to update the state when the element detects a change
     handleChange = (event) => {
       
         const name = event.target.name;
-        const value = event.target.value.trim();
+        let value = "";
+        const type = event.target.type;
+
+        if(type === 'checkbox')
+            value = event.target.checked;
+        else
+            value = event.target.value.trim();
 
         let obj = this.state[name];
         obj.value = value;
@@ -156,9 +162,9 @@ class Signup extends Component {
             }
         }
         else if(name === "terms"){
-            if(this.state[name].isRequired && !this.state[name].checked){
+            if(this.state[name].isRequired && !this.state[name].value){
                 errorMsg.push("Please indicate you agree with Terms and Conditions");
-                valid = false;
+                valid = true;
             }
         }
 
@@ -197,10 +203,10 @@ class Signup extends Component {
             <div>
 
                 {/*<!-- sign-up form -->*/}
-                <div className="card form-area ">
+                <div className="card form-area">
                     <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         {/*<!-- error modal display -->*/}
-                        <div className="card card-body form-area ">
+                            <div className="card card-body form-area ">
                             {this.checkForErrors() ?
                                 <div className="alert alert-danger">
                                     {keys.map((k,i) =>(
@@ -210,10 +216,11 @@ class Signup extends Component {
                                     ))}
                                 </div>
                             :null}
+
                             {/*<!-- <h3 className="text-center mb-4">Sign-up</h3> -->*/}
                             <fieldset>
                                 <form>
-                                    <div className="form-group has-error">
+                                    <div className="form-group">
                                         <input className={this.state.userName.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                             placeholder="Username (letters and numbers only)"
                                             name="userName"
@@ -223,8 +230,8 @@ class Signup extends Component {
                                             onChange={this.handleChange} 
                                             onBlur={this.handleFocusOut}/>
                                     </div>
-                                    <div className="form-inline mb-3">
-                                        <div className="form-group has-error">
+                                    <div className="form-row mb-3">
+                                        <div className="col-6 r-pad">
                                             <input className={this.state.firstName.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                                 placeholder="First Name"
                                                 name="firstName"
@@ -233,7 +240,7 @@ class Signup extends Component {
                                                 onChange={this.handleChange}
                                                 onBlur={this.handleFocusOut} />
                                         </div>
-                                        <div className="form-group has-error">
+                                        <div className="col-6 l-pad">
                                             <input className={this.state.lastName.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                                 placeholder="Last Name"
                                                 name="lastName"
@@ -244,7 +251,7 @@ class Signup extends Component {
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                     </div>
-                                    <div className="form-group has-error">
+                                    <div className="form-group">
                                         <input className={this.state.email.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                             placeholder="E-mail Address"
                                             name="email"
@@ -254,8 +261,8 @@ class Signup extends Component {
                                             onBlur={this.handleFocusOut} />
                                     </div>
 
-                                    <div className="form-inline mb-3">
-                                        <div className="form-group has-success">
+                                    <div className="form-row mb-3">
+                                        <div className="col-6 r-pad">
                                             <input className={this.state.password.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                                 placeholder="Password"
                                                 name="password"
@@ -265,7 +272,7 @@ class Signup extends Component {
                                                 onChange={this.handleChange}
                                                 onBlur={this.handleFocusOut} />
                                         </div>
-                                        <div className="form-group has-success">
+                                        <div className="col-6 l-pad">
                                             <input className={this.state.retypePassword.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                                 id="confirm-password"
                                                 placeholder="Confirm Password"
@@ -277,7 +284,17 @@ class Signup extends Component {
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                     </div>
-
+                                    <div className="checkbox">
+                                        <label className="small">
+                                            <input 
+                                            className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
+                                            type="checkbox"
+                                            name="terms" 
+                                            checked ={this.state.terms.value}
+                                            onChange={this.handleChange}
+                                            onBlur={this.handleFocusOut}/> I have read and agree to the terms of service.
+                                        </label>
+                                    </div>
                                     <div className="form-group">
                                         <input 
                                         type="file" 
@@ -288,17 +305,6 @@ class Signup extends Component {
                                         onBlur={this.handleFocusOut} />
                                     </div>
 
-                                    <div className="checkbox">
-                                        <label className="small ">
-                                            <input 
-                                            className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
-                                            type="checkbox"
-                                            name="terms" 
-                                            onChange={this.handleChange}
-                                           
-                                            onBlur={this.handleFocusOut}/> I have read and agree to the terms of service.
-                                        </label>
-                                    </div>
 
                                     <input className="btn btn-md btn-block form-btn"
                                         value="Sign Me Up"
