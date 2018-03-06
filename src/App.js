@@ -72,7 +72,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} loginFailed={this.state.loginFailed} handleLogout={this.handleClickLogout}/>
+        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout} loginFailed={this.state.loginFailed}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

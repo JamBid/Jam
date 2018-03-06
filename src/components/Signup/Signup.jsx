@@ -41,9 +41,8 @@ class Signup extends Component {
     }
 
     handleClick = (event) => {
-
         event.preventDefault();
-
+        
         for(let i in this.state)
             this.formValidation(i);
 
@@ -52,20 +51,22 @@ class Signup extends Component {
             let userName = this.state.userName;
 
         API.signUpNewUser({
-                email:this.state.email.value,
-                firstName:this.state.firstName.value,
-                lastName:this.state.lastName.value,
-                password:this.state.password.value,
-                userName:this.state.userName.value,
-                image:this.state.image.value,
-                imageType:null})
+            email:this.state.email.value,
+            firstName:this.state.firstName.value,
+            lastName:this.state.lastName.value,
+            password:this.state.password.value,
+            userName:this.state.userName.value,
+            image:this.state.image.value,
+            imageType: this.state.image.value ? "file": null
+        })
 
         .then(function(result){
             if(result.data.status === 'good') {
+                // if successful login -> collapse nav menu
                  this.state.toggle();
                 console.log("You signed up!");
             }
-            else {
+            else{
                 userName.isValid = false;
                 userName.message.push(result.data.msg);
 
@@ -310,7 +311,7 @@ class Signup extends Component {
                                         value="Sign Me Up"
                                         type="submit"
                                         id="signup-btn"
-                                        onClick={this.state.handleClick}/>
+                                        onClick={this.handleClick} />
                                 </form>
                             </fieldset>
                         </div>

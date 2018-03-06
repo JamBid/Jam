@@ -7,11 +7,11 @@ class Login extends Component {
         super(props);
 
         this.state = {
+            toggle: props.toggle,
             userName: {val:"", isValid: true, errors: [], isRequired: true},
             password: {val:"", isValid: true, errors: [], isRequired: true},
             handleClickLogin: props.onClick,
-            loginFailed: props.loginFailed,
-            toggle: props.toggle
+            loginFailed: props.loginFailed
         }
     }
 
