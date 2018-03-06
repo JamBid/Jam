@@ -43,6 +43,7 @@ export default {
   },
   //gets all products based on categories and/or search term
   getProdCategorySearch: function(category,search){
+    console.log(category)
     return axios.get("/prod/search",{
       params:{
           category:category,
@@ -59,5 +60,14 @@ export default {
         }
       }
     )
+  },
+  //function to get the lat and lon with google api
+  getLatLon: function(loc){
+    return axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+      params:{
+        key:process.env.REACT_APP_GOOGLEMAP,
+        address:loc
+      }
+    });
   }
 };

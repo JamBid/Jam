@@ -21,7 +21,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userId: null
+      userId: null,
+      loginFailed:false
     }
   }
 
@@ -49,9 +50,12 @@ class App extends Component {
           if (err) console.log("err", err);
           else {
             sessionStorage.setItem("JamBid", JSON.stringify({ token:token, time: new Date() }));
-            obj.setState({userId: result.data[0].id}, toggle);
+            obj.setState({userId: result.data[0].id, loginFailed:false}, toggle);
           }
         });
+      }
+      else{
+        obj.setState({loginFailed:true});
       }
     })
     .catch(function(error){
@@ -68,12 +72,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout}/>
+        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} loginFailed={this.state.loginFailed} handleLogout={this.handleClickLogout}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>
               <Route path="/search/:category" component={Search} />
-              <Route exact path="/account" render={props => <Account userId={this.state.userId} />}/>
+              <Route exact path="/account" render={props => <Account userId={this.state.userId} location={props.location} cert={cert}/>}/>
               <Route path="/product/:id" render={props => <Product userId={this.state.userId} />}/>
               <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} />} />
               <Route path="/product-update/:id"render={props => <ProductUpdate userId={this.state.userId} />} />

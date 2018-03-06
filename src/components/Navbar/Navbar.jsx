@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Collapse } from 'reactstrap';
-import {Link} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 
 import './Navbar.css';
 import accountSvg from './images/account.svg';
@@ -24,12 +24,14 @@ class Nav extends Component {
 
         this.state={
             userId: props.userId,
+            handleLogin: props.handleLogin,
+            loginFailed:props.loginFailed,
             collapse: false 
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({userId: nextProps.userId});
+        this.setState({userId: nextProps.userId, loginFailed: nextProps.loginFailed});
     }
 
     toggle() {
@@ -82,9 +84,13 @@ class Nav extends Component {
 
                                 {this.state.userId !== null ?
                                     [<li key={"a"} className="nav-item">
-                                        <Link className="nav-link nav-icon" to="/account">
-                                            <img src={accountSvg} className="svg-btn" alt=""/>
-                                        </Link>
+                                        <Route render={({history})=>
+                                            <div className="nav-link nav-icon"
+                                                style={{cursor: "pointer"}}
+                                                onClick={() => {history.push(`/account`, {viewUser:null})}}>
+                                                <img src={accountSvg} className="svg-btn" alt=""/>
+                                            </div>
+                                        }/>
                                     </li>,
                                     <li key={"new"} className="nav-item">
                                         <Link className="nav-link nav-icon" to="/product-new">
@@ -140,7 +146,7 @@ class Nav extends Component {
                                                 </div>
                                             </div>
                                             <Signup onClick={this.toggle} />
-                                            <Login userName={this.props.userName} password={this.props.password} onClick={this.props.handleLogin}  toggle={this.toggle} />
+                                            <Login userName={this.props.userName} password={this.props.password} onClick={this.props.handleLogin}  toggle={this.toggle} loginFailed={this.state.loginFailed} />
 
                                     </div>
                                 </div>

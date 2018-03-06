@@ -22,11 +22,14 @@ router.route('/signup')
             ["email","userName","firstName","lastName","password","image","imageType"],
             [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, req.body.image, req.body.imageType])
         .then(function(result) {
-            res.json(result);
+            res.json({status:'good',result:result});
         })
         .catch(function(error){
             console.log(error);
-            res.sendStatus(500);
+            if(error.code === 'ER_DUP_ENTRY')
+                res.json({status:'bad', msg:"Username already in use."});
+            else
+                res.sendStatus(500);
         });
     })
 

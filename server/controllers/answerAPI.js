@@ -1,7 +1,7 @@
 const db = require('../models/models');
 const router = require("express").Router();
 
-//route for /question/id
+//route for /question/question id/answer id
 router.route('/:qid/:aid')
     .get(function(req, res){
         db.answers.selectAllWithMultCon({'questionId':req.params.qid,'id':req.params.aid})

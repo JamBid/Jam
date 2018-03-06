@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
 import API from '../../utils/API';
 import './Account.css';
 
@@ -9,7 +11,9 @@ class Account extends Component {
         super(props);
 
         this.state = {
+            cert: props.cert,
             userId: props.userId,
+            viewUser: props.location ? props.location.state ? props.location.state.viewUser:null:null,
             userInfo: {
                 userName:"",
                 firstName:"",
@@ -29,18 +33,41 @@ class Account extends Component {
         }
     }
 
-    componentDidMount() {
-        if(this.state.userId)
+    componentWillMount() {
+        let obj = this;
+        let token = JSON.parse(sessionStorage.getItem("JamBid"));
+        if(token){
+            if(token.token)
+                jwt.verify(token.token, obj.state.cert, (err, decode) => {
+                if(err) console.log("err",err);
+
+                if(decode)
+                    obj.setState({userId:decode.userId},this.loadUser);
+                });
+        }
+        else
             this.loadUser();
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.location.state)
+            this.setState({viewUser:nextProps.location.state.viewUser},this.loadUser)
     }
 
     //function for loading user info
     loadUser = () => {
-        API.getUser(this.state.userId)
-        .then( res => {
-            this.setState({userInfo: res.data[0]})
-        })
-        .catch(err => console.log(err))
+        let id = null;
+        if(this.state.viewUser)
+            id = this.state.viewUser;
+        else
+            id = this.state.userId;
+
+        if(id)
+            API.getUser(id)
+            .then( res => {
+                this.setState({userInfo: res.data[0]})
+            })
+            .catch(err => console.log(err))
     }
 
     //function to submit change to server
@@ -164,7 +191,7 @@ class Account extends Component {
     render() {
         return (
             <div>
-                {!this.state.userId ? <Redirect to="/"/>:null}
+                {!(this.state.userId || this.state.viewId) ? <Redirect to="/"/>:null}
                 <div className="row">
                     <div className="col-12 text-center">
                         <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
@@ -177,7 +204,7 @@ class Account extends Component {
                     <div className="row  mx-auto">
                         <div className="col-12">
                             <h3 className="float-left">Personal Info</h3>
-                            {!this.state.edit ?
+                            {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                 <button className="btn btn-info float-right round-button" onClick={this.setEdit}>
                                     <i className="fa fa-pencil"></i>
                                 </button>
@@ -220,7 +247,7 @@ class Account extends Component {
                                     value={!this.state.edit ? this.state.userInfo.email : this.state.editInfo.email}
                                     onChange={this.handleInput}/>
                             </div>
-                            {this.state.editPassword ?
+                            {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                 <div>
                                     <br/>
                                     <br/>
@@ -233,28 +260,29 @@ class Account extends Component {
                                 </div>
                             :
                             null}
-                            {this.state.edit ?
+                            {this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                 <div>
                                     <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
                                     <input className="btn btn-md btn-danger" value="Cancel" readOnly onClick={this.cancelEdit}/>
-                                    {this.state.editPassword ?
+                                    {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                         <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
                                     :
                                         <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
                                     }
                                 </div>
                             : <div>
-                                {this.state.editPassword ?
+                                {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                     <div>
                                         <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
                                         <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
                                     </div>
                                 :
-                                    <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
+                                    this.state.viewUser === this.state.userId || this.state.viewUser === null ?
+                                        <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
+                                    :null
                                 }
                               </div>
                             }
-                            
                         </form>
                     </div>
                 </div>

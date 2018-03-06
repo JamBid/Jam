@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import io from 'socket.io-client';
+import { Route } from 'react-router-dom';
+
+
 import '../Product.css';
+import list from '../../categoryList';
 
 import API from '../../utils/API';
 
 import Questions from '../Questions';
 import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
+import Map from '../Map';
 
 
 class Product extends Component {
@@ -132,6 +136,7 @@ class Product extends Component {
     }
 
     render() {
+        let keys = Object.keys(list);
         return (
             <div>
                 {/* Product */}
@@ -162,7 +167,9 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text">{this.state.category}</span>
+                                                {keys.map((k,i) => (
+                                                    list[k] === this.state.category ? <span key={"pc_"+i} className="input-text">{k}</span>:null
+                                                ))}
                                             </label>
                                         </div>
                                     </div>
@@ -174,7 +181,13 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Seller</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <u><Link className="form-text"  to={`/account/${this.state.sellerId}`}>{this.state.sellerName}</Link></u>
+                                                <u><Route render={({history})=>
+                                                    <span className="form-text" style={{cursor: "pointer"}}
+                                                        onClick={() => {history.push(`/account`, {viewUser:this.state.sellerId})}}>
+                                                            {this.state.sellerName}
+                                                    </span>
+                                                    }/>
+                                                </u>
                                             </label>
                                         </div>
                                     </div>
@@ -186,7 +199,7 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Location</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text" id="location">{this.state.location}</span>                                            
+                                                <span className="input-text" id="location">{this.state.location ? this.state.location : 'No Location Provided'}</span>                                            
                                             </label> 
                                         </div>
                                     </div>
@@ -260,23 +273,7 @@ class Product extends Component {
                 </div>  {/* -row */}
 
                 {/* map */}
-                <div className="form-group">
-                    <div className="col-12">
-                        <div className="card form-input">
-                                <h4 className="card-header form-header" data-toggle="collapse" data-target="#map" aria-expanded="true" aria-controls="collapseOne">MAP</h4>
-                                <div className="card-body">
-                                    <div id="accordion-map" className="">
-                                        <div id="map" className="collapse" data-parent="#accordion-map">
-                                            <div className="card-body">
-                                                MAP GOES HERE
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> {/* -accordion-qa */}
-                        </div> {/*  -card */}
-                    </div> {/*  -col-12 */}
-                </div> {/*  -row */}
-
+                {this.state.location? <Map address={this.state.location}/> :null}
 
                 {/* description */}
                 <div className="form-group">
