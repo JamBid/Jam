@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 
 
 import '../Product.css';
+import list from '../../categoryList';
 
 import API from '../../utils/API';
 
@@ -135,6 +136,7 @@ class Product extends Component {
     }
 
     render() {
+        let keys = Object.keys(list);
         return (
             <div>
                 {/* Product */}
@@ -165,7 +167,9 @@ class Product extends Component {
                                                 <span className="input-group-text form-btn-b">Category</span>
                                             </div>
                                             <label className="form-control form-input">
-                                                <span className="input-text">{this.state.category}</span>
+                                                {keys.map((k,i) => (
+                                                    list[k] === this.state.category ? <span key={"pc_"+i} className="input-text">{k}</span>:null
+                                                ))}
                                             </label>
                                         </div>
                                     </div>
