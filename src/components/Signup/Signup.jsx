@@ -139,7 +139,7 @@ class Signup extends Component {
                 valid = false;   
             }
             else{
-                if(this.state[name].value.length < 4 && this.state[name].value === ""){
+                if(this.state[name].value.length < 4){
                     errorMsg.push("Password is too short");
                     valid = false;
                 }
