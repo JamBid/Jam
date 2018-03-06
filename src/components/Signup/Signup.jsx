@@ -13,7 +13,8 @@ class Signup extends Component {
             lastName:"",
             password: "",
             retypePassword:"",
-            userName:""
+            userName:"",
+            toggle: props.onClick
         }
     }
     
@@ -29,6 +30,10 @@ class Signup extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
+
+        // closes menu
+        this.state.toggle();
+        
         API.signUpNewUser({email:this.state.email,
                 firstName:this.state.firstName,
                 lastName:this.state.lastName,
@@ -127,7 +132,7 @@ class Signup extends Component {
                                         value="Sign Me Up"
                                         type="submit"
                                         id="signup-btn"
-                                        onClick={this.handleClick}/>
+                                        onClick={this.state.handleClick}/>
                                 </form>
                             </fieldset>
                         </div>
