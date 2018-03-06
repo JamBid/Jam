@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt from 'jsonwebtoken';
 
-
 import Nav from './components/Navbar';
 import API from './utils/API';
 
@@ -41,8 +40,8 @@ class App extends Component {
     }
   }
 
-  //login method (will tokenized the userId and store in the sessionStorage)
-  handleClick = (userName, password) => {
+  //login method
+  handleClickLogin = (userName, password, toggle) => {
     let obj = this;
     API.logUserIn(userName, password)
     .then(function(result){
@@ -51,7 +50,7 @@ class App extends Component {
           if (err) console.log("err", err);
           else {
             sessionStorage.setItem("JamBid", JSON.stringify({ token:token, time: new Date() }));
-            obj.setState({userId: result.data[0].id, loginFailed:false});
+            obj.setState({userId: result.data[0].id, loginFailed:false}, toggle);
           }
         });
       }
@@ -64,11 +63,16 @@ class App extends Component {
     })
   }
 
+  //logout method
+  handleClickLogout = () => {
+    this.setState({userId:null},sessionStorage.removeItem("JamBid"));
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Nav userId={this.state.userId} handleLogin={this.handleClick} loginFailed={this.state.loginFailed}/>
+        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout} loginFailed={this.state.loginFailed}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

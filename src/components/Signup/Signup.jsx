@@ -15,9 +15,11 @@ class Signup extends Component {
             retypePassword: {value:"", isValid: true, message:[], isRequired: true},
             userName: {value:"", isValid: true, message:[], isRequired: true},
             image: {value:"", isValid: true, message:[], isRequired: true},
-            terms: {value: false , isValid: true, message:[], isRequired: true}
+            terms: {value: false , isValid: true, message:[], isRequired: true},
+            toggle: props.onClick
         }
     }
+    
     //function to update the state when the element detects a change
     handleChange = (event) => {
       
@@ -39,9 +41,8 @@ class Signup extends Component {
     }
 
     handleClick = (event) => {
-
         event.preventDefault();
-
+        
         for(let i in this.state)
             this.formValidation(i);
 
@@ -50,17 +51,20 @@ class Signup extends Component {
             let userName = this.state.userName;
 
         API.signUpNewUser({
-                email:this.state.email.value,
-                firstName:this.state.firstName.value,
-                lastName:this.state.lastName.value,
-                password:this.state.password.value,
-                userName:this.state.userName.value,
-                image:this.state.image.value,
-                imageType:null})
+            email:this.state.email.value,
+            firstName:this.state.firstName.value,
+            lastName:this.state.lastName.value,
+            password:this.state.password.value,
+            userName:this.state.userName.value,
+            image:this.state.image.value,
+            imageType: this.state.image.value ? "file": null
+        })
 
         .then(function(result){
-            if(result.data.status === 'good')
-                console.log("You signed up!");
+            if(result.data.status === 'good') {
+                // if successful login -> collapse nav menu
+                 obj.state.toggle();
+            }
             else{
                 userName.isValid = false;
                 userName.message.push(result.data.msg);
@@ -102,7 +106,7 @@ class Signup extends Component {
                 valid = false;
             }
             else{
-                if(!this.state[name].value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+                if(!this.state[name].value.match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/)){
                     errorMsg.push("invalid Email");
                     valid = false;
                 }
@@ -183,10 +187,9 @@ class Signup extends Component {
         let errorFound = false;
 
         for(let i in this.state){
-            if(!this.state[i].isValid)
+            if(i !== "toggle" && !this.state[i].isValid)
                 errorFound = true;
         }
-
         return errorFound;
     }
     
@@ -197,7 +200,6 @@ class Signup extends Component {
 
        return (
             <div>
-
                 {/*<!-- sign-up form -->*/}
                 <div className="card form-area">
                     <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -206,9 +208,11 @@ class Signup extends Component {
                             {this.checkForErrors() ?
                                 <div className="alert alert-danger">
                                     {keys.map((k,i) =>(
-                                        this.state[k].message.map((m,j) =>(
-                                            <p key={i+"_"+j}>* {m}</p>
-                                        ))
+                                        k !== "toggle" ? 
+                                            this.state[k].message.map((m,j) =>(
+                                                <p key={i+"_"+j}>* {m}</p>
+                                            ))
+                                        : null
                                     ))}
                                 </div>
                             :null}

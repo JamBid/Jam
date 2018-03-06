@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import io from 'socket.io-client';
 import '../Product.css';
 
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
+// import moment from 'moment';
 
 import API from '../../utils/API';
 import list from '../../categoryList';
 
 import Questions from '../Questions';
-import TimeRemaining from '../TimeRemaining';
+// import TimeRemaining from '../TimeRemaining';
 import ProdImages from '../ProdImages';
 
 

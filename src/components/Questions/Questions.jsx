@@ -3,8 +3,6 @@ import moment from 'moment';
 import API from '../../utils/API';
 import Answers from '../Answers';
 
-import './Questions.css';
-
 
 class Questions extends Component {
     constructor(props){
@@ -137,12 +135,12 @@ class Questions extends Component {
                 {/* question answer */}
                 <div className="form-group">
                     <div className="col-12">
-                        <div className="card">
+                        <div className="card  card-area">
                             <h4 className="card-header form-header">Q&A</h4>
                             <div className="card-block">
                                 <div id="accordion-qa" className="">
                                     {this.state.questions.map((q,i) => 
-                                        <div key={i+1} className="card accordion">
+                                        <div key={i+1} className="border-bottom">
                                             <div className="card-header accordion-header">
                                                 <blockquote className="blockquote form-text" data-toggle="collapse" data-target={`#${i+1}`} aria-expanded="true" aria-controls="collapseOne">
                                                         <h5>{q.note}</h5> 
