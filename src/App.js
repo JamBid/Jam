@@ -41,10 +41,6 @@ class App extends Component {
     }
   }
 
-  handleSessionCheck = () =>{
-    
-  }
-
   //login method (will tokenized the userId and store in the sessionStorage)
   handleClick = (userName, password) => {
     let obj = this;
