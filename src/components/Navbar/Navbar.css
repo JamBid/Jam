@@ -20,22 +20,28 @@
 
 /* site quote under logo */
 .navbar-quote {
-    color: #440066;
-    font-size: 20px;
+    color: #7f4db8;
+    font-size: 25px;
     user-select: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-variant: small-caps;
 }
 
 .bold {
     font-family: 'Lato', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
+    letter-spacing: -3pt;
     color: #7f4db8;
 }
 
 .thin {
     font-family: 'Lato', sans-serif;
     font-weight: 100;
-    color: #440066;
-    font-variant: small-caps;
+    letter-spacing: -4pt;
+    font-size: 51.5px;
+    margin: 0 0 0 -5pt;
+    color: #7f4db8;
 }
 
 /* navbar icons */
@@ -85,7 +91,6 @@
 .log-btn {
     margin-left: 10px;
 }
-
 
 #navcollapse {
     background: #f6f3ff;

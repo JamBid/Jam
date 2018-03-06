@@ -108,12 +108,12 @@ const prod_prodimage = {
         });
     },
 
-    //function get a list of most recent products with their images
+    //function get a limited list of prodcuts with their images
     selectRecentAllLimit: function(limit){
         return new Promise(function(resolve, reject){
             prods.selectAllLimitOrder(
                 [
-                    {'createTs':'desc'}
+                    {'endTimestamp':'desc'}
                 ],
                 limit
             )

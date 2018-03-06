@@ -1,20 +1,25 @@
-/* card image area */
 .search-image {
-  max-height: 200px;
-  max-width: 200px;
+  object-fit: cover;
+  height: 150px;
+  width: 150px;
   border-radius: 0px;
-  background: rgba(127, 77, 184, 1);
   border: none;
   overflow: hidden;
 }
 
 /* text over card image */
 .search-img-overlay {
-  font-size: 8pt;
+  width:  150px;
+  font-size: 12pt;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
   color: white;
-  position: absolute;
-  height: 150px;
-  background: rgba(127, 77, 184, .3);
+  background: rgba(127, 77, 184, .2);
+  text-shadow: 0px 0px 4px black;
   overflow: hidden;
 }
 
+/* text over card image */
+.search-img-overlay:hover {
+  background: rgba(127, 77, 184, .8);
+}

@@ -10,12 +10,18 @@ class Login extends Component {
             userName: {val:"", isValid: true, errors: [], isRequired: true},
             password: {val:"", isValid: true, errors: [], isRequired: true},
             handleClick: props.onClick,
-            loginFailed: props.loginFailed
+            loginFailed: props.loginFailed,
+            toggle: props.toggle
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({loginFailed: nextProps.loginFailed});
+        let obj = this.state;
+
+        obj.userName.val = nextProps.userName;
+        obj.password.val = nextProps.password;
+        obj.loginFailed = nextProps.loginFailed;
+        this.setState(obj);
     }
 
     //function to validate the input
@@ -76,7 +82,7 @@ class Login extends Component {
         this.validateInputs('password');
 
         if(this.state.userName.isValid && this.state.password.isValid)
-            this.state.handleClick(this.state.userName.val, this.state.password.val);
+            this.state.handleClick(this.state.userName.val, this.state.password.val, this.state.toggle);
     }
 
     render() {

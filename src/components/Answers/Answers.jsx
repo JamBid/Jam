@@ -131,7 +131,7 @@ class Answers extends Component {
 
     render() {
         return (
-            [<div key={"ap_"+this.state.questionId} className="list-group list-group-flush">
+            [<div key={"ap_"+this.state.questionId} className="list-group list-group-flush px-4 mb-4">
                 {this.state.answers.map((a,j) =>
                     <div key={j+1} className="list-group-item form-text">
                         <div>{a.note}</div>
@@ -141,8 +141,8 @@ class Answers extends Component {
             </div>,
             this.state.userId ?
                 <div key={"ai"} className="card-footer accordion-footer">
-                    {/* answer button */}
-                    <form className="form-group">
+                    {/* new answer */}
+                    <form className="form-group px-4">
                         <div className="input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text form-btn-b">Answer</span>

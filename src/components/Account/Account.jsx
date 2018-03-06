@@ -74,6 +74,7 @@ class Account extends Component {
     saveUserChanges = (event) => {
         event.preventDefault();
         let obj = this;
+        
         //builds the object to pass
         let userChange = {};
         if(this.state.editInfo.firstName !== ""){
@@ -191,7 +192,7 @@ class Account extends Component {
     render() {
         return (
             <div>
-                {!(this.state.userId || this.state.viewId) ? <Redirect to="/"/>:null}
+                {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
                 <div className="row">
                     <div className="col-12 text-center">
                         <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
