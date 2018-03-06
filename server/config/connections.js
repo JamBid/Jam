@@ -10,7 +10,7 @@ if (process.env.CLEARDB_DATABASE_URL) {
     user: "jb_user",
     password: "jb_1234",
     database: "jambid_db",
-    connectionLimit: 2
+    connectionLimit: 20
   });
 };
 
