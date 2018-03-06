@@ -7,16 +7,21 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            toggle: props.toggle,
             userName: {val:"", isValid: true, errors: [], isRequired: true},
             password: {val:"", isValid: true, errors: [], isRequired: true},
-            handleClickLogin: props.onClick,
-            loginFailed: props.loginFailed
+            handleClick: props.onClick,
+            loginFailed: props.loginFailed,
+            toggle: props.toggle
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({loginFailed: nextProps.loginFailed});
+        let obj = this.state;
+
+        obj.userName.val = nextProps.userName;
+        obj.password.val = nextProps.password;
+        obj.loginFailed = nextProps.loginFailed;
+        this.setState(obj);
     }
 
     //function to validate the input
@@ -63,10 +68,6 @@ class Login extends Component {
         });
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        this.setState({userName: nextProps.userName, password:nextProps.password})
-    }
-
     //function to handle onBlue (onFocusOut)
     handleFocusOut = (event) => {
         const name = event.target.name;
@@ -74,7 +75,7 @@ class Login extends Component {
     }
 
     //function to handle the button click event
-    handleClickLogin = (event) => {
+    handleClick = (event) => {
         event.preventDefault();
 
         this.validateInputs('userName');
@@ -125,7 +126,7 @@ class Login extends Component {
                                             onBlur={this.handleFocusOut}
                                             type="password" />
                                     </div>
-                                    <button className="btn btn-md btn-block form-btn" onClick={this.handleClickLogin} type="submit" id="login-btn">Login</button>
+                                    <button className="btn btn-md btn-block form-btn" onClick={this.handleClick} type="submit" id="login-btn">Login</button>
                                 </form>
                             </fieldset>
                         </div>

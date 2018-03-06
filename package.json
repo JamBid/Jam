@@ -15,15 +15,8 @@
     "react": "^16.2.0",
     "react-datepicker": "^1.2.1",
     "react-dom": "^16.2.0",
-<<<<<<< HEAD
     "react-moment": "^0.7.0",
-<<<<<<< Updated upstream
-=======
     "react-google-maps": "^9.4.5",
->>>>>>> ad6d8b26f764b8569deac2984a3338fd70f5cb59
-=======
-    "react-google-maps": "^9.4.5",
->>>>>>> Stashed changes
     "react-responsive-carousel": "^3.1.33",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",

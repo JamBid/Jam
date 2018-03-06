@@ -63,8 +63,7 @@ class Signup extends Component {
         .then(function(result){
             if(result.data.status === 'good') {
                 // if successful login -> collapse nav menu
-                 this.state.toggle();
-                console.log("You signed up!");
+                 obj.state.toggle();
             }
             else{
                 userName.isValid = false;
@@ -107,7 +106,7 @@ class Signup extends Component {
                 valid = false;
             }
             else{
-                if(!this.state[name].value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+                if(!this.state[name].value.match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/)){
                     errorMsg.push("invalid Email");
                     valid = false;
                 }
@@ -188,10 +187,9 @@ class Signup extends Component {
         let errorFound = false;
 
         for(let i in this.state){
-            if(!this.state[i].isValid)
+            if(i !== "toggle" && !this.state[i].isValid)
                 errorFound = true;
         }
-
         return errorFound;
     }
     
@@ -202,7 +200,6 @@ class Signup extends Component {
 
        return (
             <div>
-
                 {/*<!-- sign-up form -->*/}
                 <div className="card form-area">
                     <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -211,9 +208,11 @@ class Signup extends Component {
                             {this.checkForErrors() ?
                                 <div className="alert alert-danger">
                                     {keys.map((k,i) =>(
-                                        this.state[k].message.map((m,j) =>(
-                                            <p key={i+"_"+j}>* {m}</p>
-                                        ))
+                                        k !== "toggle" ? 
+                                            this.state[k].message.map((m,j) =>(
+                                                <p key={i+"_"+j}>* {m}</p>
+                                            ))
+                                        : null
                                     ))}
                                 </div>
                             :null}
