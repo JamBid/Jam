@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   //login method
-  handleClickLogin = (userName, password) => {
+  handleClickLogin = (userName, password, toggle) => {
     let obj = this;
     API.logUserIn(userName, password)
     .then(function(result){
@@ -49,7 +49,7 @@ class App extends Component {
           if (err) console.log("err", err);
           else {
             sessionStorage.setItem("JamBid", JSON.stringify({ token:token, time: new Date() }));
-            obj.setState({userId: result.data[0].id});
+            obj.setState({userId: result.data[0].id}, toggle);
           }
         });
       }
@@ -59,16 +59,16 @@ class App extends Component {
     })
   }
 
-    //logout method
-    handleClickLogout = () => {
-      this.setState({userId:null},sessionStorage.removeItem("JamBid"));
-    }
+  //logout method
+  handleClickLogout = () => {
+    this.setState({userId:null},sessionStorage.removeItem("JamBid"));
+  }
 
   render() {
     return (
       <Router>
         <div>
-        <Nav userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout}/>
+        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

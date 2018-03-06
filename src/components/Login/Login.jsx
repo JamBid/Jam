@@ -8,6 +8,7 @@ class Login extends Component {
             userName: "",
             password: "",
             handleClickLogin: props.onClick,
+            toggle: props.toggle
         }
     }
 
@@ -23,7 +24,11 @@ class Login extends Component {
 
     handleClickLogin = (event) => {
         event.preventDefault();
-        this.state.handleClickLogin(this.state.userName, this.state.password);
+        this.state.handleClickLogin(this.state.userName, this.state.password, this.state.toggle);
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({userName: nextProps.userName, password:nextProps.password})
     }
 
     render() {
