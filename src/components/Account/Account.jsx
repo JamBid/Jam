@@ -50,8 +50,9 @@ class Account extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         if(nextProps.location.state)
-            this.setState({viewUser:nextProps.location.state.viewUser},this.loadUser)
+            this.setState({userId:nextProps.userId, viewUser:nextProps.location.state.viewUser},this.loadUser)
     }
 
     //function for loading user info
