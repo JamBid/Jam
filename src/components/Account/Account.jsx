@@ -347,7 +347,7 @@ class Account extends Component {
                             {
                                 Header: "Amount",
                                 accessor: "amount",
-                                Cell: props => (`\$${props.value}`)
+                                Cell: props => (`$${props.value}`)
                             }
                         ]}
                         defaultPageSize={5}
@@ -368,7 +368,7 @@ class Account extends Component {
                             {
                                 Header: "Product Name",
                                 accessor: "prodName",
-                                Cell: props => <Link className="form-text" to={`/product/${props.original.prodId}`} >{props.value}</Link>
+                                Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
                             },
                             {
                                 Header: "Category",
@@ -393,7 +393,7 @@ class Account extends Component {
                             {
                                 Header: "Amount",
                                 accessor: "amount",
-                                Cell: props => (`\$${props.value}`)
+                                Cell: props => (`$${props.value}`)
                             }
                         ]}
                         defaultPageSize={5}
