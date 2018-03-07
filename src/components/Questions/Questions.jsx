@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import API from '../../utils/API';
 import Answers from '../Answers';
+import './Questions.css';
 
 
 class Questions extends Component {
@@ -160,7 +161,7 @@ class Questions extends Component {
                                         <form className="form-group">
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
-                                                    <span className="input-group-text form-btn-b">Question</span>
+                                                    <span className="input-group-text form-btn-b" id="ask-label">Ask</span>
                                                 </div>
                                                 <input className="form-control form-input" name="userQuestion" value={this.state.userQuestion} onChange={this.handleChange}/> 
                                                 <div className="input-group-append">

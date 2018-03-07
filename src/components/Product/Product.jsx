@@ -225,7 +225,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                            <span className="form-btn-b dollar-label"> $ </span>
                                                         </div>
                                                         <label className="form-control form-textarea form-input text-center" id="high-bid">
                                                             {this.state.highestBid.amount ? this.state.highestBid.amount : this.state.startingPrice}
@@ -243,7 +243,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                            <span className="form-btn-b dollar-label"> $ </span>
                                                         </div>
                                                         <input
                                                             type="text"
@@ -252,7 +252,7 @@ class Product extends Component {
                                                             value={this.state.yourBid}
                                                             onChange={this.handleChange}/>
                                                         <div className="input-group-append">
-                                                            <button className="btn btn-md form-btn" type="submit" onClick={this.sendBid}>Bid</button>
+                                                            <button className="form-btn-b bid-label" type="submit" onClick={this.sendBid}>Bid</button>
                                                         </div>                                         
                                                     </div>
                                                 </div> {/* -input-group */}

@@ -35,12 +35,12 @@
 
 /* datepicker - input field container */
 .react-datepicker__input-container {
-    margin: 10px 0 0 20px;
+    margin: 10px 0 0 15px;
 }
 
 /* datepicker - input field */
 .react-datepicker__input-container input {
-    min-width: 220px;
+    min-width: 210px;
     border: none;
     background: none;
     color: #7f4db8;
@@ -63,9 +63,13 @@
     border-radius: 0px !important;
     border: solid 1px #7f4db8;
   }
+
+.dollar-label, .bid-label {
+    height: 38px;
+}
   
 /* dollar symbol in "your bid" area */
-#dollar-sign {
+.dollar-label {
     text-align: center;
     width: 40px !important; 
     padding: 5px 0 0 0;
@@ -88,4 +92,4 @@
   /* removes bottom padding where used */
   .form-shrink {
       padding-bottom: 0;
-  }
+}

@@ -88,9 +88,12 @@ class ProductNew extends Component {
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
-                                                    <span className="input-group-text field-title form-btn-b">Title</span>
+                                                    <span className="input-group-text form-btn-b">Title</span>
                                                 </div>
-                                                <textarea name="email" className="form-control field-title form-input"></textarea>
+                                                <input
+                                                    type="text"
+                                                    className="form-control form-textarea form-input"
+                                                    name="prodNAme"/> 
                                             </div>
                                         </div>
 

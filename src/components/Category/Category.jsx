@@ -62,7 +62,7 @@ class Category extends Component {
 
     render() {
         return (
-            <div className="col-8">
+            <div>
                 <div className="form-inline float-right">
                 <Route render={({history})=>
                     <form onSubmit={(e) => {

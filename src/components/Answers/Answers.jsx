@@ -145,7 +145,7 @@ class Answers extends Component {
                     <form className="form-group px-4">
                         <div className="input-group">
                             <div className="input-group-prepend">
-                                <span className="input-group-text form-btn-b">Answer</span>
+                                <span className="input-group-text form-btn-b" id="answer-label">Answer</span>
                             </div>
                             <input className="form-control form-input" name="userAnswer" value={this.state.userAnswer} onChange={this.handleChange}/> 
                             <div className="input-group-append">

@@ -2,10 +2,9 @@ body {
   background: #f6f3ff;
 }
 
-select{
+select {
   appearance: none;
   -webkit-appearance: none;
-  /* -webkit-border-radius: 0px;  */
 }
 
 /* content container wrapper */
@@ -127,4 +126,17 @@ select{
 
 .input-group-text {
   width: 100px !important;
+}
+
+/* wraps input fields */
+.error {
+	border-color: red;
+}
+
+.modal-content {
+  color: #7f4db8;
+  margin: 2px;
+  border-radius: 0px;
+  border: solid 2px #7f4db8;
+  background: #f6f3ff;
 }
