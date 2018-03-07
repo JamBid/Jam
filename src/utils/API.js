@@ -69,5 +69,13 @@ export default {
         address:loc
       }
     });
+  },
+  //function to get the sell history for a user
+  getSellHistory: function(id){
+    return axios.get('/user/sellhistory/'+id);
+  },
+  //function to get the buy history for a user
+  getBuyHistory: function(id){
+    return axios.get('/user/buyhistory/'+id);
   }
 };
