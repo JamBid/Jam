@@ -1,6 +1,8 @@
 const db = require('../models/models');
 const router = require("express").Router();
 
+const bcrypt = require('bcryptjs');
+
 //updates a user
 router.route('/update')
     .post(function(req, res){
@@ -18,6 +20,11 @@ router.route('/update')
 //sign up new user
 router.route('/signup')
     .post(function(req, res){
+
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(req.body.password , salt, function(err, hash) {
+                req.body.password = hash;
+
         db.users.insertOne(
             ["email","userName","firstName","lastName","password","image","imageType"],
             [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, req.body.image, req.body.imageType])
@@ -30,9 +37,10 @@ router.route('/signup')
                 res.json({status:'bad', msg:"Username already in use."});
             else
                 res.sendStatus(500);
-        });
-    })
-
+          });
+      })
+    });
+});
 //gets the info for a specific user
 router.route('/:id')
     .get(function(req, res){

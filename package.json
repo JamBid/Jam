@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "axios": "^0.17.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
@@ -15,8 +16,8 @@
     "react": "^16.2.0",
     "react-datepicker": "^1.2.1",
     "react-dom": "^16.2.0",
-    "react-moment": "^0.7.0",
     "react-google-maps": "^9.4.5",
+    "react-moment": "^0.7.0",
     "react-responsive-carousel": "^3.1.33",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",
