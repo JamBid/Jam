@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Route, Redirect, Link} from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import ReactTable from "react-table";
+import Moment from 'react-moment';
 
 import API from '../../utils/API';
 import './Account.css';
+import "react-table/react-table.css";
+
+import list from "../../categoryList";
 
 
 class Account extends Component {
@@ -29,7 +34,9 @@ class Account extends Component {
                 email:""
             },
             password:"",
-            retypePassword:""
+            retypePassword:"",
+            sellHistory: [],
+            buyHistory: []
         }
     }
 
@@ -50,9 +57,8 @@ class Account extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps)
         if(nextProps.location.state)
-            this.setState({userId:nextProps.userId, viewUser:nextProps.location.state.viewUser},this.loadUser)
+            this.setState({userId:nextProps.userId, viewUser:nextProps.location.state.viewUser, sellHistory: [], buyHistory: []},this.loadUser)
     }
 
     //function for loading user info
@@ -63,12 +69,27 @@ class Account extends Component {
         else
             id = this.state.userId;
 
-        if(id)
+        if(id){
             API.getUser(id)
             .then( res => {
                 this.setState({userInfo: res.data[0]})
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+
+            API.getBuyHistory(id)
+            .then(res => {
+                if(res.data)
+                    this.setState({buyHistory: res.data})
+            })
+            .catch(err => console.log(err));
+
+            API.getSellHistory(id)
+            .then(res => {
+                if(res.data)
+                    this.setState({sellHistory: res.data})
+            })
+            .catch(err => console.log(err));
+        }
     }
 
     //function to submit change to server
@@ -191,6 +212,8 @@ class Account extends Component {
     }
 
     render() {
+        let keys = Object.keys(list);
+
         return (
             <div>
                 {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
@@ -286,6 +309,98 @@ class Account extends Component {
                               </div>
                             }
                         </form>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div style={{ textAlign: "center" }}>
+                        <h3>Sell History</h3>
+                    </div>
+                    <ReactTable
+                        data= {this.state.sellHistory}
+                        columns={[
+                            {
+                                Header: "Product Name",
+                                accessor: "prodName",
+                                Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
+                            },
+                            {
+                                Header: "Category",
+                                accessor: "category",
+                                Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
+                            },
+                            {
+                                Header: "Sell Timestamp",
+                                accessor: "endTimestamp",
+                                Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
+                            },
+                            {
+                                Header: "Buyer",
+                                accessor: "buyerName",
+                                Cell: props => (<Route render={({history})=>
+                                                    <span className="form-text" style={{cursor: "pointer"}}
+                                                        onClick={() => {history.push(`/account`, {viewUser:props.original.buyerId})}}>
+                                                            {props.value}
+                                                    </span>
+                                                }/>)
+                            },
+                            {
+                                Header: "Amount",
+                                accessor: "amount",
+                                Cell: props => (`$${props.value}`)
+                            }
+                        ]}
+                        defaultPageSize={5}
+                        className="-striped -highlight"
+                    />
+                    <div style={{ textAlign: "center" }}>
+                        <em>Tip: Hold shift when sorting to multi-sort!</em>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div style={{ textAlign: "center" }}>
+                        <h3>Buy History</h3>
+                    </div>
+                    <ReactTable
+                        data= {this.state.buyHistory}
+                        columns={[
+                            {
+                                Header: "Product Name",
+                                accessor: "prodName",
+                                Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
+                            },
+                            {
+                                Header: "Category",
+                                accessor: "category",
+                                Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
+                            },
+                            {
+                                Header: "Buy Timestamp",
+                                accessor: "endTimestamp",
+                                Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
+                            },
+                            {
+                                Header: "Seller",
+                                accessor: "sellerName",
+                                Cell: props => (<Route render={({history})=>
+                                                    <span className="form-text" style={{cursor: "pointer"}}
+                                                        onClick={() => {history.push(`/account`, {viewUser:props.original.sellerId})}}>
+                                                            {props.value}
+                                                    </span>
+                                                }/>)
+                            },
+                            {
+                                Header: "Amount",
+                                accessor: "amount",
+                                Cell: props => (`$${props.value}`)
+                            }
+                        ]}
+                        defaultPageSize={5}
+                        className="-striped -highlight"
+                    />
+                    <div style={{ textAlign: "center" }}>
+                        <em>Tip: Hold shift when sorting to multi-sort!</em>
                     </div>
                 </div>
             </div>
