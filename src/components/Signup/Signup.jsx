@@ -14,7 +14,7 @@ class Signup extends Component {
             password: {value:"", isValid: true, message:[], isRequired: true},
             retypePassword: {value:"", isValid: true, message:[], isRequired: true},
             userName: {value:"", isValid: true, message:[], isRequired: true},
-            image: {value:"", isValid: true, message:[], isRequired: true},
+            image: {value:"", file: null, type: 'file', isValid: true, message:[], isRequired: false},
             terms: {value: false , isValid: true, message:[], isRequired: true},
             toggle: props.onClick
         }
@@ -40,6 +40,38 @@ class Signup extends Component {
         });
     }
 
+    //function that is used when there is a change on an input
+    handleImageChange = (event) => {
+        let value = event.target.value;
+        let file = event.target.files[0];
+        let obj = this.state.image;
+
+        //check file size limit is in bytes
+        if(file){
+            if(file.size < 1000000){
+
+                obj.value = value;
+                obj.file = file;
+                obj.message = [];
+                obj.isValid = true;
+
+                this.setState({
+                    image:obj
+                });
+            }
+            else{
+                obj.message=["File must be less than 1MB"];
+                obj.isValid = false;
+                obj.value = "";
+                obj.file = null;
+
+                this.setState({
+                    image:obj
+                });
+            }
+        }
+    }
+
     handleClick = (event) => {
         event.preventDefault();
         
@@ -56,14 +88,24 @@ class Signup extends Component {
             lastName:this.state.lastName.value,
             password:this.state.password.value,
             userName:this.state.userName.value,
-            image:this.state.image.value,
-            imageType: this.state.image.value ? "file": null
+            image:this.state.image
         })
-
         .then(function(result){
             if(result.data.status === 'good') {
                 // if successful login -> collapse nav menu
                  obj.state.toggle();
+
+                 //clears the state
+                 obj.setState({
+                    email: {value:"", isValid: true, message:[], isRequired: true},
+                    firstName:{value:"", isValid: true, message:[], isRequired: true},
+                    lastName:{value:"", isValid: true, message:[], isRequired: true},
+                    password: {value:"", isValid: true, message:[], isRequired: true},
+                    retypePassword: {value:"", isValid: true, message:[], isRequired: true},
+                    userName: {value:"", isValid: true, message:[], isRequired: true},
+                    image: {value:"", file: null, type: 'file', isValid: true, message:[], isRequired: false},
+                    terms: {value: false , isValid: true, message:[], isRequired: true}
+                 });
             }
             else{
                 userName.isValid = false;
@@ -168,10 +210,13 @@ class Signup extends Component {
             }
         }
 
-        obj.isValid = valid;
-        obj.message = errorMsg;
+        //list of state elements to skip
+        if(name !== 'toggle' && name !== 'image'){
+            obj.isValid = valid;
+            obj.message = errorMsg;
 
-        this.setState({[name]:obj})
+            this.setState({[name]:obj})
+        }
         
     }
 
@@ -210,7 +255,7 @@ class Signup extends Component {
                                     {keys.map((k,i) =>(
                                         k !== "toggle" ? 
                                             this.state[k].message.map((m,j) =>(
-                                                <p key={i+"_"+j}>* {m}</p>
+                                                <p key={i+"_"+j}>{`* ${m}`}</p>
                                             ))
                                         : null
                                     ))}
@@ -300,9 +345,9 @@ class Signup extends Component {
                                         type="file" 
                                         className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                         name="image"
+                                        imagetype="file"
                                         value={this.state.image.value}
-                                        onChange={this.handleChange}
-                                        onBlur={this.handleFocusOut} />
+                                        onChange={this.handleImageChange} />
                                     </div>
 
 

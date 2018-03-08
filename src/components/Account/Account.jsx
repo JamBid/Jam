@@ -23,7 +23,9 @@ class Account extends Component {
                 userName:"",
                 firstName:"",
                 lastName:"",
-                email:""
+                email:"",
+                image:null,
+                imageType:null
             },
             edit: false,
             editPassword: false,
@@ -213,14 +215,23 @@ class Account extends Component {
 
     render() {
         let keys = Object.keys(list);
-
+        
         return (
             <div>
                 {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
                 <div className="row">
-                    <div className="col-12 text-center">
-                        <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
-                    </div>
+                    {this.state.userInfo.imageType === 'file' && this.state.userInfo.image ? 
+                        <div className="col-12 text-center">
+                            <img id='profile-picture' className="img-fluid rounded profile-picture" src={require(`../../files/accounts/${this.state.userInfo.image.split("\\")[this.state.userInfo.image.split("\\").length-1]}`)} alt=""/>
+                        </div>
+                    :
+                        this.state.userInfo.image ?
+                            <div className="col-12 text-center">
+                                <img id='profile-picture' className="img-fluid rounded profile-picture" src={this.state.userInfo.image} alt=""/>
+                            </div>
+                        :
+                            null
+                    }
                     <div className="col-12 text-center">
                         <h2>{this.state.userInfo.firstName} {this.state.userInfo.lastName}</h2>
                     </div>
