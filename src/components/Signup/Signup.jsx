@@ -307,7 +307,7 @@ class Signup extends Component {
                                                 name="terms" 
                                                 checked ={this.state.terms.value}
                                                 onChange={this.handleChange}
-                                                onBlur={this.handleFocusOut}/>I have read and agree to the <a className="text-primary" onClick={this.toggle}>terms of service</a>.
+                                                onBlur={this.handleFocusOut}/>  I have read and agree to the <a className="text-primary" onClick={this.toggle}>terms of service</a>.
                                         </label>
                                     </div>
                                     <input className="btn btn-md btn-block form-btn"
