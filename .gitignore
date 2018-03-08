@@ -82,3 +82,7 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# tells to still push these files
+!/src/files/products/.keep
+!/src/files/accounts/.keep
