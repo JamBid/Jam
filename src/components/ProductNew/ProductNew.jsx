@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import '../Product.css';
 
 import DatePicker from 'react-datepicker';
@@ -31,8 +32,6 @@ class ProductNew extends Component {
             }],
             imageCount: 1
         };
-
-        //this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps){
@@ -243,6 +242,7 @@ class ProductNew extends Component {
     render() {
         return (
             <div>
+                {!this.state.sellerId ? <Redirect to="/"/>:null}
                 <form className="form-sign-up mt-3">
 
                     {/*<!-- New Product form -->*/}
