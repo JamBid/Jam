@@ -27,11 +27,16 @@ class ProductNew extends Component {
             images: [{
                 val: "",
                 type: "",
+                file: null
             }],
             imageCount: 1
         };
 
         //this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({sellerId:nextProps.userId});
     }
       
     //function that is used when there is a change on an input
@@ -46,14 +51,19 @@ class ProductNew extends Component {
 
     //function that is used when there is a change on an input
     handleImageChange = (event) => {
-        const name = event.target.name;
+        const name = parseInt(event.target.name, 10);
         let value = event.target.value;
         const type = event.target.getAttribute('imagetype');
-
+        let file = null;
+        
+        if(type === 'file')
+            file = event.target.files[0];
+        
+        //uses non-mutator method to insert the change into the array
         let obj = this.state.images;
         obj = [
             ...obj.slice(0,name),
-            {val:value, type:type},
+            {val:value, type:type, file:file},
             ...obj.slice(name+1)
         ]
 
@@ -73,18 +83,18 @@ class ProductNew extends Component {
     handleImageCount = (event) => {
         event.preventDefault();
 
-        const name = event.target.name;
         const value = this.state.imageCount +1;
 
         if(value < 5){
+            //uses non-mutator method to insert the change into the array
             let obj = this.state.images;
-            obj.push({
-                val: "",
-                type: ""
-            })
+            obj = [
+                ...obj.slice(0,value),
+                {val: "",type: "",file: null}
+            ]
 
             this.setState({
-                [name]:value,
+                imageCount:value,
                 images:obj
             })
         }
@@ -95,17 +105,40 @@ class ProductNew extends Component {
         event.preventDefault();
 
         const type = event.target.getAttribute('imagetype');
-        const name = event.target.name;
-
+        const name = parseInt(event.target.name, 10);
+        
+        //uses non-mutator method to insert the change into the array
         let obj = this.state.images;
         obj = [
             ...obj.slice(0,name),
-            {val:"", type:type},
+            {val:"", type:type, file:null},
             ...obj.slice(name+1)
         ]
-        
+ 
         this.setState({
             images:obj
+        })
+    }
+
+    //function to submit the new prod info
+    handleSubmit =(event) =>{
+        event.preventDefault();
+
+        API.insertNewProd({
+            prodName: this.state.prodName,
+            category: this.state.category,
+            description: this.state.description,
+            startingPrice: this.state.startingPrice,
+            location: this.state.location,
+            endTimestamp: this.state.endTimestamp,
+            sellerId: this.state.sellerId,
+            images: this.state.images
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 
@@ -223,7 +256,7 @@ class ProductNew extends Component {
                                 
                                     {/* submit form */}
                                     <div className="form-group">
-                                        <button className="btn btn-md btn-block" type="submit" id="submit-btn">Create Ad</button>
+                                        <button className="btn btn-md btn-block" type="submit" id="submit-btn" onClick={this.handleSubmit}>Create Ad</button>
                                     </div>
 
                                     {/* form */}
@@ -277,6 +310,20 @@ class ProductNew extends Component {
                                                     timeIntervals={30}
                                                     dateFormat="LLL"
                                                 />
+                                            </div>
+                                        </div>
+
+                                        {/* location */}
+                                        <div className="form-group">
+                                            <div className="input-group">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text form-btn-b">Min Price</span>
+                                                </div>
+                                                <input type='number'
+                                                    className="form-control form-input"
+                                                    name="startingPrice"
+                                                    value={this.state.startingPrice}
+                                                    onChange={this.handleChange}/> 
                                             </div>
                                         </div>
 
