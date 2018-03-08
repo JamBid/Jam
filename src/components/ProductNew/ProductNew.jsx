@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 import '../Product.css';
 
 import DatePicker from 'react-datepicker';
@@ -18,6 +19,7 @@ class ProductNew extends Component {
         super(props)
 
         this.state = {
+            cert: props.cert,
             prodName: "",
             category: "",
             description: "",
@@ -32,6 +34,20 @@ class ProductNew extends Component {
             }],
             imageCount: 1
         };
+    }
+
+    componentWillMount() {
+        let obj = this;
+        let token = JSON.parse(sessionStorage.getItem("JamBid"));
+        if(token){
+            if(token.token)
+                jwt.verify(token.token, obj.state.cert, (err, decode) => {
+                if(err) console.log("err",err);
+
+                if(decode)
+                    obj.setState({sellerId:decode.userId});
+                });
+        }
     }
 
     componentWillReceiveProps(nextProps){
