@@ -77,5 +77,38 @@ export default {
   //function to get the buy history for a user
   getBuyHistory: function(id){
     return axios.get('/user/buyhistory/'+id);
+  },
+  //function for inserting a new product
+  insertNewProd: function(data){
+    let keys = Object.keys(data);
+    let url = [];
+    let files = [];
+    let formData = new FormData();
+    console.log(keys)
+
+    for(let i in data.images){
+        if(data.images[i].type === 'file')
+          files.push(data.images[i].file);
+        else
+          url.push(data.images[i].val)
+    }
+
+    for(let i in keys){
+      if(keys[i] !== 'images')
+        formData.append(keys[i], data[keys[i]]);
+    }
+
+    formData.append('url', url);
+
+    for(let i in files)
+      formData.append(`file${i+1}`,files[i]);
+    
+    //data.images = JSON.stringify(data.images);
+    //console.log(JSON.stringify(data.images))
+    return axios.post('/prod',formData,{
+      header:{
+        'Content-Type':'multipart/form-data'
+      }
+    });
   }
 };

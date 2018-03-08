@@ -79,7 +79,7 @@ class App extends Component {
               <Route path="/search/:category" component={Search} />
               <Route exact path="/account" render={props => <Account userId={this.state.userId} location={props.location} cert={cert}/>}/>
               <Route path="/product/:id" render={props => <Product userId={this.state.userId} />}/>
-              <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} />} />
+              <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} cert={cert}/>} />
               <Route path="/product-update/:id"render={props => <ProductUpdate userId={this.state.userId} />} />
               <Route component={NoMatch} />
             </Switch>
