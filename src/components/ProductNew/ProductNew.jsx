@@ -32,7 +32,9 @@ class ProductNew extends Component {
                 type: "",
                 file: null
             }],
-            imageCount: 1
+            imageCount: 1,
+            success:false,
+            newProdId:null
         };
     }
 
@@ -138,6 +140,7 @@ class ProductNew extends Component {
     //function to submit the new prod info
     handleSubmit =(event) =>{
         event.preventDefault();
+        let obj = this;
 
         API.insertNewProd({
             prodName: this.state.prodName,
@@ -150,7 +153,7 @@ class ProductNew extends Component {
             images: this.state.images
         })
         .then(res => {
-            console.log(res)
+            obj.setState({newProdId:res.data,success:true});
         })
         .catch(err => {
             console.log(err)
@@ -259,6 +262,7 @@ class ProductNew extends Component {
         return (
             <div>
                 {!this.state.sellerId ? <Redirect to="/"/>:null}
+                {this.state.success && this.state.newProdId ? <Redirect to={`/product/${this.state.newProdId}`}/>:null}
                 <form className="form-sign-up mt-3">
 
                     {/*<!-- New Product form -->*/}

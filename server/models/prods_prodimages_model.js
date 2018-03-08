@@ -9,31 +9,35 @@ const prodImageInsert = function(imageCols, imageArray, prodId, count, connectio
     return new Promise(function(resolve, reject){
         let imageVals = [];
 
-        for(i in imageCols){
-            if(imageCols[i] === 'productId')
-                imageVals.push(prodId);
-            else
-                imageVals.push(imageArray[count][imageCols[i]]);
-        }
+        if(imageArray.length > 0){
+            for(i in imageCols){
+                if(imageCols[i] === 'productId')
+                    imageVals.push(prodId);
+                else
+                    imageVals.push(imageArray[count][imageCols[i]]);
+            }
 
-        prodImgs.insertOneConnection(imageCols, imageVals, connection)
-        .then(function(data){
-            if(count < imageArray.length - 1){
-                prodImageInsert(imageCols, imageArray, prodId, count+1, connection)
-                .then(function(data){
-                    return resolve(data);
-                })
-                .catch(function(data){
-                    return reject(error);
-                });
-            }
-            else{
-                return resolve(data);
-            }
-        })
-        .catch(function(error){
-            return reject(error);
-        });
+            prodImgs.insertOneConnection(imageCols, imageVals, connection)
+            .then(function(data){
+                if(count < imageArray.length - 1){
+                    prodImageInsert(imageCols, imageArray, prodId, count+1, connection)
+                    .then(function(data){
+                        return resolve(prodId);
+                    })
+                    .catch(function(data){
+                        return reject(error);
+                    });
+                }
+                else{
+                    return resolve(prodId);
+                }
+            })
+            .catch(function(error){
+                return reject(error);
+            });
+        }
+        else
+            return resolve(prodId);
     });
 }
 
