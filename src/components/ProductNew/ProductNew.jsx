@@ -15,31 +15,98 @@ class ProductNew extends Component {
 
     constructor (props) {
         super(props)
+
         this.state = {
-          startDate: moment(),
-          prodInfo: {
-            mages: []
-          }
+            prodName: "",
+            category: "",
+            description: "",
+            startingPrice: 0,
+            location: "",
+            endTimestamp: moment(),
+            sellerId: props.userId,
+            images: [{
+                val: "",
+                type: "",
+            }],
+            imageCount: 1
         };
-        this.handleChange = this.handleChange.bind(this);
-      }
+
+        //this.handleChange = this.handleChange.bind(this);
+    }
       
+    //function that is used when there is a change on an input
+    handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
 
-      handleChange(date) {
         this.setState({
-          startDate: date
+            [name]:value
         });
-      }
+    }
 
-      loadProd = () => {
-        let prodId = window.location.pathname.substr(window.location.pathname.lastIndexOf("/"));
+    //function that is used when there is a change on an input
+    handleImageChange = (event) => {
+        const name = event.target.name;
+        let value = event.target.value;
+        const type = event.target.getAttribute('imagetype');
 
-        API.getProduct(prodId)
-        .then( res => {
-            console.log(res)
-            this.setState({prodInfo: res.data})
+        let obj = this.state.images;
+        obj = [
+            ...obj.slice(0,name),
+            {val:value, type:type},
+            ...obj.slice(name+1)
+        ]
+
+        this.setState({
+            images:obj
+        });
+    }
+
+    //function that is used when there is a change on date picker
+    handleDateChange = (event) => {
+        this.setState({
+            endTimestamp:event
+        });
+    }
+
+    //function to choose to add more than 1 image
+    handleImageCount = (event) => {
+        event.preventDefault();
+
+        const name = event.target.name;
+        const value = this.state.imageCount +1;
+
+        if(value < 5){
+            let obj = this.state.images;
+            obj.push({
+                val: "",
+                type: ""
+            })
+
+            this.setState({
+                [name]:value,
+                images:obj
+            })
+        }
+    }
+
+    //function handle changing image type
+    handleImageTypeChange = (event) =>{
+        event.preventDefault();
+
+        const type = event.target.getAttribute('imagetype');
+        const name = event.target.name;
+
+        let obj = this.state.images;
+        obj = [
+            ...obj.slice(0,name),
+            {val:"", type:type},
+            ...obj.slice(name+1)
+        ]
+        
+        this.setState({
+            images:obj
         })
-        .catch(err => console.log(err))
     }
 
     //function that generates a list of options from a specific formatted JSON
@@ -47,9 +114,9 @@ class ProductNew extends Component {
         let keys = Object.keys(list);
 
         return(
-            <select className='form-control category-dropdown' name="select" onChange={this.handleSelectChange}>
+            <select className='form-control category-dropdown' defaultValue="" name="category" onChange={this.handleChange}>
                 {/* category dropdown */}
-                <option disabled selected value></option>
+                <option disabled value=""></option>
                 {keys.map((ele, i) => {
                     if(Array.isArray(list[ele]) && i !== 0)
                         return(
@@ -63,11 +130,87 @@ class ProductNew extends Component {
         )
     }
 
+    //function to generate the image upload section
+    getHtmlImageUpload =() =>{
+        let obj = [];
+
+        for(let i = 0; i < this.state.imageCount; i++){
+            obj.push([<ul key={`fileTog_${i}`} className="nav nav-pills form-toggle" id="pills-tab" role="tablist">
+                        <li className="nav-item w-50 text-center">
+                            <a name={i}
+                                imagetype="file"
+                                onClick={this.handleImageTypeChange}
+                                className="nav-link form-toggle active"
+                                id="img-url-tab"
+                                data-toggle="pill"
+                                href={`#img-url_${i}`}
+                                role="tab"
+                                aria-selected="true">
+                                    Add Image URL
+                            </a>
+                        </li>
+                        <li className="nav-item w-50 text-center">
+                            <a name={i}
+                                imagetype="url"
+                                onClick={this.handleImageTypeChange}
+                                className="nav-link form-toggle"
+                                id="img-upload-tab"
+                                data-toggle="pill"
+                                href={`#img-upload_${i}`}
+                                role="tab"
+                                aria-selected="false">
+                                    Upload Image
+                            </a>
+                        </li>
+                    </ul>,
+
+                    <div key={`fileInput_${i}`} className="card-body form-shrink">
+                        <div className="tab-content form-shrink" id="pills-tabContent">
+                            {/* image URL */}
+                            <div className="tab-pane fade show active" id={`img-url_${i}`} role="tabpanel" aria-labelledby="pills-image-tab">
+                                <div className="form-group">
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text form-btn-b">URL</span>
+                                        </div>
+                                        <input className="form-control form-input"
+                                            name={`${i}`}
+                                            onChange={this.handleImageChange}
+                                            value={this.state.images[i].val}
+                                            imagetype="url"
+                                            /> 
+                                    </div>
+                                    <small className="form-text text-muted">File types:  .png .jpg .jpeg</small>
+                                </div>
+                            </div>
+                            {/* image upload */}
+                            <div className="tab-pane fade" id={`img-upload_${i}`} role="tabpanel" aria-labelledby="pills-upload-tab">
+                                <div className="form-group ">
+                                    <input type="file"
+                                        className="form-control form-input"
+                                        onChange={this.handleImageChange}
+                                        value={this.state.images[i].type === 'file' ? this.state.images[i].val : ""}
+                                        name={`${i}`}
+                                        imagetype="file"
+                                        multiple/>
+                                    <small className="form-text text-muted">File should be less than 1 mb</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ])
+            }
+
+        return(
+            obj
+        )
+    }
+
 
     render() {
         return (
             <div>
-                <form action='' method='POST' className="form-sign-up mt-3" encType="multipart/form-data">
+                <form className="form-sign-up mt-3">
 
                     {/*<!-- New Product form -->*/}
                     <div className="row">
@@ -80,7 +223,7 @@ class ProductNew extends Component {
                                 
                                     {/* submit form */}
                                     <div className="form-group">
-                                        <input className="btn btn-md btn-block" value="Create Ad" type="submit" id="submit-btn" />
+                                        <button className="btn btn-md btn-block" type="submit" id="submit-btn">Create Ad</button>
                                     </div>
 
                                     {/* form */}
@@ -90,7 +233,11 @@ class ProductNew extends Component {
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text field-title form-btn-b">Title</span>
                                                 </div>
-                                                <textarea name="email" className="form-control field-title form-input"></textarea>
+                                                <textarea name="prodName"
+                                                    className="form-control field-title form-input"
+                                                    value={this.state.prodName}
+                                                    onChange={this.handleChange}>
+                                                </textarea>
                                             </div>
                                         </div>
 
@@ -104,13 +251,16 @@ class ProductNew extends Component {
                                             </div>
                                         </div>
 
-                                        {/* category */}
+                                        {/* location */}
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text form-btn-b">Location</span>
                                                 </div>
-                                                <input className="form-control form-input"  name="imgUrl" /> 
+                                                <input className="form-control form-input"
+                                                    name="location"
+                                                    value={this.state.location}
+                                                    onChange={this.handleChange}/> 
                                             </div>
                                         </div>
 
@@ -121,8 +271,8 @@ class ProductNew extends Component {
                                                     <span className="input-group-text input-md form-btn-b">End Time</span>
                                                 </div>
                                                 <DatePicker
-                                                    selected={this.state.startDate}
-                                                    onChange={this.handleChange}
+                                                    selected={this.state.endTimestamp}
+                                                    onChange={this.handleDateChange}
                                                     showTimeSelect
                                                     timeIntervals={30}
                                                     dateFormat="LLL"
@@ -131,40 +281,12 @@ class ProductNew extends Component {
                                         </div>
 
                                         {/* add image */}
+                                        {this.state.imageCount < 4 ?
+                                            <button onClick={this.handleImageCount} name="imageCount">Add More Image</button>
+                                        :null}
                                         <div className="form-group form-shrink">
                                         {/* <div className="card-area"> */}
-                                            <ul className="nav nav-pills form-toggle" id="pills-tab" role="tablist">
-                                                <li className="nav-item w-50 text-center">
-                                                    <a className="nav-link form-toggle active" id="img-url-tab" data-toggle="pill" href="#img-url" role="tab" aria-selected="true">Add Image URL</a>
-                                                </li>
-                                                <li className="nav-item w-50 text-center">
-                                                    <a className="nav-link form-toggle" id="img-upload-tab" data-toggle="pill" href="#img-upload" role="tab" aria-selected="false">Upload Image</a>
-                                                </li>
-                                            </ul>
-
-                                            <div className="card-body form-shrink">
-                                                <div className="tab-content form-shrink" id="pills-tabContent">
-                                                    {/* image URL */}
-                                                    <div className="tab-pane fade show active" id="img-url" role="tabpanel" aria-labelledby="pills-image-tab">
-                                                        <div className="form-group">
-                                                            <div className="input-group">
-                                                                <div className="input-group-prepend">
-                                                                    <span className="input-group-text form-btn-b">URL</span>
-                                                                </div>
-                                                                <input className="form-control form-input"  name="imgUrl" /> 
-                                                            </div>
-                                                            <small className="form-text text-muted">File types:  .png .jpg .jpeg</small>
-                                                        </div>
-                                                    </div>
-                                                    {/* image upload */}
-                                                    <div className="tab-pane fade" id="img-upload" role="tabpanel" aria-labelledby="pills-upload-tab">
-                                                        <div className="form-group ">
-                                                            <input type="file" className="form-control form-input" multiple/>
-                                                            <small className="form-text text-muted">File should be less than 1 mb</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {this.getHtmlImageUpload()}
                                         </div>
 
                                 </div> {/*  -card-body */}
@@ -185,7 +307,13 @@ class ProductNew extends Component {
                             <div className="card">
                                 <h4 className="card-header form-header">Description</h4>
                                 <div className="card-block">
-                                    <textarea type="text" className="form-control form-textarea-e" name="description" placeholder="500 character max"></textarea>
+                                    <textarea type="text"
+                                        className="form-control form-textarea-e"
+                                        name="description"
+                                        placeholder="500 character max"
+                                        value={this.state.description}
+                                        onChange={this.handleChange}>
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
