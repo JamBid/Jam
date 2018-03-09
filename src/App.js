@@ -21,7 +21,7 @@ const cert = "phrase";
 
 //link toast component
 const Msg = (props,{closeToast}) => (
-  <Link onClick={closeToast} to={`/product/${props.prodId}`}>{props.prodName}</Link>
+  <div>You were out bid on<br/><Link onClick={closeToast} to={`/product/${props.prodId}`}>{props.prodName}</Link></div>
 )
 
 class App extends Component {
