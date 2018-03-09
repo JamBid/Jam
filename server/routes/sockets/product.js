@@ -1,8 +1,7 @@
 const db = require('../../models/models');
 
 //function to handle bid logic
-placeBid = (msg, socket, nsp) => {
-    console.log(msg)
+placeBid = (msg, socket, nsp, io) => {
     db.bids.selectAllWithMultConOrderLimit(
         {
             prodId:{
@@ -47,7 +46,17 @@ placeBid = (msg, socket, nsp) => {
                 [msg.msg.bid, msg.msg.userId, msg.msg.prodId]
             ).
             then(res => {
+                //sends the new bid to all on current prod page
                 nsp.in("prod"+msg.room).emit('bid', {msg:'success'});
+
+                //grabs the prod info
+                db.products.selectAllWithMultCon({'id':msg.msg.prodId})
+                .then(res => {
+                    //mass broadcast
+                    io.emit('outbid', {prodId:res[0].id, prodName:res[0].prodName, userId: msg.msg.highestBidId});
+                })
+                .catch(err => {console.log(error)})
+                
             })
             .catch(error => {
                 console.log(error);
@@ -108,7 +117,7 @@ module.exports = function(io){
 
         //sending messages out to the room for bids
         socket.on('bid', (msg) => {
-            placeBid(msg,socket,nsp);
+            placeBid(msg,socket,nsp,io);
         })
 
         //sending messages out to the room for new answers

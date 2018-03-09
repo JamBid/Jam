@@ -35,6 +35,7 @@ const getRandomProd = function(){
     let department = null;
     let price = faker.commerce.price(10, 999, 2);
     let description = faker.lorem.sentences();
+    let returnPolicy = faker.lorem.sentences();
     let endDate = faker.date.future();
     let location = addressList[Math.floor(Math.random()*addressList.length)].address;
 
@@ -52,6 +53,7 @@ const getRandomProd = function(){
         'department': department,
         'price': price,
         'description': description,
+        'returnPolicy': returnPolicy,
         'endDate': endDate,
         'location': location
     });

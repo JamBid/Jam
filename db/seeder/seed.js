@@ -141,9 +141,9 @@ const insertRandomProd = function(count, max){
             let userId = data[Math.floor(Math.random() * data.length)].id;
 
             db.prod_prodImages.insertNewProd(
-                ['prodName','category','description','startingPrice','location','endTimestamp','sellerId'],
+                ['prodName','category','description','startingPrice','location','endTimestamp','sellerId','returnPolicy'],
                 ['productId','image','imageType'],
-                [product.productName,product.department,product.description,product.price,product.location,product.endDate,userId],
+                [product.productName,product.department,product.description,product.price,product.location,product.endDate,userId,product.returnPolicy],
                 prodImages
             )
             .then(function(data){

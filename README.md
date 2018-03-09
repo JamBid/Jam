@@ -12,6 +12,7 @@ What things you need to install the software and how to install them:
 
 * node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
 * Google Map API Key (You can obtain one here: [Get API Key](https://developers.google.com/maps/documentation/javascript/get-api-key))_You will need to create an .env file in the root directory._
+* Cloudinary (Image file hosting) (You can obtain your credentials here: [Sign Up](https://cloudinary.com/))
 
 ### Installing
 
@@ -32,7 +33,12 @@ run `yarn install`
 
 **THIS STEP CANNOT BE SKIPPED ON ANY ENVIRONMENT (where an .env file is needed)**
 
-*In the root directory of the app (Jam folder), create .env file with the following property: REACT_APP_GOOGLEMAP=**_Google Api Key_**
+*In the root directory of the app (Jam folder), create .env file with the following properties: **_ORDER DOES MATTER_**
+_If you cannot remember the info, the Cloudinary Info is at [Cloudinary Console](https://cloudinary.com/console) and the Google API Keys are at [Google Dev Console](https://console.cloud.google.com/)_
+* REACT_APP_GOOGLEMAP=**_Google Api Key_**
+* CLOUDINARY_NAME =**_Cloudinary name_**
+* CLOUDINARY_APIKEY =**_Cloudinary API Key_**
+* CLOUDINARY_APISECRET =**_Cloudinary API Secret_**
 
 
 To run the app locally, use the following command:
@@ -61,7 +67,7 @@ If you want to use the test data, please run the following script to generate ra
 ```
 `node db/seeder/seed.js #1 #2 #3 #4 #5`
 ```
-* Replace the **#1** with an integer for how many users to generate with random number of products to be up for bids. *(Required)*
+* Replace the **#1** with an integer for how many users to generate. *(Required)*
 * Replace the **#2** with an integer for the number of products to insert. *(Optional: If you put a 0 for users, this will throw a warning.) _(Must have a 0 if you want to provide a value for questions, answers, and bids.)_*
 * Replace the **#3** with an integer for the number of questions to insert. *(Optional: If you put a 0 for products, this does nothing.) _(Must have a 0 if you want to provide a value for answers and/or bids.)_*
 * Replace the **#4** with an integer for the number of answers to insert. *(Optional: If you put a 0 for users, this will do nothing.) _(Must have a 0 if you want to provide a value for bids.)_*
@@ -78,7 +84,12 @@ After the seeder has finished, the login info will be as follow:
 In you editor of choice or cml, connect to the database and then run and commit the following code to the database:
 
 * [db/create_tables.sql](db/create_tables.sql)
-* In the settings of your app, reveal the Config Vars and add **REACT_APP_GOOGLEMAP** with a value of your Google API Key.
+
+#### In the settings of your app on Heroku, reveal the Config Vars and add the following _Name Does Matter_.
+* REACT_APP_GOOGLEMAP **_Google Api Key_**
+* CLOUDINARY_NAME **_Cloudinary name_**
+* CLOUDINARY_APIKEY **_Cloudinary API Key_**
+* CLOUDINARY_APISECRET **_Cloudinary API Secret_**
 
 
 
@@ -94,20 +105,37 @@ git push heroku master
 
 ## Built With
 
-* [MySQL](https://www.mysql.com/)
-* [ReactJS](https://reactjs.org/)
-* [Node JS](https://nodejs.org/en/)
-* [Express](https://expressjs.com/)
-* [Socket.io](https://socket.io/)
-* [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
-* [react-datepicker](https://www.npmjs.com/package/react-datepicker)
+### Javascript libraies
+* [axios](https://github.com/axios/axios)
+* [body-parser](https://github.com/expressjs/body-parser)
+* [cloudinary](https://cloudinary.com/documentation/node_image_upload#server_side_upload)
+* [dateformat](https://github.com/felixge/node-dateformat)
+* [dotenv](https://github.com/motdotla/dotenv)
+* [express](https://expressjs.com/)
+* [fs](https://nodejs.org/api/fs.html)
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+* [moment](https://momentjs.com/)
+* [multer](https://github.com/expressjs/multer)
+* [path](https://nodejs.org/api/path.html)
+* [react-datepicker](https://www.npmjs.com/package/react-datepicker)
 * [react-google-maps](https://github.com/tomchentw/react-google-maps)
+* [react-moment](https://github.com/headzoo/react-moment)
+* [react-responsive-carousel](https://github.com/leandrowd/react-responsive-carousel)
+* [react-table](https://react-table.js.org/#/story/readme)
+* [react-toastify](https://github.com/fkhadra/react-toastify)
+* [Socket.io](https://socket.io/)
+
+
+### Applications
 * [Google Maps API](https://developers.google.com/maps/documentation/javascript/)
+* [MySQL](https://www.mysql.com/)
+* [Node JS](https://nodejs.org/en/)
+* [ReactJS](https://reactjs.org/)
+
 
 ### Dev packages
-* [Faker](https://github.com/marak/Faker.js/)
-* [Concurrently](https://github.com/kimmobrunfeldt/concurrently)
+* [faker](https://github.com/marak/Faker.js/)
+* [concurrently](https://github.com/kimmobrunfeldt/concurrently)
 * [nodemon](https://nodemon.io/)
 
 ## Authors

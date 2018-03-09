@@ -25,6 +25,7 @@ class ProductNew extends Component {
             description: "",
             startingPrice: 0,
             location: "",
+            returnPolicy: "",
             endTimestamp: moment(),
             sellerId: props.userId,
             images: [{
@@ -32,7 +33,9 @@ class ProductNew extends Component {
                 type: "",
                 file: null
             }],
-            imageCount: 1
+            imageCount: 1,
+            success:false,
+            newProdId:null
         };
     }
 
@@ -138,6 +141,7 @@ class ProductNew extends Component {
     //function to submit the new prod info
     handleSubmit =(event) =>{
         event.preventDefault();
+        let obj = this;
 
         API.insertNewProd({
             prodName: this.state.prodName,
@@ -147,10 +151,11 @@ class ProductNew extends Component {
             location: this.state.location,
             endTimestamp: this.state.endTimestamp,
             sellerId: this.state.sellerId,
-            images: this.state.images
+            images: this.state.images,
+            returnPolicy: this.state.returnPolicy
         })
         .then(res => {
-            console.log(res)
+            obj.setState({newProdId:res.data,success:true});
         })
         .catch(err => {
             console.log(err)
@@ -259,6 +264,7 @@ class ProductNew extends Component {
         return (
             <div>
                 {!this.state.sellerId ? <Redirect to="/"/>:null}
+                {this.state.success && this.state.newProdId ? <Redirect to={`/product/${this.state.newProdId}`}/>:null}
                 <form className="form-sign-up mt-3">
 
                     {/*<!-- New Product form -->*/}
@@ -388,7 +394,12 @@ class ProductNew extends Component {
                             <div className="card">
                                 <h4 className="card-header form-header">Policy</h4>
                                 <div className="card-block">
-                                    <textarea type="text" className="form-control form-textarea-e" name="policy" placeholder="500 character max"></textarea>
+                                    <textarea type="text"
+                                        className="form-control form-textarea-e"
+                                        name="returnPolicy"
+                                        placeholder="500 character max"
+                                        value={this.state.returnPolicy}
+                                        onChange={this.handleChange} />
                                 </div>
                             </div>
                         </div>
