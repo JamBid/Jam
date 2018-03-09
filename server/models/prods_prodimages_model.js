@@ -117,7 +117,7 @@ const prod_prodimage = {
         return new Promise(function(resolve, reject){
             prods.selectAllLimitOrder(
                 [
-                    {'endTimestamp':'desc'}
+                    {'createTs':'desc'}
                 ],
                 limit
             )
