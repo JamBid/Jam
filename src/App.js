@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import jwt from 'jsonwebtoken';
+import io from 'socket.io-client';
+import { toast, ToastContainer } from 'react-toastify';
+import { css } from 'glamor';
 
 import Nav from './components/Navbar';
 import API from './utils/API';
@@ -15,18 +18,27 @@ import Search from "./components/Search";
 
 const cert = "phrase";
 
+//link toast component
+const Msg = (props,{closeToast}) => (
+  <div>You were out bid on<br/><Link onClick={closeToast} to={`/product/${props.prodId}`}>{props.prodName}</Link></div>
+)
+
 class App extends Component {
   constructor(props){
     super(props);
 
     this.state = {
       userId: null,
-      loginFailed:false
+      loginFailed:false,
+      socket: null
     }
   }
 
+  componentWillMount(){
+    this.setState({socket: io()});
+  }
+
   componentDidMount(){
-    let obj = this;
     let token = JSON.parse(sessionStorage.getItem("JamBid"));
     if(token){
       if(token.token)
@@ -34,9 +46,25 @@ class App extends Component {
           if(err) console.log("err",err);
 
           if(decode)
-            obj.setState({userId:decode.userId})
+            this.setState({userId:decode.userId}, this.receive)
         });
     }
+  }
+
+  //method to receive messages from the socket
+  receive = () => {
+    this.state.socket.on('outbid', (toastMsg) => {
+      if(this.state.userId === toastMsg.userId)
+        toast(<Msg prodId={toastMsg.prodId} prodName={toastMsg.prodName}/>, {
+          position: toast.POSITION.TOP_RIGHT,
+          className: css({
+            background: "#841baa",
+            color: "white",
+            textAlign: "center"
+          }),
+          autoClose: 4000
+        })
+    });
   }
 
   //login method
@@ -71,7 +99,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout} loginFailed={this.state.loginFailed}/>
+          <ToastContainer />
+          <Nav userName='' password=''  userId={this.state.userId} handleLogin={this.handleClickLogin} handleLogout={this.handleClickLogout} loginFailed={this.state.loginFailed}/>
           <div className="container content">
             <Switch>
               <Route exact path="/" component={Homepage}/>

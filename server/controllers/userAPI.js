@@ -1,8 +1,15 @@
 const db = require('../models/models');
 const router = require("express").Router();
+const fs = require('fs');
+const multer = require('multer');
+
+const filePath = './src/files/accounts';
+const upload = multer({dest:filePath});
+const cloudinary = require('../config/cloudinary_config');
 
 /*Special queries that do not fit in an ORM.*/
 const pool = require('../config/connections');
+
 
 //route for getting the sell history for a user
 router.route('/sellhistory/:id')
@@ -75,20 +82,67 @@ router.route('/update')
 
 //sign up new user
 router.route('/signup')
-    .post(function(req, res){
-        db.users.insertOne(
-            ["email","userName","firstName","lastName","password","image","imageType"],
-            [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, req.body.image, req.body.imageType])
-        .then(function(result) {
-            res.json({status:'good',result:result});
+    .post(upload.any(), function(req, res){
+        let image = null;
+        let imagePromise = [];
+
+        //grabs the file names
+        if(req.files){
+            for(let i in req.files){
+                // let fileExt = '';
+	            // let type = req.files[i].mimetype.trim();
+                // if( (type === 'image/jpeg') ||
+                //     (type === 'image/jpg') ||
+                //     (type === 'image/png' )) {
+
+			    //     if(type == 'image/jpeg') {
+				//         fileExt = ".jpeg";
+                //     }
+                //     else if(type == 'image/jpg') {
+                //         fileExt = ".jpg";
+                //     }
+                //     else if(type == 'image/png') {
+                //         fileExt = ".png";
+                //     }
+
+                //     image = req.files[i].path+fileExt;
+
+                //     fs.renameSync(req.files[i].path, req.files[i].path+fileExt, function(err){
+                //         if(err){
+                //             console.log(err)
+                //             res.sendStatus(500);
+                //         }
+                //     })
+                //}
+
+                imagePromise.push(cloudinary.uploadToCloudinary(req.files[i])); 
+		    }
+        }
+
+        Promise.all(imagePromise)
+        .then(results => {
+            if(results){
+                image = results[0].url;
+            }
+            
+            db.users.insertOne(
+                ["email","userName","firstName","lastName","password","image","imageType"],
+                [req.body.email, req.body.userName, req.body.firstName, req.body.lastName, req.body.password, image, 'url'])//req.body.imageType]) disabled this for heroku fix
+            .then(function(result) {
+                res.json({status:'good',result:result});
+            })
+            .catch(function(error){
+                console.log(error);
+                if(error.code === 'ER_DUP_ENTRY')
+                    res.json({status:'bad', msg:"Username already in use."});
+                else
+                    res.sendStatus(500);
+            });
         })
-        .catch(function(error){
-            console.log(error);
-            if(error.code === 'ER_DUP_ENTRY')
-                res.json({status:'bad', msg:"Username already in use."});
-            else
-                res.sendStatus(500);
-        });
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        })
     })
 
 //gets the info for a specific user

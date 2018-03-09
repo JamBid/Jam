@@ -23,7 +23,27 @@ export default {
   },
   //function to signup new user
   signUpNewUser: function(newUser){
-    return axios.post("/user/signup",newUser);
+    let keys = Object.keys(newUser);
+
+    let formData = new FormData();
+
+    if(newUser.image){
+        if(newUser.image.type === 'file'){
+          formData.append(`file`,newUser.image.file);
+          formData.append('imageType', 'file');
+        }
+    }
+
+    for(let i in keys){
+      if(keys[i] !== 'image')
+        formData.append(keys[i], newUser[keys[i]]);
+    }
+    
+    return axios.post('/user/signup',formData,{
+      header:{
+        'Content-Type':'multipart/form-data'
+      }
+    });
   },
   //gets all the questions for a product
   getQuestions: function(prodId){
@@ -43,7 +63,6 @@ export default {
   },
   //gets all products based on categories and/or search term
   getProdCategorySearch: function(category,search){
-    console.log(category)
     return axios.get("/prod/search",{
       params:{
           category:category,
@@ -84,7 +103,6 @@ export default {
     let url = [];
     let files = [];
     let formData = new FormData();
-    console.log(keys)
 
     for(let i in data.images){
         if(data.images[i].type === 'file')

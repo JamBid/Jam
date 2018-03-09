@@ -88,7 +88,7 @@ class Homepage extends Component {
                                                 <div className="card-block">
                                                     <Link to={`/product/${p.id}`} >
                                                         <div className="card-img search-image">
-                                                                <img className="card-img search-image" src={p.images[0].image} alt=""/>
+                                                                {p.images.length > 0 ?<img className="card-img search-image" src={p.images[0].image} alt=""/>:null}
                                                                 <div className="card-img-overlay search-img-overlay">
                                                                     <p className="card-text">{p.prodName}</p>
                                                                 </div>
