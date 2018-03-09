@@ -25,6 +25,7 @@ class ProductNew extends Component {
             description: "",
             startingPrice: 0,
             location: "",
+            returnPolicy: "",
             endTimestamp: moment(),
             sellerId: props.userId,
             images: [{
@@ -150,7 +151,8 @@ class ProductNew extends Component {
             location: this.state.location,
             endTimestamp: this.state.endTimestamp,
             sellerId: this.state.sellerId,
-            images: this.state.images
+            images: this.state.images,
+            returnPolicy: this.state.returnPolicy
         })
         .then(res => {
             obj.setState({newProdId:res.data,success:true});
@@ -392,7 +394,12 @@ class ProductNew extends Component {
                             <div className="card">
                                 <h4 className="card-header form-header">Policy</h4>
                                 <div className="card-block">
-                                    <textarea type="text" className="form-control form-textarea-e" name="policy" placeholder="500 character max"></textarea>
+                                    <textarea type="text"
+                                        className="form-control form-textarea-e"
+                                        name="returnPolicy"
+                                        placeholder="500 character max"
+                                        value={this.state.returnPolicy}
+                                        onChange={this.handleChange} />
                                 </div>
                             </div>
                         </div>

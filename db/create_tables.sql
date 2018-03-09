@@ -16,6 +16,7 @@ CREATE TABLE products (
    prodName varchar(255) not null,
    category varchar(255) not null,
    description varchar(1000),
+   returnPolicy varchar(1000),
    startingPrice decimal(20, 5) not null,
    location varchar(255),
    endTimestamp timestamp not null,

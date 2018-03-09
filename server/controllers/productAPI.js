@@ -141,10 +141,10 @@ router.route('/')
 
             db.prod_prodImages.insertNewProd(
                 ['prodName','category','description','startingPrice','location',
-                    'endTimestamp','sellerId'],
+                    'endTimestamp','sellerId','returnPolicy'],
                 ['productId','image','imageType'],
                 [req.body.prodName,req.body.category,req.body.description,req.body.startingPrice,req.body.location,
-                    dateformat(date, 'yyyy-mm-dd HH:MM:ss', false),req.body.sellerId],
+                    dateformat(date, 'yyyy-mm-dd HH:MM:ss', false),req.body.sellerId,req.body.returnPolicy],
                 images
             )
             .then(function(result){

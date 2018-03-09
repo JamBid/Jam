@@ -29,6 +29,7 @@ class Product extends Component {
             endTimestamp: "",
             sellerName: "",
             sellerId: "",
+            returnPolicy: "",
             images: [],
             socket: null,
             allowBids:false,
@@ -294,7 +295,7 @@ class Product extends Component {
                         <div className="card form-input">
                             <h4 className="card-header form-header">Policy</h4>
                             <div className="card-body">
-                                <span id="policy">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, officiis aliquam quidem ex veritatis maxime perspiciatis sed ducimus. Harum hic perspiciatis cumque architecto et, maiores suscipit reiciendis eligendi fuga ratione.</span>
+                                <span id="policy">{this.state.returnPolicy}</span>
                             </div>
                         </div>
                     </div>
