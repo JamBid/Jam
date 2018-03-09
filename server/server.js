@@ -26,14 +26,8 @@ app.get('/', (req, res, next) => {
     res.sendFile(__dirname+'./index.html');
 });
 
-//QA socket
-//require('./routes/sockets/qa.js')(io);
-
 //Prod socket
 require('./routes/sockets/product.js')(io);
-
-//global socket
-//require('./routes/sockets/global.js')(io);
 
 // Routes
 // =============================================================
