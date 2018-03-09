@@ -252,7 +252,7 @@ class Product extends Component {
                                                             type="text"
                                                             className="form-control form-textarea form-input text-center"
                                                             name="userBid"
-                                                            value={this.state.yourBid}
+                                                            value={this.state.userBid}
                                                             onChange={this.handleChange}/>
                                                         <div className="input-group-append">
                                                             <button className="btn btn-md form-btn" type="submit" onClick={this.sendBid}>Bid</button>
