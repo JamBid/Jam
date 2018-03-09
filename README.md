@@ -13,7 +13,7 @@ What things you need to install the software and how to install them:
 * node (8.9.1) or later (Download from [NodeJS](https://nodejs.org/en/download/))
 * Google Map API Key (You can obtain one here: [Get API Key](https://developers.google.com/maps/documentation/javascript/get-api-key))_You will need to create an .env file in the root directory._
 * Cloudinary (Image file hosting) (You can obtain your credentials here: [Sign Up](https://cloudinary.com/))
-* MySQL (If you want to run it locally.)[MySQL](https://www.mysql.com/)
+* MySQL (If you want to run it locally.) (Installer can be found under the download section of [MySQL](https://www.mysql.com/))
 
 ### Installing
 
