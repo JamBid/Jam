@@ -148,10 +148,9 @@ class Product extends Component {
                     <div className="col-md-7 col-sm-12">
                         {/* card */}
                         <div className="card form-area">
-                            <div className="card-body form-area form-shrink">
 
                                 {/* form */}
-                                <form action='' method='POST' className="form-sign-up" encType="multipart/form-data">
+                                <form action='' method='POST' className="form-sign-up card-body form-area form-shrink" encType="multipart/form-data">
                                     
                                     {/* title */}
                                     <div className="form-group">
@@ -261,7 +260,6 @@ class Product extends Component {
                                     </div>  {/* -input-group */}
 
                                 </form>
-                            </div> {/* -card body */}
                         </div> {/* -card form */}
                     </div> {/* -col */}
 

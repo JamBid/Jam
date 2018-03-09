@@ -1,5 +1,12 @@
 const db = require('../models/models');
 const router = require("express").Router();
+const fs = require('fs');
+const multer = require('multer');
+const dateformat = require('dateformat');
+
+const filePath = './src/files/products';
+const upload = multer({dest:filePath});
+
 
 //product part api for homepage use
 router.route('/recent')
@@ -60,9 +67,55 @@ router.route('/:id')
     });*/
 
 router.route('/')
-    .post(function(req, res){
+    .post(upload.any(), function(req, res){
         let images = [];
 
+        //turns the string back to an array
+        let urlList = [];
+        if(req.body.url)
+            urlList = req.body.url.split(",");
+
+        for(let i in urlList)
+            images.push({
+                'image':urlList[i],
+                'imageType':'url'
+            });
+
+        //grabs the file names
+        if(req.files){
+            for(let i in req.files){
+                let fileExt = '';
+	            let type = req.files[i].mimetype.trim();
+                if( (type === 'image/jpeg') ||
+                    (type === 'image/jpg') ||
+                    (type === 'image/png' )) {
+
+			        if(type == 'image/jpeg') {
+				        fileExt = ".jpeg";
+                    }
+                    else if(type == 'image/jpg') {
+                        fileExt = ".jpg";
+                    }
+                    else if(type == 'image/png') {
+                        fileExt = ".png";
+                    }
+
+                    images.push({
+                        'image':req.files[i].path+fileExt,
+                        'imageType':'file'
+                    });
+
+                    fs.renameSync(req.files[i].path, req.files[i].path+fileExt, function(err){
+                        if(err){
+                            console.log(err)
+                            res.sendStatus(500);
+                        }
+                    })
+                }
+		    }
+	    }
+
+        //builds the JSON object for the insert
         for(let i = 1; i <= 4; i++){
             if(req.body["image"+i])
                 images.push({
@@ -70,13 +123,13 @@ router.route('/')
                     'imageType':req.body["image"+i+"type"]
                 });
         }
-        
+
         db.prod_prodImages.insertNewProd(
             ['prodName','category','description','startingPrice','location',
                 'endTimestamp','sellerId'],
             ['productId','image','imageType'],
             [req.body.prodName,req.body.category,req.body.description,req.body.startingPrice,req.body.location,
-                req.body.endTimestamp,req,body.sellerId],
+                dateformat(date, 'yyyy-mm-dd HH:MM:ss', false),req.body.sellerId],
             images
         )
         .then(function(result){

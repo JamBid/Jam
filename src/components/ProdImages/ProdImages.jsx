@@ -4,6 +4,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import './ProdImage.css';
 
+
+
 class ProdImages extends Component {
     constructor(props){
         super(props);
@@ -18,14 +20,27 @@ class ProdImages extends Component {
         this.setState({images: nextProps.images})
     }
 
+    importAll(){
+        
+        if(this.state.images.length > 0){
+            console.log(this.state.images)
+            return this.state.images.map((img, i) => (
+                img.imageType === 'file' ? 
+                <div key={i}>
+                    <img src={require(`../../files/products/${img.image.split("\\")[img.image.split("\\").length-1]}`)} alt={`slide ${i}`}/>
+                </div>
+                :
+                <div key={i}>
+                    <img src={img.image} alt={`slide ${i}`}/>
+                </div>
+            ))
+        }
+    }
+
     render() {
         return (
             <Carousel className="carousel mx-auto">
-                {this.state.images.map((img, i) => (
-                    <div key={i}>
-                        <img src={img.image} alt={`slide ${i}`}/>
-                    </div>
-                ))}
+                {this.importAll()}
             </Carousel>
         )
     }

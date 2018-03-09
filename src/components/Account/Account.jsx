@@ -216,19 +216,144 @@ class Account extends Component {
 
         return (
             <div>
-                {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
-                <div className="row">
-                    <div className="col-12 text-center">
-                        <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
-                    </div>
-                    <div className="col-12 text-center">
-                        <h2>{this.state.userInfo.firstName} {this.state.userInfo.lastName}</h2>
-                    </div>
-                </div>
                 <div>
+
+                    <form className="form-sign-up mt-3">
+                        <div className="row">
+                            
+                            <div className="col-md-6 col-sm-12 mb-5 text-center">
+                                {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
+
+                                {/* edit btn */}
+                                <div className="form-group">
+                                    {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                        <button className="btn btn-md btn-block" type="submit" id="submit-btn" onClick="">Edit</button>
+                                    : null}
+                                </div>
+
+                                <div className="row">
+                                    {/* user's name */}
+                                    <div className="col-12 text-center">
+                                        <h3>{this.state.userInfo.firstName} {this.state.userInfo.lastName}</h3>
+                                    </div>
+                                    {/* user's avatar */}
+                                    <div className="col-12 text-center">
+                                        <img id='profile-picture' src={this.state.userInfo.image} className="img-fluid rounded profile-picture" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-6 col-sm-12">
+
+                                <div className="row">
+                                        
+                                    {/* Username */}
+                                    <div className="col-md-12 col-sm-6">
+                                        <div className="card form-area">
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">Username</span>
+                                                        </div>
+                                                        <input className="form-control form-textarea form-input"
+                                                            name="prodName"
+                                                            value=""
+                                                            onChange={this.handleChange}
+                                                            type="text" />
+                                                    </div>
+                                                </div>
+                                        </div> {/* -card */}
+                                    </div> {/* -col */}
+
+                                    {/* account created date */}
+                                    <div className="col-md-12 col-sm-6">
+                                        <div className="card form-area">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text form-btn-b">Created</span>
+                                                    </div>
+                                                    <input className="form-control form-textarea form-input"
+                                                        name="prodName"
+                                                        value=""
+                                                        onChange={this.handleChange}
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                        </div> {/* -card */}
+                                    </div> {/* -col */}
+                                </div> {/* -row */}
+
+
+                                <div className="row">
+                                    <div className="col-md-12 col-sm-6">
+                                        <div className="card form-area">
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">First Name</span>
+                                                        </div>
+                                                        <input className="form-control form-textarea form-input"
+                                                            name="prodName"
+                                                            value=""
+                                                            onChange={this.handleChange}
+                                                            type="text" />
+                                                    </div>
+                                                </div>
+                                        </div> {/* -card */}
+                                    </div> {/* -col */}
+
+                                    <div className="col-md-12 col-sm-6">
+                                        <div className="card form-area">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text form-btn-b">Last Name</span>
+                                                    </div>
+                                                    <input className="form-control form-textarea form-input"
+                                                        name="prodName"
+                                                        value=""
+                                                        onChange={this.handleChange}
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                        </div> {/* -card */}
+                                    </div> {/* -col */}
+                                </div> {/* -row */}
+
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="card form-area">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text form-btn-b">Email</span>
+                                                    </div>
+                                                    <input className="form-control form-textarea form-input"
+                                                        name="prodName"
+                                                        value=""
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                        </div> {/* -card */}
+                                    </div> {/* -col */}
+                                </div>  {/* -row */}
+
+                            </div>
+                        </div> {/* -row */}
+                    </form>
+
+
+
+
+
+
+
+
+                            
                     <div className="row  mx-auto">
                         <div className="col-12">
-                            <h3 className="float-left">Personal Info</h3>
+                            <h3 className="float-left">User Profile</h3>
                             {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                 <button className="btn btn-info float-right round-button" onClick={this.setEdit}>
                                     <i className="fa fa-pencil"></i>
@@ -312,6 +437,12 @@ class Account extends Component {
                     </div>
                 </div>
                 <br />
+                
+
+
+
+
+                
                 <div>
                     <div style={{ textAlign: "center" }}>
                         <h3>Sell History</h3>

@@ -67,6 +67,12 @@
 .dollar-label, .bid-label {
     height: 38px;
 }
+
+.dollar-tag {
+    background: none;
+    color: #7f4db8;
+    background: white;
+}
   
 /* dollar symbol in "your bid" area */
 .dollar-label {
@@ -89,7 +95,28 @@
     background: #7f4db8;
   }
 
+
+
   /* removes bottom padding where used */
   .form-shrink {
       padding-bottom: 0;
+}
+
+#ask-label {
+    width: 60px !important; /* important needed */
+}
+
+.form-sign-up {
+    padding: 1em;
+}
+
+
+
+/* PRODUCT NEW PAGE (ONLY) */
+
+
+
+/* PRODUCT PAGE (ONLY) */
+#title {
+    margin: 4px 0 0 0;
 }
