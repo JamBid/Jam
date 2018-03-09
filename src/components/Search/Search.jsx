@@ -98,7 +98,7 @@ class Search extends Component {
 
                                         <div  key={"p2_"+(j+1)} className="card m-2">
                                             <div className="card-block">
-                                                <Link to={`/product/${p.id}`} >
+                                                <Link to={`/product/${p2.id}`} >
                                                     <img className="card-img search-image" src={p2.images[0].image} alt=""/>
                                                     <div className="card-img-overlay search-img-overlay">
                                                         <p className="card-text">{p2.prodName}</p>

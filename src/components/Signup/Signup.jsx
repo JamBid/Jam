@@ -82,44 +82,45 @@ class Signup extends Component {
             let obj = this;
             let userName = this.state.userName;
 
-        API.signUpNewUser({
-            email:this.state.email.value,
-            firstName:this.state.firstName.value,
-            lastName:this.state.lastName.value,
-            password:this.state.password.value,
-            userName:this.state.userName.value,
-            image:this.state.image
-        })
-        .then(function(result){
-            if(result.data.status === 'good') {
-                // if successful login -> collapse nav menu
-                 obj.state.toggle();
+            API.signUpNewUser({
+                email:this.state.email.value,
+                firstName:this.state.firstName.value,
+                lastName:this.state.lastName.value,
+                password:this.state.password.value,
+                userName:this.state.userName.value,
+                image:this.state.image
+            })
+            .then(function(result){
+                if(result.data.status === 'good') {
+                    // if successful login -> collapse nav menu
+                    obj.state.toggle();
 
-                 //clears the state
-                 obj.setState({
-                    email: {value:"", isValid: true, message:[], isRequired: true},
-                    firstName:{value:"", isValid: true, message:[], isRequired: true},
-                    lastName:{value:"", isValid: true, message:[], isRequired: true},
-                    password: {value:"", isValid: true, message:[], isRequired: true},
-                    retypePassword: {value:"", isValid: true, message:[], isRequired: true},
-                    userName: {value:"", isValid: true, message:[], isRequired: true},
-                    image: {value:"", file: null, type: 'file', isValid: true, message:[], isRequired: false},
-                    terms: {value: false , isValid: true, message:[], isRequired: true}
-                 });
-            }
-            else{
-                userName.isValid = false;
-                userName.message.push(result.data.msg);
+                    //clears the state
+                    obj.setState({
+                        email: {value:"", isValid: true, message:[], isRequired: true},
+                        firstName:{value:"", isValid: true, message:[], isRequired: true},
+                        lastName:{value:"", isValid: true, message:[], isRequired: true},
+                        password: {value:"", isValid: true, message:[], isRequired: true},
+                        retypePassword: {value:"", isValid: true, message:[], isRequired: true},
+                        userName: {value:"", isValid: true, message:[], isRequired: true},
+                        image: {value:"", file: null, type: 'file', isValid: true, message:[], isRequired: false},
+                        terms: {value: false , isValid: true, message:[], isRequired: true}
+                    });
+                }
+                else{
+                    userName.isValid = false;
+                    userName.message.push(result.data.msg);
 
-                obj.setState({userName:userName})
-            }
-        })
-        .catch(function(error){
-            console.log(error);
-        });
+                    obj.setState({userName:userName})
+                }
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+        }
     }
-}
 
+    //function to perform the validation on the input fields
     formValidation = (name) => {
         let valid = true;
         let obj = this.state[name];
@@ -206,7 +207,7 @@ class Signup extends Component {
         else if(name === "terms"){
             if(this.state[name].isRequired && !this.state[name].value){
                 errorMsg.push("Please indicate you agree with Terms and Conditions");
-                valid = true;
+                valid = false;
             }
         }
 
@@ -216,16 +217,14 @@ class Signup extends Component {
             obj.message = errorMsg;
 
             this.setState({[name]:obj})
-        }
-        
+        } 
     }
 
-
+    //function for onBlue (cursor leaving target)
     handleFocusOut = (event) => {
         const name = event.target.name;
 
         this.formValidation(name);
-        
     }
 
     checkForErrors = () =>{
@@ -332,7 +331,7 @@ class Signup extends Component {
                                     <div className="checkbox">
                                         <label className="small">
                                             <input 
-                                            className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
+                                            className={this.state.terms.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
                                             type="checkbox"
                                             name="terms" 
                                             checked ={this.state.terms.value}

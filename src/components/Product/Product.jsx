@@ -36,7 +36,8 @@ class Product extends Component {
             userBid: 0,
             highestBid:{
                 amount:null
-            }
+            },
+            bidErrorMessage:null
         }
     }
 
@@ -80,7 +81,7 @@ class Product extends Component {
         API.getHighestBid(this.state.id)
         .then( res => {
             if(res.data.length > 0)
-                obj.setState({highestBid:res.data[0],userBid:0})
+                obj.setState({highestBid:res.data[0],userBid:0,bidErrorMessage:null})
         })
         .catch(err => console.log(err))
     }
@@ -97,7 +98,7 @@ class Product extends Component {
             if(msg.msg === 'success')
                 this.getHighBid();
             else if(msg.msg === 'too low')
-                console.log("too low")
+                this.setState({bidErrorMessage:"Your new bid is too low."});
             else
                 console.log(msg)
             
@@ -108,7 +109,7 @@ class Product extends Component {
     sendBid = (e) => {
         e.preventDefault();
 
-        if(this.state.userBid !== 0 && this.state.userId !== this.state.highestBid.buyerId){
+        if(this.state.userBid > 0 && this.state.userId !== this.state.highestBid.buyerId){
             if(isNaN(parseFloat(this.state.userBid)) === false)
                 this.state.socket.emit('bid', {room: this.state.id,
                                                 "msg":{
@@ -119,12 +120,12 @@ class Product extends Component {
                                                 }
                                             });
             else
-                console.log("Not a bid")
+                this.setState({bidErrorMessage:"Not a valid bid."});
         }
         else if(this.state.userId === this.state.highestBid.buyerId)
-            console.log("You are the highest bidder.")
+            this.setState({bidErrorMessage:"You are the current highest bidder."});
         else
-            console.log("bid must be greater than 0")
+            this.setState({bidErrorMessage:"Bid must be greater than $0."});
     }
 
     //function that is used when there is a change on an input
@@ -251,7 +252,7 @@ class Product extends Component {
                                                             type="text"
                                                             className="form-control form-textarea form-input text-center"
                                                             name="userBid"
-                                                            value={this.state.yourBid}
+                                                            value={this.state.userBid}
                                                             onChange={this.handleChange}/>
                                                         <div className="input-group-append">
                                                             <button className="btn btn-md form-btn" type="submit" onClick={this.sendBid}>Bid</button>
@@ -260,6 +261,7 @@ class Product extends Component {
                                                 </div> {/* -input-group */}
                                             </div>
                                          :null}
+                                         {this.state.bidErrorMessage ? <span style={{color:"red"}}>{this.state.bidErrorMessage}</span> : null}
                                     </div>  {/* -input-group */}
 
                                 </form>

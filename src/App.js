@@ -40,7 +40,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    let obj = this;
     let token = JSON.parse(sessionStorage.getItem("JamBid"));
     if(token){
       if(token.token)
@@ -48,12 +47,10 @@ class App extends Component {
           if(err) console.log("err",err);
 
           if(decode)
-            obj.setState({userId:decode.userId}, obj.receive)
+            this.setState({userId:decode.userId}, this.receive)
         });
     }
   }
-
-  
 
   //method to receive messages from the socket
   receive = () => {
