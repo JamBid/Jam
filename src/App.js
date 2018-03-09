@@ -46,9 +46,11 @@ class App extends Component {
           if(err) console.log("err",err);
 
           if(decode)
-            this.setState({userId:decode.userId}, this.receive)
+            this.setState({userId:decode.userId})
         });
     }
+
+    this.receive();
   }
 
   //method to receive messages from the socket
