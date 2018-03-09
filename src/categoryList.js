@@ -3,7 +3,7 @@ module.exports ={
     Cars:'cars',
     Suvs:'suvs',
     'Auto Parts':'carparts',
-    Electronics:['phones','computers','eletronicparts'],
+    Electronics:['phones','computers','electronicparts'],
     Phones:'phones',
     Computers:'computers',
     'Electronic Parts':'electronicparts',
