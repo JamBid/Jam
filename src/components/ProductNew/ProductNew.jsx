@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import '../Product.css';
+import './ProductNew.css';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -9,8 +10,6 @@ import moment from 'moment';
 
 import API from '../../utils/API';
 import list from '../../categoryList';
-
-// import ProdImages from '../ProdImages';
 
 
 class ProductNew extends Component {
@@ -20,13 +19,13 @@ class ProductNew extends Component {
 
         this.state = {
             cert: props.cert,
-            prodName: "",
-            category: "",
-            description: "",
-            startingPrice: 0,
-            location: "",
-            returnPolicy: "",
-            endTimestamp: moment(),
+            prodName: {value:"", isValid: true, message:[], isRequired: true},
+            category: {value:"", isValid: true, message:[], isRequired: true},
+            description: {value:"", isValid: true, message:[], isRequired: true},
+            startingPrice: {value: 0, isValid: true, message:[], isRequired: true},
+            location: {value:"", isValid: true, message:[], isRequired: false},
+            returnPolicy: {value:"", isValid: true, message:[], isRequired: true},
+            endTimestamp: {value:moment(), isValid: true, message:[], isRequired: true},
             sellerId: props.userId,
             images: [{
                 val: "",
@@ -35,7 +34,7 @@ class ProductNew extends Component {
             }],
             imageCount: 1,
             success:false,
-            newProdId:null
+            newProdId:""
         };
     }
 
@@ -62,8 +61,12 @@ class ProductNew extends Component {
         const name = event.target.name;
         const value = event.target.value;
 
+        let obj = this.state[name];
+
+        obj.value = value;
+
         this.setState({
-            [name]:value
+            [name]:obj
         });
     }
 
@@ -92,8 +95,13 @@ class ProductNew extends Component {
 
     //function that is used when there is a change on date picker
     handleDateChange = (event) => {
+        let obj = this.state.endTimestamp;
+        obj.value = event;
+
+        this.formValidation('endTimestamp');
+
         this.setState({
-            endTimestamp:event
+            endTimestamp:obj
         });
     }
 
@@ -138,28 +146,141 @@ class ProductNew extends Component {
         })
     }
 
+    //function to verify there are no errors
+    checkForErrors = () =>{
+        let errorFound = false;
+
+        for(let i in this.state){
+            if(this.state[i].hasOwnProperty('isValid'))
+                if(!this.state[i].isValid)
+                    errorFound = true;
+        }
+        return errorFound;
+    }
+
+    //function for onBlue (cursor leaving target)
+    handleFocusOut = (event) => {
+        const name = event.target.name;
+
+        if(this.state[name].hasOwnProperty('isValid'))
+            this.formValidation(name);
+    }
+
+    //function to perform the validation on the input fields
+    formValidation = (name) => {
+        let valid = true;
+        let obj = this.state[name];
+        let errorMsg = [];
+
+        if (name === "prodName"){
+            if (this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Product name is required.`);
+                valid = false;
+            }
+            else{
+                // if(!this.state[name].value.match(/^[a-zA-Z0-9_.-]*$/)) {
+                //     errorMsg.push("Use letters and numbers for Username");
+                //     valid = false;                
+                // }
+            }
+        }
+        else if(name === "category"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Category field is required.`);
+                valid = false;
+            }
+        }
+        else if(name === "description"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Description is required.`);
+                valid = false;
+            }
+            else{
+                if(this.state[name].value.length > 1000){
+                    errorMsg.push(`Description is longer than 1000 characters.`);
+                    valid = false;
+                }
+            }
+        }
+        else if(name === "startingPrice"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Starting price is required.`);
+                valid = false;
+            }
+            else{
+                if(this.state[name].value < 0){
+                    errorMsg.push(`Starting price must be greater than $0.`);
+                    valid = false;
+                }
+            }
+        }
+        else
+         if(name === "location"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Location is required.`);
+                valid = false;   
+            }
+        }
+        else if(name === "returnPolicy"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push(`Return policy is required`);
+                valid = false;   
+            }
+            else{
+                if(this.state[name].value.length > 1000){
+                    errorMsg.push("Return policy cannot be longer than 1000 characters.");
+                    valid = false;
+                }
+            }
+        }
+        else if(name === "endTimestamp"){
+            if(this.state[name].isRequired && !this.state[name].value){
+                errorMsg.push("Ending timestamp is required.");
+                valid = false;
+            }
+            else if(this.state[name].value.isSameOrBefore(moment())){
+                errorMsg.push("Ending timestamp must be in the future.");
+                valid = false;
+            }
+        }
+
+        obj.isValid = valid;
+        obj.message = errorMsg;
+
+        this.setState({[name]:obj})
+    }
+
     //function to submit the new prod info
     handleSubmit =(event) =>{
         event.preventDefault();
         let obj = this;
 
-        API.insertNewProd({
-            prodName: this.state.prodName,
-            category: this.state.category,
-            description: this.state.description,
-            startingPrice: this.state.startingPrice,
-            location: this.state.location,
-            endTimestamp: this.state.endTimestamp,
-            sellerId: this.state.sellerId,
-            images: this.state.images,
-            returnPolicy: this.state.returnPolicy
-        })
-        .then(res => {
-            obj.setState({newProdId:res.data,success:true});
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        //loops through the state JSON
+        for(let i in obj.state){
+            console.log(i)
+            if(obj.state[i].hasOwnProperty('isValid'))
+                obj.formValidation(i);
+        }
+
+        if(!this.checkForErrors()){
+            API.insertNewProd({
+                prodName: this.state.prodName.value,
+                category: this.state.category.value,
+                description: this.state.description.value,
+                startingPrice: this.state.startingPrice.value,
+                location: this.state.location.value,
+                endTimestamp: this.state.endTimestamp.value,
+                sellerId: this.state.sellerId,
+                images: this.state.images,
+                returnPolicy: this.state.returnPolicy.value
+            })
+            .then(res => {
+                obj.setState({newProdId:res.data,success:true});
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     //function that generates a list of options from a specific formatted JSON
@@ -167,7 +288,11 @@ class ProductNew extends Component {
         let keys = Object.keys(list);
 
         return(
-            <select className='form-control category-dropdown' defaultValue="" name="category" onChange={this.handleChange}>
+            <select className='form-control category-dropdown'
+            defaultValue=""
+            name="category"
+            onChange={this.handleChange}
+            onBlur={this.handleFocusOut}>
                 {/* category dropdown */}
                 <option disabled value=""></option>
                 {keys.map((ele, i) => {
@@ -261,11 +386,24 @@ class ProductNew extends Component {
 
 
     render() {
+        let keys = Object.keys(this.state);
+
         return (
             <div>
                 {!this.state.sellerId ? <Redirect to="/"/>:null}
                 {this.state.success && this.state.newProdId ? <Redirect to={`/product/${this.state.newProdId}`}/>:null}
-                <form className="form-sign-up mt-3">
+                {this.checkForErrors() ?
+                    <div className="alert alert-danger">
+                        {keys.map((k,i) =>(
+                            this.state[k].hasOwnProperty('message') ? 
+                                this.state[k].message.map((m,j) =>(
+                                    <p key={i+"_"+j}>{`* ${m}`}</p>
+                                ))
+                            : null
+                        ))}
+                    </div>
+                :null}
+                            <form className="form-sign-up mt-3">
 
                     {/*<!-- New Product form -->*/}
                     <div className="row">
@@ -283,50 +421,52 @@ class ProductNew extends Component {
 
                                     {/* form */}
                                         {/* title */}
-                                        <div className="form-group">
+                                        <div className={this.state.prodName.isValid ? "form-group form-input" : "form-group form-input error"}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text field-title form-btn-b">Title</span>
                                                 </div>
                                                 <textarea name="prodName"
-                                                    className="form-control field-title form-input"
-                                                    value={this.state.prodName}
-                                                    onChange={this.handleChange}>
+                                                    className="form-control field-title"
+                                                    value={this.state.prodName.value}
+                                                    onChange={this.handleChange}
+                                                    onBlur={this.handleFocusOut}>
                                                 </textarea>
                                             </div>
                                         </div>
 
                                         {/* category */}
-                                        <div className="form-group form-input">
+                                        <div className={this.state.category.isValid ? "form-group form-input" : "form-group form-input error"}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text form-btn-b">Category</span>
                                                 </div>
-                                                    {this.getList()}
+                                                {this.getList()}
                                             </div>
                                         </div>
 
                                         {/* location */}
-                                        <div className="form-group">
+                                        <div className={this.state.location.isValid ? "form-group form-input" : "form-group form-input error"}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text form-btn-b">Location</span>
                                                 </div>
-                                                <input className="form-control form-input"
+                                                <input className="form-control"
                                                     name="location"
-                                                    value={this.state.location}
-                                                    onChange={this.handleChange}/> 
+                                                    value={this.state.location.value}
+                                                    onChange={this.handleChange}
+                                                    onBlur={this.handleFocusOut}/> 
                                             </div>
                                         </div>
 
                                         {/* end time */}
-                                        <div className="form-group form-input">
+                                        <div className={this.state.endTimestamp.isValid ? "form-group form-input" : "form-group form-input error"}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text input-md form-btn-b">End Time</span>
                                                 </div>
                                                 <DatePicker
-                                                    selected={this.state.endTimestamp}
+                                                    selected={this.state.endTimestamp.value}
                                                     onChange={this.handleDateChange}
                                                     showTimeSelect
                                                     timeIntervals={30}
@@ -336,16 +476,17 @@ class ProductNew extends Component {
                                         </div>
 
                                         {/* location */}
-                                        <div className="form-group">
+                                        <div className={this.state.startingPrice.isValid ? "form-group form-input" : "form-group form-input error"}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
                                                     <span className="input-group-text form-btn-b">Min Price</span>
                                                 </div>
                                                 <input type='number'
-                                                    className="form-control form-input"
+                                                    className="form-control"
                                                     name="startingPrice"
-                                                    value={this.state.startingPrice}
-                                                    onChange={this.handleChange}/> 
+                                                    value={this.state.startingPrice.value}
+                                                    onChange={this.handleChange}
+                                                    onBlur={this.handleFocusOut}/> 
                                             </div>
                                         </div>
 
@@ -373,16 +514,16 @@ class ProductNew extends Component {
                     {/* description */}
                     <div className="form-group">
                         <div className="col-12">
-                            <div className="card">
+                            <div className={this.state.description.isValid ? "card" : "card error"}>
                                 <h4 className="card-header form-header">Description</h4>
                                 <div className="card-block">
                                     <textarea type="text"
                                         className="form-control form-textarea-e"
                                         name="description"
                                         placeholder="500 character max"
-                                        value={this.state.description}
-                                        onChange={this.handleChange}>
-                                    </textarea>
+                                        value={this.state.description.value}
+                                        onChange={this.handleChange}
+                                        onBlur={this.handleFocusOut}/>
                                 </div>
                             </div>
                         </div>
@@ -391,20 +532,20 @@ class ProductNew extends Component {
                     {/* return policy */}
                     <div className="form-group">
                         <div className="col-12">
-                            <div className="card">
+                            <div className={this.state.returnPolicy.isValid ? "card" : "card error"}>
                                 <h4 className="card-header form-header">Policy</h4>
                                 <div className="card-block">
                                     <textarea type="text"
                                         className="form-control form-textarea-e"
                                         name="returnPolicy"
                                         placeholder="500 character max"
-                                        value={this.state.returnPolicy}
-                                        onChange={this.handleChange} />
+                                        value={this.state.returnPolicy.value}
+                                        onChange={this.handleChange}
+                                        onBlur={this.handleFocusOut}/>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         )
