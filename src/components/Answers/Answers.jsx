@@ -120,7 +120,6 @@ class Answers extends Component {
                  room: this.state.productId
                 }
             );
-        this.setState({loadedNewAnswer:false});
     }
 
     //function to receive socket messages
