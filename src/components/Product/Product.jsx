@@ -293,7 +293,7 @@ class Product extends Component {
                 <div className="form-group">
                     <div className="col-12">
                         <div className="card form-input">
-                            <h4 className="card-header form-header">Policy</h4>
+                            <h4 className="card-header form-header">Return Policy</h4>
                             <div className="card-body">
                                 <span id="policy">{this.state.returnPolicy}</span>
                             </div>

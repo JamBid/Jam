@@ -114,9 +114,34 @@
     padding: 1em;
 }
 
-
-
+/* SEPARATE CLASSES AND IDs BELOW:   */
 /* PRODUCT NEW PAGE (ONLY) */
+
+#ghost {
+    height: 38px !important;
+    /* background: black; */
+}
+
+
+.file-toggle {
+    height: 70px !important;
+}
+
+.img-toggle-btn {
+    height: 35px !important;
+    line-height: 1;
+    /* width: 100px; */
+}
+
+#toggle-content {
+    padding: 5px 10px;
+    /* height: 80px; */
+}
+
+#url-input {
+    width: 100% !important;
+}
+
 
 
 

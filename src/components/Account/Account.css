@@ -1,3 +1,7 @@
+.wide {
+    width: 110px !important;
+}
+
 .footer-tip {
     line-height: .5;
     height: 33px;
@@ -5,7 +9,7 @@
 }
 
 .rt-table {
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 /* form preview */
