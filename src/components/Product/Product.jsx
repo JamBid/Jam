@@ -55,6 +55,10 @@ class Product extends Component {
         this.receive();
     }
 
+    componentWillUnmount(){
+        this.state.socket.emit('leave', this.state.id);
+    }
+
     componentWillReceiveProps(nextProps){
         this.setState({userId:nextProps.userId})
     }
@@ -151,10 +155,9 @@ class Product extends Component {
                     <div className="col-md-7 col-sm-12">
                         {/* card */}
                         <div className="card form-area">
-                            <div className="card-body form-area form-shrink">
 
                                 {/* form */}
-                                <form action='' method='POST' className="form-sign-up" encType="multipart/form-data">
+                                <form action='' method='POST' className="form-sign-up card-body form-area form-shrink" encType="multipart/form-data">
                                     
                                     {/* title */}
                                     <div className="form-group">
@@ -228,7 +231,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                            <span className="form-btn-b prod-dollar"> $ </span>
                                                         </div>
                                                         <label className="form-control form-textarea form-input text-center" id="high-bid">
                                                             {this.state.highestBid.amount ? this.state.highestBid.amount : this.state.startingPrice}
@@ -246,7 +249,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b" id="dollar-sign"> $ </span>
+                                                            <span className="form-btn-b prod-dollar"> $ </span>
                                                         </div>
                                                         <input
                                                             type="text"
@@ -255,7 +258,7 @@ class Product extends Component {
                                                             value={this.state.userBid}
                                                             onChange={this.handleChange}/>
                                                         <div className="input-group-append">
-                                                            <button className="btn btn-md form-btn" type="submit" onClick={this.sendBid}>Bid</button>
+                                                            <button className="form-btn-b bid-label" type="submit" onClick={this.sendBid}>Bid</button>
                                                         </div>                                         
                                                     </div>
                                                 </div> {/* -input-group */}
@@ -265,7 +268,6 @@ class Product extends Component {
                                     </div>  {/* -input-group */}
 
                                 </form>
-                            </div> {/* -card body */}
                         </div> {/* -card form */}
                     </div> {/* -col */}
 
@@ -295,7 +297,7 @@ class Product extends Component {
                 <div className="form-group">
                     <div className="col-12">
                         <div className="card form-input">
-                            <h4 className="card-header form-header">Policy</h4>
+                            <h4 className="card-header form-header">Return Policy</h4>
                             <div className="card-body">
                                 <span id="policy">{this.state.returnPolicy}</span>
                             </div>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import API from '../../utils/API';
 import './Signup.css';
 
@@ -6,6 +7,8 @@ import './Signup.css';
 class Signup extends Component {
     constructor(props){
         super(props);
+
+        this.toggle = this.toggle.bind(this);
 
         this.state = {
             email: {value:"", isValid: true, message:[], isRequired: true},
@@ -16,7 +19,8 @@ class Signup extends Component {
             userName: {value:"", isValid: true, message:[], isRequired: true},
             image: {value:"", file: null, type: 'file', isValid: true, message:[], isRequired: false},
             terms: {value: false , isValid: true, message:[], isRequired: true},
-            toggle: props.onClick
+            toggle: props.onClick,
+            modal: false
         }
     }
     
@@ -74,12 +78,15 @@ class Signup extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
-        
-        for(let i in this.state)
-            this.formValidation(i);
+        let obj = this;
 
+        //loops through the state JSON
+        for(let i in obj.state){
+            if(obj.state[i].hasOwnProperty('isValid'))
+                obj.formValidation(i);
+        }
+        
         if (!this.checkForErrors()) {
-            let obj = this;
             let userName = this.state.userName;
 
             API.signUpNewUser({
@@ -179,8 +186,7 @@ class Signup extends Component {
                 }
             }
         }
-        else
-         if(name === "password"){
+        else if(name === "password"){
             if(this.state[name].isRequired && !this.state[name].value){
                 errorMsg.push(`Password field is Required`);
                 valid = false;   
@@ -211,31 +217,37 @@ class Signup extends Component {
             }
         }
 
-        //list of state elements to skip
-        if(name !== 'toggle' && name !== 'image'){
-            obj.isValid = valid;
-            obj.message = errorMsg;
+        obj.isValid = valid;
+        obj.message = errorMsg;
 
-            this.setState({[name]:obj})
-        } 
+        this.setState({[name]:obj})
     }
 
     //function for onBlue (cursor leaving target)
     handleFocusOut = (event) => {
         const name = event.target.name;
 
-        this.formValidation(name);
+        if(this.state[name].hasOwnProperty('isValid'))
+            this.formValidation(name);
     }
 
+    //function to verify there are no errors
     checkForErrors = () =>{
         let errorFound = false;
 
         for(let i in this.state){
-            if(i !== "toggle" && !this.state[i].isValid)
-                errorFound = true;
+            if(this.state[i].hasOwnProperty('isValid'))
+                if(!this.state[i].isValid)
+                    errorFound = true;
         }
         return errorFound;
     }
+
+    toggle() {
+        this.setState({
+          modal: !this.state.modal
+        });
+      }
     
 
     render() {
@@ -252,7 +264,7 @@ class Signup extends Component {
                             {this.checkForErrors() ?
                                 <div className="alert alert-danger">
                                     {keys.map((k,i) =>(
-                                        k !== "toggle" ? 
+                                        k !== "toggle" && k!=="modal" ? 
                                             this.state[k].message.map((m,j) =>(
                                                 <p key={i+"_"+j}>{`* ${m}`}</p>
                                             ))
@@ -285,13 +297,12 @@ class Signup extends Component {
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                         <div className="col-6 l-pad">
-                                            <input className={this.state.lastName.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
+                                            <input className={this.state.lastName.isValid ? "form-control input-md form-input l-border" : "form-control input-md form-input l-border error"}
                                                 placeholder="Last Name"
                                                 name="lastName"
                                                 type="text"
                                                 value={this.state.lastName.value}
                                                 onChange={this.handleChange}
-                                                id="last-name"
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                     </div>
@@ -317,8 +328,7 @@ class Signup extends Component {
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                         <div className="col-6 l-pad">
-                                            <input className={this.state.retypePassword.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
-                                                id="confirm-password"
+                                            <input className={this.state.retypePassword.isValid ? "form-control input-md form-input l-border" : "form-control input-md form-input error l-border"}
                                                 placeholder="Confirm Password"
                                                 name="retypePassword"
                                                 type="password"
@@ -328,35 +338,52 @@ class Signup extends Component {
                                                 onBlur={this.handleFocusOut} />
                                         </div>
                                     </div>
+                                    <div className="form-group">
+                                        <input 
+                                            type="file" 
+                                            className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
+                                            name="image"
+                                            imagetype="file"
+                                            value={this.state.image.value}
+                                            onChange={this.handleImageChange} />
+                                    </div>
                                     <div className="checkbox">
                                         <label className="small">
                                             <input 
-                                            className={this.state.terms.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
-                                            type="checkbox"
-                                            name="terms" 
-                                            checked ={this.state.terms.value}
-                                            onChange={this.handleChange}
-                                            onBlur={this.handleFocusOut}/> I have read and agree to the terms of service.
+                                                className={this.state.image.isValid ? "term" : "term error"}
+                                                type="checkbox"
+                                                name="terms" 
+                                                checked ={this.state.terms.value}
+                                                onChange={this.handleChange}
+                                                onBlur={this.handleFocusOut}/>  I have read and agree to the <a className="text-primary" onClick={this.toggle}>terms of service</a>.
                                         </label>
                                     </div>
-                                    <div className="form-group">
-                                        <input 
-                                        type="file" 
-                                        className={this.state.image.isValid ? "form-control input-md form-input" : "form-control input-md form-input error"}
-                                        name="image"
-                                        imagetype="file"
-                                        value={this.state.image.value}
-                                        onChange={this.handleImageChange} />
-                                    </div>
-
-
                                     <input className="btn btn-md btn-block form-btn"
                                         value="Sign Me Up"
                                         type="submit"
-                                        id="signup-btn"
                                         onClick={this.handleClick} />
                                 </form>
                             </fieldset>
+                                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                                <ModalHeader toggle={this.toggle}></ModalHeader>
+                                <ModalBody>
+                                    <h4>1. Indemnification.</h4>
+                                    <p>You hereby indemnify to the fullest extent [COMPANY NAME] from and against any and all liabilities, costs, demands, causes of action, damages and expenses (including reasonable attorney's fees) arising out of or in any way related to your breach of any of the provisions of these Terms.</p>
+                                    <h4>2. Severability.</h4>
+                                    <p>If any provision of these Terms is found to be unenforceable or invalid under any applicable law, such unenforceability or invalidity shall not render these Terms unenforceable or invalid as a whole, and such provisions shall be deleted without affecting the remaining provisions herein.</p>
+                                    <h4>3. Variation of Terms.</h4>
+                                    <p>[COMPANY NAME] is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review such Terms on a regular basis to ensure you understand all terms and conditions governing use of this Website.</p>
+                                    <h4>4. Assignment.</h4>
+                                    <p>[COMPANY NAME] shall be permitted to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification or consent required. However, .you shall not be permitted to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.</p>
+                                    <h4>5. Entire Agreement.</h4>
+                                    <p>These Terms, including any legal notices and disclaimers contained on this Website, constitute the entire agreement between [COMPANY NAME] and you in relation to your use of this Website, and supersede all prior agreements and understandings with respect to the same.</p>
+                                    <h4>6. Governing Law & Jurisdiction.</h4>
+                                    <p>These Terms will be governed by and construed in accordance with the laws of the State of [STATE], and you submit to the non-exclusive jurisdiction of the state and federal courts located in [STATE] for the resolution of any disputes.</p>
+                            </ModalBody>
+                                <ModalFooter>
+                                    <Button className="form-btn-b" onClick={this.toggle}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
                         </div>
                     </div>
                 </div>

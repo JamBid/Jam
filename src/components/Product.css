@@ -35,12 +35,12 @@
 
 /* datepicker - input field container */
 .react-datepicker__input-container {
-    margin: 10px 0 0 20px;
+    margin: 10px 0 0 15px;
 }
 
 /* datepicker - input field */
 .react-datepicker__input-container input {
-    min-width: 220px;
+    min-width: 210px;
     border: none;
     background: none;
     color: #7f4db8;
@@ -64,10 +64,24 @@
     border: solid 1px #7f4db8;
   }
   
-/* dollar symbol in "your bid" area */
-#dollar-sign {
+/* new product componet - dollar symbol */
+.new-prod-dollar {
+    border: none !important;
+    background: none;
+    color: #7f4db8;
+    background: white;
     text-align: center;
     width: 40px !important; 
+    padding: 8px 0 0 0;
+}
+
+/* product componet  - dollar tag */
+.prod-dollar {
+    height: 38px;
+    width: 40px;
+    text-align: center;
+    background: #7f4db8;
+    color:white;
     padding: 5px 0 0 0;
 }
 
@@ -85,7 +99,52 @@
     background: #7f4db8;
   }
 
+
+
   /* removes bottom padding where used */
   .form-shrink {
       padding-bottom: 0;
-  }
+}
+
+#ask-label {
+    width: 60px !important; /* important needed */
+}
+
+.form-sign-up {
+    padding: 1em;
+}
+
+/* SEPARATE CLASSES AND IDs BELOW:   */
+/* PRODUCT NEW PAGE (ONLY) */
+
+#ghost {
+    height: 38px !important;
+    /* background: black; */
+}
+
+
+.file-toggle {
+    height: 70px !important;
+}
+
+.img-toggle-btn {
+    height: 35px !important;
+    line-height: 1;
+}
+
+#toggle-content {
+    padding: 5px 10px;
+}
+
+.url-input {
+    margin: 10px 0 0 0;
+    width: 100% !important;
+}
+
+
+
+
+/* PRODUCT PAGE (ONLY) */
+#title {
+    margin: 4px 0 0 0;
+}

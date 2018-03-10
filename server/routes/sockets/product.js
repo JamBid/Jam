@@ -108,12 +108,14 @@ module.exports = function(io){
         console.log("New client connected to prod: "+socket.conn.remoteAddress);
 
         //handles joining
-        socket.on('room',(msg) =>{
-            if(socket.room)
-                socket.leave(socket.room);
-            
+        socket.on('room',(msg) =>{                        
             socket.join("prod"+msg);
         });
+
+        //handles leaving a room
+        socket.on('leave', (msg) =>{
+                socket.leave("prod"+msg);
+        })
 
         //sending messages out to the room for bids
         socket.on('bid', (msg) => {

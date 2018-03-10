@@ -2,10 +2,9 @@ body {
   background: #f6f3ff;
 }
 
-select{
+select {
   appearance: none;
   -webkit-appearance: none;
-  /* -webkit-border-radius: 0px;  */
 }
 
 /* content container wrapper */
@@ -22,6 +21,10 @@ select{
 .card-area {
   border-radius: 0px;
   border: solid 1px #7f4db8;
+}
+
+.card-footer {
+  border-radius: 0 !important;
 }
 
 /* form area */
@@ -127,4 +130,37 @@ select{
 
 .input-group-text {
   width: 100px !important;
+}
+
+/* wraps input fields */
+.error {
+	border-color: red;
+}
+
+.modal-content {
+  color: #7f4db8;
+  margin: 2px;
+  border-radius: 0px;
+  border: solid 2px #7f4db8;
+  background: #f6f3ff;
+}
+
+
+.btn-hover {
+    color: #7f4db8;
+    border: solid 1px #7f4db8;
+    background: none;
+    border-radius: 0px;
+}
+
+.btn-hover:hover {
+    color:white;
+    background: #7f4db8;
+  }
+
+
+.navbar-fixed-bottom {
+  font-family: 'Lato', sans-serif;
+  color: #7f4db8;
+  font-weight: 500;
 }

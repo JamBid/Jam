@@ -120,7 +120,7 @@ export default {
 
     for(let i in files)
       formData.append(`file${i+1}`,files[i]);
-    
+      
     return axios.post('/prod',formData,{
       header:{
         'Content-Type':'multipart/form-data'

@@ -1,13 +1,4 @@
-DROP TABLE IF EXISTS prodImages;
-DROP TABLE IF EXISTS answers;
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS bids;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS users;
-
-
-
--- Empty Data
+-- Empty Data (need permission in User to drop tables... GRANT DROP ON )
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE prodImages;
 TRUNCATE TABLE answers;

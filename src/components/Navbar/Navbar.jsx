@@ -5,7 +5,7 @@ import {Link, Route} from 'react-router-dom';
 import './Navbar.css';
 import accountSvg from './images/account.svg';
 import newProdSvg from './images/newProd.svg';
-import notificationSvg from './images/notification.svg';
+// import notificationSvg from './images/notification.svg';
 import loginSvg from './images/login.svg';
 import logoutSvg from './images/logout.svg';
 
@@ -48,20 +48,20 @@ class Nav extends Component {
 
                         {/*<!-- navbar logo -->*/}
                         <div className="col-4">
-                            <div className="mx-auto">
-                                <Link className="navbar-brand" to="/">
-                                    <span className="bold">
-                                        JAM
-                                    </span>
-                                    <span className="thin">
-                                        BID
-                                    </span>   
-                                </Link>
-                            </div>
+                            <Link className="navbar-brand" to="/">
+                                <span className="bold">
+                                    JAM
+                                </span>
+                                <span className="thin">
+                                    BID
+                                </span>   
+                            </Link>
                         </div>
 
                         {/*<!-- navbar search -->*/}
-                        <Category />
+                        <div className="col-8 category-container">
+                            <Category />
+                        </div>
                     </div>
                 </nav>
 
@@ -69,7 +69,7 @@ class Nav extends Component {
                 <nav className="navbar navbar-dark">
                     <div className="container">
                         {/* moto */}
-                        <div className="col-6">
+                        <div className="col-md-6">
                             <div className="navbar-quote">
                                     <span>
                                         Sweet deals that stick
@@ -78,8 +78,8 @@ class Nav extends Component {
                         </div>
 
                         {/*<!-- Nav links -->*/}
-                        <div className="col-6">
-                            <ul className="nav float-right">
+                        <div className="col-md-6 ">
+                            <ul className="nav float-right navlink-container">
 
                                 {this.state.userId !== null ?
                                     [<li key={"a"} className="nav-item">
@@ -95,12 +95,14 @@ class Nav extends Component {
                                         <Link className="nav-link nav-icon" to="/product-new">
                                             <img src={newProdSvg} className="svg-btn" alt=""/> 
                                         </Link>
-                                    </li>,
-                                    <li key={"not"}className="nav-item">
-                                        <Link className="nav-link nav-icon" to="">
-                                            <img src={notificationSvg} className="svg-btn" alt=""/> 
-                                        </Link>
-                                    </li>]
+                                    </li>
+                                    // ,
+                                    // <li key={"not"}className="nav-item">
+                                    //     <Link className="nav-link nav-icon" to="">
+                                    //         <img src={notificationSvg} className="svg-btn" alt=""/> 
+                                    //     </Link>
+                                    // </li>
+                                    ]
                                 : null}
 
                                 {/*<!-- login button -->*/}

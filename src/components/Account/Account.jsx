@@ -3,6 +3,7 @@ import {Route, Redirect, Link} from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import ReactTable from "react-table";
 import Moment from 'react-moment';
+import DateFormat from 'dateformat';
 
 import API from '../../utils/API';
 import './Account.css';
@@ -21,6 +22,7 @@ class Account extends Component {
             viewUser: props.location ? props.location.state ? props.location.state.viewUser:null:null,
             userInfo: {
                 userName:"",
+                createTs:"",
                 firstName:"",
                 lastName:"",
                 email:"",
@@ -218,202 +220,351 @@ class Account extends Component {
         
         return (
             <div>
-                {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
-                <div className="row">
-                    {this.state.userInfo.imageType === 'file' && this.state.userInfo.image ? 
-                        <div className="col-12 text-center">
-                            <img id='profile-picture' className="img-fluid rounded profile-picture" src={require(`../../files/accounts/${this.state.userInfo.image.split("\\")[this.state.userInfo.image.split("\\").length-1]}`)} alt=""/>
-                        </div>
-                    :
-                        this.state.userInfo.image ?
-                            <div className="col-12 text-center">
-                                <img id='profile-picture' className="img-fluid rounded profile-picture" src={this.state.userInfo.image} alt=""/>
-                            </div>
-                        :
-                            null
-                    }
-                    <div className="col-12 text-center">
-                        <h2>{this.state.userInfo.firstName} {this.state.userInfo.lastName}</h2>
-                    </div>
-                </div>
-                <div>
-                    <div className="row  mx-auto">
-                        <div className="col-12">
-                            <h3 className="float-left">Personal Info</h3>
-                            {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                <button className="btn btn-info float-right round-button" onClick={this.setEdit}>
-                                    <i className="fa fa-pencil"></i>
-                                </button>
-                            : null}
-                        </div>
-                        <form className="w-100">
+
+                <form className="form-sign-up mt-3">
+                    <div className="row">
+                        
+                        {/* left side */}
+                        <div className="col-md-6 col-sm-12 mb-5 text-center">
+                            {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
+
+                            {/* edit btn */}
                             <div className="form-group">
-                                <label htmlFor="userName" className="col-6 float-left">Username:</label>
-                                <input type="text"
-                                    name="userName"
-                                    className={`col-6 ${!this.state.edit ? "form-control-plaintext":"form-control-plaintext"} float-left`}
-                                    readOnly={!this.state.edit ? true : true}
-                                    value={!this.state.edit ? this.state.userInfo.userName : this.state.editInfo.userName}
-                                    onChange={this.handleInput}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="userName"className="col-6 float-left">First Name:</label>
-                                <input type="text"
-                                    name="firstName"
-                                    className={`col-6 ${!this.state.edit ? "form-control-plaintext":"form-control"} float-left`}
-                                    readOnly={!this.state.edit ? true : false}
-                                    value={!this.state.edit ? this.state.userInfo.firstName : this.state.editInfo.firstName}
-                                    onChange={this.handleInput}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="userName" className="col-6 float-left">Last Name:</label>
-                                <input type="text"
-                                    name="lastName"
-                                    className={`col-6 ${!this.state.edit ? "form-control-plaintext":"form-control"} float-left`}
-                                    readOnly={!this.state.edit ? true : false}
-                                    value={!this.state.edit ? this.state.userInfo.lastName : this.state.editInfo.lastName}
-                                    onChange={this.handleInput}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="userName" className="col-6 float-left">Email:</label>
-                                <input type="email"
-                                    name="email"
-                                    className={`col-6 ${!this.state.edit ? "form-control-plaintext":"form-control"} float-left`}
-                                    readOnly={!this.state.edit ? true : false}
-                                    value={!this.state.edit ? this.state.userInfo.email : this.state.editInfo.email}
-                                    onChange={this.handleInput}/>
-                            </div>
-                            {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                <div>
-                                    <br/>
-                                    <br/>
-                                    <div className="form-group">
-                                        <label htmlFor="userName">Password:</label>
-                                        <input type="password" name="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange}/>
-                                        <label htmlFor="userName">Re-type Password:</label>
-                                        <input type="password" name="retypePassword" className="form-control" value={this.state.retypePassword} onChange={this.handlePasswordChange}/>
+                                {(this.state.edit || this.state.editPassword) && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                    <div className="row inline">
+                                        <div className="col-6 px-1">
+                                            <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.saveUserChanges}>Submit</button>
+                                        </div>
+                                        {this.state.edit ?
+                                            <div className="col-6 px-1">
+                                                <button className="btn btn-md btn-block btn-hover " type="submit"onClick={this.cancelEdit}>Cancel</button>
+                                            </div>
+                                        :
+                                            <div className="col-6 px-1">
+                                                <button className="btn btn-md btn-block btn-hover " type="submit"onClick={this.setEdit}>Edit</button>
+                                            </div>
+                                        }
                                     </div>
+                                : null }
+                                {!(this.state.edit || this.state.editPassword) && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                    <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.setEdit}>Edit</button>
+                                : null} 
+                            </div>
+
+                            {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
+                                <div className="row">
+                                    <div className="mx-auto">
+                                        <div className="card card-area">
+                                            {/* full name */}
+                                            <div className="card-header form-header">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</div>
+                                            <div className="card-body avatar-container d-flex justify-content-center">
+                                                {this.state.userInfo.imageType === 'file' && this.state.userInfo.image ? 
+                                                    <img className="avatar my-auto" src={require(`../../files/accounts/${this.state.userInfo.image.split("\\")[this.state.userInfo.image.split("\\").length-1]}`)} alt=""/>
+                                                :
+                                                    this.state.userInfo.image ?
+                                                        <img className="avatar my-auto" src={this.state.userInfo.image} alt=""/>
+                                                : null}
+                                            </div>{/* -card-body */}
+                                    </div>{/* -card-area */}
+                                </div> {/* -row */}
+                            </div> {/* -form-group */}
+                        </div> {/* -col */}
+
+
+                        {/* form inputs */}
+                        <div className="col-md-6 col-sm-12">
+                            <div className="row">
+                                    
+                                {/* Username */}
+                                <div className="col-md-12 col-sm-6 pr-0">
+                                    <div className="card form-area">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text form-btn-b wide">Username</span>
+                                                    </div>
+                                                    {/* <input className="form-control form-textarea form-input" */}
+                                                    <input type="text"
+                                                        name="userName"
+                                                        className="form-control form-preview"
+                                                        readOnly={!this.state.edit ? true : true}
+                                                        value={!this.state.edit ? this.state.userInfo.userName : this.state.editInfo.userName}
+                                                        onChange={this.handleInput}/>
+                                                </div>
+                                            </div>
+                                    </div> {/* -card */}
+                                </div> {/* -col */}
+
+                                {/*  created date */}
+                                <div className="col-md-12 col-sm-6 pr-0">
+                                    <div className="card form-area">
+                                        <div className="form-group ">
+                                            <div className="input-group">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text form-btn-b wide">Created</span>
+                                                </div>
+                                                <input type="text"
+                                                    name=""
+                                                    className="form-control form-preview"
+                                                    readOnly
+                                                    value={DateFormat(this.state.userInfo.createTs, "mm/dd/yyyy")}
+                                                    onChange={this.handleInput}/>
+                                            </div>
+                                        </div>
+                                    </div> {/* -card */}
+                                </div> {/* -col */}
+                            </div> {/* -row */}
+
+                            {/*  first name */}
+                            <div className="row">
+                                <div className="col-md-12 col-sm-6 pr-0">
+                                    <div className="card form-area">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text form-btn-b wide">First Name</span>
+                                                    </div>
+                                                    <input type="text"
+                                                        name="firstName"
+                                                        className= {!this.state.edit ? "form-control form-preview":"form-control form-input"} 
+                                                        readOnly={!this.state.edit ? true : false}
+                                                        value={!this.state.edit ? this.state.userInfo.firstName : this.state.editInfo.firstName}
+                                                        onChange={this.handleInput}/>
+                                                </div>
+                                            </div>
+                                    </div> {/* -card */}
+                                </div> {/* -col */}
+
+                                    {/*  last name */}
+                                <div className="col-md-12 col-sm-6 pr-0">
+                                    <div className="card form-area">
+                                        <div className="form-group">
+                                            <div className="input-group">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text form-btn-b wide">Last Name</span>
+                                                </div>
+                                                <input type="text"
+                                                    name="lastName"
+                                                    className= {!this.state.edit ? "form-control form-preview":"form-control form-input"} 
+                                                    readOnly={!this.state.edit ? true : false}
+                                                    value={!this.state.edit ? this.state.userInfo.lastName : this.state.editInfo.lastName}
+                                                    onChange={this.handleInput}/>
+                                            </div>
+                                        </div>
+                                    </div> {/* -card */}
+                                </div> {/* -col */}
+                            </div> {/* -row */}
+
+                            {/* email */}
+                            <div className="row">
+                                <div className="col-12 pr-0">
+                                    <div className="card form-area">
+                                        <div className="form-group">
+                                            <div className="input-group">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text form-btn-b wide">Email</span>
+                                                </div>
+                                                <input type="email"
+                                                    name="email"
+                                                    className= {!this.state.edit ? "form-control form-preview":"form-control form-input"} 
+                                                    readOnly={!this.state.edit ? true : false}
+                                                    value={!this.state.edit ? this.state.userInfo.email : this.state.editInfo.email}
+                                                    onChange={this.handleInput}/>
+                                            </div>
+                                        </div>
+                                    </div> {/* -card */}
+                                </div> {/* -col */}
+                            </div>  {/* -row */}
+
+                            {/* edit password */}
+                            {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                <div> 
+                                    {/* cancel password  */}
+                                    {!this.state.edit ?
+                                        <div className="row">
+                                            <div className="col-12 pr-0">
+                                                <div className="form-group">
+                                                    <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.cancelPassword}>Cancel Password Change</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    :
+                                        null
+                                    }
+
+                                    {/* input: password  */}
+                                    <div className="row">
+                                        <div className="col-md-12 col-sm-6 pr-0">
+                                            <div className="card form-area">
+                                                    <div className="form-group">
+                                                        <div className="input-group">
+                                                            <div className="input-group-prepend">
+                                                                <span className="input-group-text form-btn-b wide">Password</span>
+                                                            </div>
+                                                            <input className="form-control form-textarea form-input"
+                                                                name="prodName"
+                                                                value=""
+                                                                onChange={this.handleChange}
+                                                                type="text" />
+                                                        </div>
+                                                    </div>
+                                            </div> {/* -card */}
+                                        </div> {/* -col */}
+    
+                                        {/* input: confirm password  */}
+                                        <div className="col-md-12 col-sm-6 pr-0">
+                                            <div className="card form-area">
+                                                <div className="form-group ">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b wide">Confirm</span>
+                                                        </div>
+                                                        <input className="form-control form-textarea form-input"
+                                                            name="prodName"
+                                                            value=""
+                                                            onChange={this.handleChange}
+                                                            type="text" />
+                                                    </div>
+                                                </div>
+                                            </div> {/* -card */}
+                                        </div> {/* -col */}
+                                    </div>   {/* -row */}
                                 </div>
                             :
-                            null}
-                            {this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                <div>
-                                    <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
-                                    <input className="btn btn-md btn-danger" value="Cancel" readOnly onClick={this.cancelEdit}/>
-                                    {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                        <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
-                                    :
-                                        <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
-                                    }
-                                </div>
-                            : <div>
-                                {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                    <div>
-                                        <input className="btn btn-md btn-primary" value="Submit" readOnly onClick={this.saveUserChanges}/>
-                                        <input className="btn btn-md btn-danger" value="Cancel Password Change" readOnly onClick={this.cancelPassword}/>
+                                this.state.viewUser === this.state.userId || this.state.viewUser === null ?
+                                    <div className="row">
+                                        {/* change password */}
+                                        <div className="col-12 pr-0">
+                                            <input className="btn btn-md btn-block btn-hover" value="Change Password" readOnly onClick={this.setPassword}/>
+                                        </div>
                                     </div>
                                 :
-                                    this.state.viewUser === this.state.userId || this.state.viewUser === null ?
-                                        <input className="btn btn-md btn-primary" value="Change Password" readOnly onClick={this.setPassword}/>
-                                    :null
-                                }
-                              </div>
+                                    null
                             }
-                        </form>
+
+                        </div> {/* -col */}
+                    </div> {/* -row */}
+
+
+                </form> {/* -form */}
+                
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="card card-area">
+
+                            <div className="card-header form-header text-center">
+                                <h5>Sell History</h5>
+                            </div>
+
+                            {/* table */}
+                            <div className="card-body table-style">
+                                <ReactTable
+                                    data= {this.state.sellHistory}
+                                    columns={[
+                                        {
+                                            Header: "Product Name",
+                                            accessor: "prodName",
+                                            Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
+                                        },
+                                        {
+                                            Header: "Category",
+                                            accessor: "category",
+                                            Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
+                                        },
+                                        {
+                                            Header: "Sell Timestamp",
+                                            accessor: "endTimestamp",
+                                            Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
+                                        },
+                                        {
+                                            Header: "Buyer",
+                                            accessor: "buyerName",
+                                            Cell: props => (<Route render={({history})=>
+                                                                <span className="form-text" style={{cursor: "pointer", textDecoration:"underline"}}
+                                                                    onClick={() => {history.push(`/account`, {viewUser:props.original.buyerId})}}>
+                                                                        {props.value}
+                                                                </span>
+                                                            }/>)
+                                        },
+                                        {
+                                            Header: "Amount",
+                                            accessor: "amount",
+                                            Cell: props => (`$${props.value}`)
+                                        }
+                                    ]}
+                                    defaultPageSize={5}
+                                    className="-striped -highlight"
+                                />
+                            </div>
+
+                            {/* card footer - tip */}
+                            <div className="card-footer form-footer footer-tip">
+                                Tip: Hold <kbd>shift</kbd> when sorting to multi-sort!
+                            </div>
+                                
+                        </div>
                     </div>
                 </div>
-                <br />
-                <div>
-                    <div style={{ textAlign: "center" }}>
-                        <h3>Sell History</h3>
-                    </div>
-                    <ReactTable
-                        data= {this.state.sellHistory}
-                        columns={[
-                            {
-                                Header: "Product Name",
-                                accessor: "prodName",
-                                Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
-                            },
-                            {
-                                Header: "Category",
-                                accessor: "category",
-                                Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
-                            },
-                            {
-                                Header: "Sell Timestamp",
-                                accessor: "endTimestamp",
-                                Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
-                            },
-                            {
-                                Header: "Buyer",
-                                accessor: "buyerName",
-                                Cell: props => (<Route render={({history})=>
-                                                    <span className="form-text" style={{cursor: "pointer"}}
-                                                        onClick={() => {history.push(`/account`, {viewUser:props.original.buyerId})}}>
-                                                            {props.value}
-                                                    </span>
-                                                }/>)
-                            },
-                            {
-                                Header: "Amount",
-                                accessor: "amount",
-                                Cell: props => (`$${props.value}`)
-                            }
-                        ]}
-                        defaultPageSize={5}
-                        className="-striped -highlight"
-                    />
-                    <div style={{ textAlign: "center" }}>
-                        <em>Tip: Hold shift when sorting to multi-sort!</em>
-                    </div>
-                </div>
-                <br />
-                <div>
-                    <div style={{ textAlign: "center" }}>
-                        <h3>Buy History</h3>
-                    </div>
-                    <ReactTable
-                        data= {this.state.buyHistory}
-                        columns={[
-                            {
-                                Header: "Product Name",
-                                accessor: "prodName",
-                                Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
-                            },
-                            {
-                                Header: "Category",
-                                accessor: "category",
-                                Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
-                            },
-                            {
-                                Header: "Buy Timestamp",
-                                accessor: "endTimestamp",
-                                Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
-                            },
-                            {
-                                Header: "Seller",
-                                accessor: "sellerName",
-                                Cell: props => (<Route render={({history})=>
-                                                    <span className="form-text" style={{cursor: "pointer"}}
-                                                        onClick={() => {history.push(`/account`, {viewUser:props.original.sellerId})}}>
-                                                            {props.value}
-                                                    </span>
-                                                }/>)
-                            },
-                            {
-                                Header: "Amount",
-                                accessor: "amount",
-                                Cell: props => (`$${props.value}`)
-                            }
-                        ]}
-                        defaultPageSize={5}
-                        className="-striped -highlight"
-                    />
-                    <div style={{ textAlign: "center" }}>
-                        <em>Tip: Hold shift when sorting to multi-sort!</em>
+
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="card card-area">
+
+                            <div className="card-header form-header text-center">
+                                <h5>Purchase History</h5>
+                            </div>
+
+                            {/* table */}
+                            <div className="card-body table-style">
+                                <ReactTable
+                                    data= {this.state.buyHistory}
+                                    columns={[
+                                        {
+                                            Header: "Product Name",
+                                            accessor: "prodName",
+                                            Cell: props => <Link to={`/product/${props.original.prodId}`} >{props.value}</Link>
+                                        },
+                                        {
+                                            Header: "Category",
+                                            accessor: "category",
+                                            Cell: props => (keys.map((k,i) => (list[k] === props.value ? k :null)))
+                                        },
+                                        {
+                                            Header: "Buy Timestamp",
+                                            accessor: "endTimestamp",
+                                            Cell: props => (<Moment format="MM/DD/YY LT">{props.value}</Moment>)
+                                        },
+                                        {
+                                            Header: "Seller",
+                                            accessor: "sellerName",
+                                            Cell: props => (<Route render={({history})=>
+                                                                <span className="form-text" style={{cursor: "pointer", textDecoration:"underline"}}
+                                                                    onClick={() => {history.push(`/account`, {viewUser:props.original.sellerId})}}>
+                                                                        {props.value}
+                                                                </span>
+                                                            }/>)
+                                        },
+                                        {
+                                            Header: "Amount",
+                                            accessor: "amount",
+                                            Cell: props => (`$${props.value}`)
+                                        }
+                                    ]}
+                                    defaultPageSize={5}
+                                    className="-striped -highlight"
+                                />
+                            </div>
+
+                            {/* card footer - tip */}
+                            <div className="card-footer form-footer footer-tip">
+                                Tip: Hold <kbd>shift</kbd> when sorting to multi-sort!
+                            </div>
+        
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         )
     }
