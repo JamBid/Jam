@@ -157,3 +157,10 @@ select {
     color:white;
     background: #7f4db8;
   }
+
+
+.navbar-fixed-bottom {
+  font-family: 'Lato', sans-serif;
+  color: #7f4db8;
+  font-weight: 500;
+}

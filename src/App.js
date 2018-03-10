@@ -112,6 +112,9 @@ class App extends Component {
               <Route path="/product-new"render={props => <ProductNew userId={this.state.userId} cert={cert}/>} />
               <Route component={NoMatch} />
             </Switch>
+
+            <div className="navbar-fixed-bottom m-4 text-center">Copyright &copy; 2018 <strong>JAM</strong>BID. All rights reserved.</div>
+
           </div>
         </div>
       </Router>

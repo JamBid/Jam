@@ -253,7 +253,7 @@ class Account extends Component {
 
                             {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
                                 <div className="row">
-                                    <div className="mx-auto mt-4">
+                                    <div className="mx-auto">
                                         <div className="card card-area">
                                             {/* full name */}
                                             <div className="card-header form-header">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</div>
