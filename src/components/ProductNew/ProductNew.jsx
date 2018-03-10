@@ -257,7 +257,6 @@ class ProductNew extends Component {
 
         //loops through the state JSON
         for(let i in obj.state){
-            console.log(i)
             if(obj.state[i].hasOwnProperty('isValid'))
                 obj.formValidation(i);
         }
@@ -291,6 +290,7 @@ class ProductNew extends Component {
             <select className='form-control category-dropdown'
             defaultValue=""
             name="category"
+            style={{margin:"3px",borderRadius:0}}
             onChange={this.handleChange}
             onBlur={this.handleFocusOut}>
                 {/* category dropdown */}
@@ -428,17 +428,12 @@ class ProductNew extends Component {
                                                 </div>
                                                 <input
                                                     name="prodName"
-                                                    className="form-control form-textarea form-input"
+                                                    className="form-control"
+                                                    style={{borderRadius:0, border:"none"}}
                                                     type="text"
                                                     value={this.state.prodName}
                                                     onChange={this.handleChange}
                                                     onBlur={this.handleFocusOut}/> 
-                                                {/* <textarea name="prodName"
-                                                    className="form-control field-title"
-                                                    value={this.state.prodName.value}
-                                                    onChange={this.handleChange}
-                                                    onBlur={this.handleFocusOut}>
-                                                </textarea> */}
                                             </div>
                                         </div>
 
@@ -459,6 +454,7 @@ class ProductNew extends Component {
                                                     <span className="input-group-text form-btn-b">Location</span>
                                                 </div>
                                                 <input className="form-control"
+                                                    style={{borderRadius:0, border:"none"}}
                                                     name="location"
                                                     value={this.state.location.value}
                                                     onChange={this.handleChange}
@@ -489,11 +485,12 @@ class ProductNew extends Component {
                                                     <span className="input-group-text form-btn-b">Min. Bid</span>
                                                 </div>
                                                 <div className="input-group-prepend">
-                                                    <span className="form-btn-b dollar-label dollar-tag">$</span>
+                                                    <span className="form-btn-b new-prod-dollar">$</span>
                                                 </div>
                                                 <input type='number'
                                                     step="0.01"
-                                                    className="form-control form-input"
+                                                    className="form-control"
+                                                    style={{borderRadius:0, border:"none"}}
                                                     name="startingPrice"
                                                     value={this.state.startingPrice.value}
                                                     onChange={this.handleChange}

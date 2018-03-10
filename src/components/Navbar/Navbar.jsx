@@ -5,7 +5,7 @@ import {Link, Route} from 'react-router-dom';
 import './Navbar.css';
 import accountSvg from './images/account.svg';
 import newProdSvg from './images/newProd.svg';
-import notificationSvg from './images/notification.svg';
+// import notificationSvg from './images/notification.svg';
 import loginSvg from './images/login.svg';
 import logoutSvg from './images/logout.svg';
 
@@ -95,12 +95,14 @@ class Nav extends Component {
                                         <Link className="nav-link nav-icon" to="/product-new">
                                             <img src={newProdSvg} className="svg-btn" alt=""/> 
                                         </Link>
-                                    </li>,
-                                    <li key={"not"}className="nav-item">
-                                        <Link className="nav-link nav-icon" to="">
-                                            <img src={notificationSvg} className="svg-btn" alt=""/> 
-                                        </Link>
-                                    </li>]
+                                    </li>
+                                    // ,
+                                    // <li key={"not"}className="nav-item">
+                                    //     <Link className="nav-link nav-icon" to="">
+                                    //         <img src={notificationSvg} className="svg-btn" alt=""/> 
+                                    //     </Link>
+                                    // </li>
+                                    ]
                                 : null}
 
                                 {/*<!-- login button -->*/}

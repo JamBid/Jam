@@ -63,21 +63,25 @@
     border-radius: 0px !important;
     border: solid 1px #7f4db8;
   }
-
-.dollar-label, .bid-label {
-    height: 38px;
-}
-
-.dollar-tag {
+  
+/* new product componet - dollar symbol */
+.new-prod-dollar {
+    border: none !important;
     background: none;
     color: #7f4db8;
     background: white;
-}
-  
-/* dollar symbol in "your bid" area */
-.dollar-label {
     text-align: center;
     width: 40px !important; 
+    padding: 8px 0 0 0;
+}
+
+/* product componet  - dollar tag */
+.prod-dollar {
+    height: 38px;
+    width: 40px;
+    text-align: center;
+    background: #7f4db8;
+    color:white;
     padding: 5px 0 0 0;
 }
 

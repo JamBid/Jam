@@ -3,6 +3,7 @@ import {Route, Redirect, Link} from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import ReactTable from "react-table";
 import Moment from 'react-moment';
+import DateFormat from 'dateformat';
 
 import API from '../../utils/API';
 import './Account.css';
@@ -21,6 +22,7 @@ class Account extends Component {
             viewUser: props.location ? props.location.state ? props.location.state.viewUser:null:null,
             userInfo: {
                 userName:"",
+                createTs:"",
                 firstName:"",
                 lastName:"",
                 email:"",
@@ -250,14 +252,16 @@ class Account extends Component {
                                         <div className="card card-area">
                                             {/* full name */}
                                             <div className="card-header form-header">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</div>
+                                            <div className="card-body avatar-container d-flex justify-content-center">
                                                 {this.state.userInfo.imageType === 'file' && this.state.userInfo.image ? 
-                                                    <img className="card-img avatar" src={require(`../../files/accounts/${this.state.userInfo.image.split("\\")[this.state.userInfo.image.split("\\").length-1]}`)} alt=""/>
+                                                    <img className="avatar my-auto" src={require(`../../files/accounts/${this.state.userInfo.image.split("\\")[this.state.userInfo.image.split("\\").length-1]}`)} alt=""/>
                                                 :
                                                     this.state.userInfo.image ?
-                                                            <img className="card-img avatar" src={this.state.userInfo.image} alt=""/>
+                                                        <img className="avatar my-auto" src={this.state.userInfo.image} alt=""/>
                                                 : null}
-                                    </div>
-                                </div>
+                                            </div>{/* -card-body */}
+                                    </div>{/* -card-area */}
+                                </div> {/* -row */}
                             </div> {/* -form-group */}
                         </div> {/* -col */}
 
@@ -275,10 +279,9 @@ class Account extends Component {
                                                         <span className="input-group-text form-btn-b">Username</span>
                                                     </div>
                                                     {/* <input className="form-control form-textarea form-input" */}
-                                                    <input className="form-control form-textarea form-input"
-                                                        type="text"
+                                                    <input type="text"
                                                         name="userName"
-                                                        className= {!this.state.edit ? "form-control form-input":"form-control form-input"} 
+                                                        className="form-control form-preview"
                                                         readOnly={!this.state.edit ? true : true}
                                                         value={!this.state.edit ? this.state.userInfo.userName : this.state.editInfo.userName}
                                                         onChange={this.handleInput}/>
@@ -297,9 +300,9 @@ class Account extends Component {
                                                 </div>
                                                 <input type="text"
                                                     name=""
-                                                    className= {!this.state.edit ? "form-control form-input":"form-control form-input"} 
-                                                    readOnly={!this.state.edit ? true : true}
-                                                    // value={!this.state.edit ? this.state.userInfo.userName : this.state.editInfo.userName}
+                                                    className="form-control form-preview"
+                                                    readOnly
+                                                    value={DateFormat(this.state.userInfo.createTs, "mm/dd/yyyy")}
                                                     onChange={this.handleInput}/>
                                             </div>
                                         </div>

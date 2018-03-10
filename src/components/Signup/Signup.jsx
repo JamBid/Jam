@@ -78,12 +78,15 @@ class Signup extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
-        
-        for(let i in this.state)
-            this.formValidation(i);
+        let obj = this;
 
+        //loops through the state JSON
+        for(let i in obj.state){
+            if(obj.state[i].hasOwnProperty('isValid'))
+                obj.formValidation(i);
+        }
+        
         if (!this.checkForErrors()) {
-            let obj = this;
             let userName = this.state.userName;
 
             API.signUpNewUser({
@@ -214,27 +217,28 @@ class Signup extends Component {
             }
         }
 
-        //list of state elements to skip
-        if(name !== 'toggle' && name !== 'image'){
-            obj.isValid = valid;
-            obj.message = errorMsg;
+        obj.isValid = valid;
+        obj.message = errorMsg;
 
-            this.setState({[name]:obj})
-        } 
+        this.setState({[name]:obj})
     }
 
     //function for onBlue (cursor leaving target)
     handleFocusOut = (event) => {
         const name = event.target.name;
-        this.formValidation(name);
+
+        if(this.state[name].hasOwnProperty('isValid'))
+            this.formValidation(name);
     }
 
+    //function to verify there are no errors
     checkForErrors = () =>{
         let errorFound = false;
 
         for(let i in this.state){
-            if(i !== "toggle"  &&  i !== "modal"  &&  !this.state[i].isValid)
-                errorFound = true;
+            if(this.state[i].hasOwnProperty('isValid'))
+                if(!this.state[i].isValid)
+                    errorFound = true;
         }
         return errorFound;
     }

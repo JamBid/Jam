@@ -227,7 +227,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b dollar-label"> $ </span>
+                                                            <span className="form-btn-b prod-dollar"> $ </span>
                                                         </div>
                                                         <label className="form-control form-textarea form-input text-center" id="high-bid">
                                                             {this.state.highestBid.amount ? this.state.highestBid.amount : this.state.startingPrice}
@@ -245,7 +245,7 @@ class Product extends Component {
                                                     </label>                                            
                                                     <div className="input-group">
                                                         <div className="input-group-prepend">
-                                                            <span className="form-btn-b dollar-label"> $ </span>
+                                                            <span className="form-btn-b prod-dollar"> $ </span>
                                                         </div>
                                                         <input
                                                             type="text"
