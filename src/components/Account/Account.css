@@ -29,3 +29,15 @@
   border: none;
   overflow: hidden;
 }
+
+/* table link */
+.table-style {
+    color: #7f4db8;
+    border-radius: 0;
+    padding: 0;
+}
+
+/* table hyperlink */
+.table-style a {
+    color: #7f4db8;
+}

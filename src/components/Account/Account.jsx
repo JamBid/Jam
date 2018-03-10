@@ -455,7 +455,7 @@ class Account extends Component {
                             </div>
 
                             {/* table */}
-                            <div className="card-body">
+                            <div className="card-body table-style">
                                 <ReactTable
                                     data= {this.state.sellHistory}
                                     columns={[
@@ -513,7 +513,7 @@ class Account extends Component {
                             </div>
 
                             {/* table */}
-                            <div className="card-body">
+                            <div className="card-body table-style">
                                 <ReactTable
                                     data= {this.state.buyHistory}
                                     columns={[
