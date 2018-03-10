@@ -39,9 +39,11 @@
     color: #7f4db8;
     border-radius: 0;
     padding: 0;
+    text-align: center;
 }
 
 /* table hyperlink */
 .table-style a {
     color: #7f4db8;
+    text-decoration: underline;
 }

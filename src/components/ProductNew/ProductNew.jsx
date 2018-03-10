@@ -358,7 +358,6 @@ class ProductNew extends Component {
                                                             value={this.state.images[i].val}
                                                             imagetype="url"
                                                             /> 
-                                                        <small className="form-text text-muted">Types:  .png .jpg .jpeg</small>
                                                     </div>
                                                 </div>
                                                 {/* image upload */}
@@ -371,7 +370,7 @@ class ProductNew extends Component {
                                                             name={`${i}`}
                                                             imagetype="file"
                                                             multiple/>
-                                                        <small className="form-text text-muted">Less than 1 mb</small>
+                                                        <small className="form-text text-muted">{`Types:  .png .jpg .jpeg <1 MB`}</small>
                                                     </div>
                                                 </div>
                                             </div>

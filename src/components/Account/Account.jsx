@@ -480,7 +480,7 @@ class Account extends Component {
                                             Header: "Buyer",
                                             accessor: "buyerName",
                                             Cell: props => (<Route render={({history})=>
-                                                                <span className="form-text" style={{cursor: "pointer"}}
+                                                                <span className="form-text" style={{cursor: "pointer", textDecoration:"underline"}}
                                                                     onClick={() => {history.push(`/account`, {viewUser:props.original.buyerId})}}>
                                                                         {props.value}
                                                                 </span>
@@ -538,7 +538,7 @@ class Account extends Component {
                                             Header: "Seller",
                                             accessor: "sellerName",
                                             Cell: props => (<Route render={({history})=>
-                                                                <span className="form-text" style={{cursor: "pointer"}}
+                                                                <span className="form-text" style={{cursor: "pointer", textDecoration:"underline"}}
                                                                     onClick={() => {history.push(`/account`, {viewUser:props.original.sellerId})}}>
                                                                         {props.value}
                                                                 </span>
