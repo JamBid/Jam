@@ -67,7 +67,7 @@ class App extends Component {
           //   textAlign: "center"
           // }),
           className: "toast",
-          autoClose: 200000
+          autoClose: 5000
         })
     });
   }
