@@ -55,6 +55,10 @@ class Product extends Component {
         this.receive();
     }
 
+    componentWillUnmount(){
+        this.state.socket.emit('leave', this.state.id);
+    }
+
     componentWillReceiveProps(nextProps){
         this.setState({userId:nextProps.userId})
     }
