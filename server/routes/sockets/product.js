@@ -78,7 +78,6 @@ submitAnswer = (msg,socket,nsp) => {
         [msg.questionId,msg.userId,msg.answer]
     )
     .then(res => {
-        console.log(res)
         nsp.in("prod"+msg.room).emit('answer', {msg:'success',answerId:res});
     })
     .catch(error => {
@@ -109,15 +108,12 @@ module.exports = function(io){
         console.log("New client connected to prod: "+socket.conn.remoteAddress);
 
         //handles joining
-        socket.on('room',(msg) =>{
-            console.log("Time to join a room")
-                        
+        socket.on('room',(msg) =>{                        
             socket.join("prod"+msg);
         });
 
         //handles leaving a room
         socket.on('leave', (msg) =>{
-            console.log("I am leaving a room")
                 socket.leave("prod"+msg);
         })
 
