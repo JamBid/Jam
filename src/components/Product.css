@@ -130,15 +130,14 @@
 .img-toggle-btn {
     height: 35px !important;
     line-height: 1;
-    /* width: 100px; */
 }
 
 #toggle-content {
     padding: 5px 10px;
-    /* height: 80px; */
 }
 
-#url-input {
+.url-input {
+    margin: 10px 0 0 0;
     width: 100% !important;
 }
 

@@ -313,11 +313,11 @@ class ProductNew extends Component {
         let obj = [];
 
         for(let i = 0; i < this.state.imageCount; i++){
-            obj.push([<div className="form-group form-input">
+            obj.push([<div  key={`img_${i}`} className="form-group form-input">
                                 <div className="input-group">
-                                    <div className="input-group-prepend file-toggle ">
+                                    <div className="input-group-prepend file-toggle w-100">
                     
-                                        <ul key={`fileTog_${i}`} className="nav nav-pills form-toggle list-group" role="tablist">
+                                        <ul className="nav nav-pills form-toggle list-group file-toggle" role="tablist">
                                             <li className="nav-item ">
                                                 <a name={i}
                                                     imagetype="file"
@@ -346,13 +346,12 @@ class ProductNew extends Component {
                                             </li>
                                         </ul>
 
-                                        <div key={`fileInput_${i}`} className="card-body" id="toggle-content">
+                                        <div  className="card-body" id="toggle-content">
                                             <div className="tab-content">
                                                 {/* image URL */}
                                                 <div className="tab-pane fade show active w-100" id={`img-url_${i}`} role="tabpanel" aria-labelledby="pills-image-tab">
                                                     <div className="form-group w-100">
-                                                        <input className="form-control form-input"
-                                                            id="url-input"
+                                                        <input className="form-control form-input url-input"
                                                             name={`${i}`}
                                                             onChange={this.handleImageChange}
                                                             value={this.state.images[i].val}
@@ -433,7 +432,7 @@ class ProductNew extends Component {
                                                     className="form-control"
                                                     style={{borderRadius:0, border:"none"}}
                                                     type="text"
-                                                    value={this.state.prodName}
+                                                    value={this.state.prodName.value}
                                                     onChange={this.handleChange}
                                                     onBlur={this.handleFocusOut}/> 
                                             </div>
