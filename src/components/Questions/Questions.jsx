@@ -123,8 +123,9 @@ class Questions extends Component {
     //function to receive socket messages
     receive = () => {
         this.state.socket.on('question', (msg) => {
-            if(msg.msg === 'success')
+            if(msg.msg === 'success'){
                 this.loadSpecificQuestion(msg.questionId);
+            }
             else
                 console.log(msg)
         });

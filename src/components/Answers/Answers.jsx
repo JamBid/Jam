@@ -25,6 +25,7 @@ class Answers extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
         this.setState({
             questionId:nextProps.questionId,
             userId: nextProps.userId,
@@ -91,16 +92,18 @@ class Answers extends Component {
         if(obj.state.questionId){
             API.getSpecificAnswer(obj.state.questionId, answerId)
             .then( res => {
-                let answers = res.data[0];
-                this.getUs(answers)
-                .then(results => {
-                    let As = [
-                        ...this.state.answers,
-                        results
-                    ];
-                    obj.setState({answers:As,userAnswer:""});
-                })
-                .catch(err => console.log(err));
+                if(res.data.length > 0){
+                    let answers = res.data[0];
+                    this.getUs(answers)
+                    .then(results => {
+                        let As = [
+                            ...this.state.answers,
+                            results
+                        ];
+                        obj.setState({answers:As,userAnswer:""});
+                    })
+                    .catch(err => console.log(err));
+                }
             })
             .catch(err => console.log(err));
         }
@@ -117,6 +120,7 @@ class Answers extends Component {
                  room: this.state.productId
                 }
             );
+        this.setState({loadedNewAnswer:false});
     }
 
     //function to receive socket messages
