@@ -230,20 +230,25 @@ class Account extends Component {
 
                             {/* edit btn */}
                             <div className="form-group">
-                                {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                    <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.setEdit}>Edit</button>
-                                : null}
-
-                                {this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                {(this.state.edit || this.state.editPassword) && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
                                     <div className="row inline">
                                         <div className="col-6 px-1">
                                             <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.saveUserChanges}>Submit</button>
                                         </div>
-                                        <div className="col-6 px-1">
-                                            <button className="btn btn-md btn-block btn-hover " type="submit"onClick={this.cancelEdit}>Cancel</button>
-                                        </div>
+                                        {this.state.edit ?
+                                            <div className="col-6 px-1">
+                                                <button className="btn btn-md btn-block btn-hover " type="submit"onClick={this.cancelEdit}>Cancel</button>
+                                            </div>
+                                        :
+                                            <div className="col-6 px-1">
+                                                <button className="btn btn-md btn-block btn-hover " type="submit"onClick={this.setEdit}>Edit</button>
+                                            </div>
+                                        }
                                     </div>
-                                : null } 
+                                : null }
+                                {!(this.state.edit || this.state.editPassword) && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                    <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.setEdit}>Edit</button>
+                                : null} 
                             </div>
 
                             {!(this.state.userId || this.state.viewUser) ? <Redirect to="/"/>:null}
@@ -372,72 +377,69 @@ class Account extends Component {
                             </div>  {/* -row */}
 
                             {/* edit password */}
-                            {!this.state.edit && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                null 
-                            :
-                                <div>
-                                        {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
-                                            <div> 
-                                                {/* cancel password  */}
-                                                <div className="row">
-                                                    <div className="col-12 pr-0">
-                                                        <div className="form-group">
-                                                            <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.cancelPassword}>Cancel Password Change</button>
+                            {this.state.editPassword && (this.state.viewUser === this.state.userId || this.state.viewUser === null)?
+                                <div> 
+                                    {/* cancel password  */}
+                                    {!this.state.edit ?
+                                        <div className="row">
+                                            <div className="col-12 pr-0">
+                                                <div className="form-group">
+                                                    <button className="btn btn-md btn-block btn-hover " type="submit" onClick={this.cancelPassword}>Cancel Password Change</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    :
+                                        null
+                                    }
+
+                                    {/* input: password  */}
+                                    <div className="row">
+                                        <div className="col-md-12 col-sm-6 pr-0">
+                                            <div className="card form-area">
+                                                    <div className="form-group">
+                                                        <div className="input-group">
+                                                            <div className="input-group-prepend">
+                                                                <span className="input-group-text form-btn-b">Password</span>
+                                                            </div>
+                                                            <input className="form-control form-textarea form-input"
+                                                                name="prodName"
+                                                                value=""
+                                                                onChange={this.handleChange}
+                                                                type="text" />
                                                         </div>
                                                     </div>
+                                            </div> {/* -card */}
+                                        </div> {/* -col */}
+    
+                                        {/* input: confirm password  */}
+                                        <div className="col-md-12 col-sm-6 pr-0">
+                                            <div className="card form-area">
+                                                <div className="form-group ">
+                                                    <div className="input-group">
+                                                        <div className="input-group-prepend">
+                                                            <span className="input-group-text form-btn-b">Confirm</span>
+                                                        </div>
+                                                        <input className="form-control form-textarea form-input"
+                                                            name="prodName"
+                                                            value=""
+                                                            onChange={this.handleChange}
+                                                            type="text" />
+                                                    </div>
                                                 </div>
-
-                                                {/* input: password  */}
-                                                <div className="row">
-                                                    <div className="col-md-12 col-sm-6 pr-0">
-                                                        <div className="card form-area">
-                                                                <div className="form-group">
-                                                                    <div className="input-group">
-                                                                        <div className="input-group-prepend">
-                                                                            <span className="input-group-text form-btn-b">Password</span>
-                                                                        </div>
-                                                                        <input className="form-control form-textarea form-input"
-                                                                            name="prodName"
-                                                                            value=""
-                                                                            onChange={this.handleChange}
-                                                                            type="text" />
-                                                                    </div>
-                                                                </div>
-                                                        </div> {/* -card */}
-                                                    </div> {/* -col */}
-                
-                                                    {/* input: confirm password  */}
-                                                    <div className="col-md-12 col-sm-6 pr-0">
-                                                        <div className="card form-area">
-                                                            <div className="form-group ">
-                                                                <div className="input-group">
-                                                                    <div className="input-group-prepend">
-                                                                        <span className="input-group-text form-btn-b">Confirm</span>
-                                                                    </div>
-                                                                    <input className="form-control form-textarea form-input"
-                                                                        name="prodName"
-                                                                        value=""
-                                                                        onChange={this.handleChange}
-                                                                        type="text" />
-                                                                </div>
-                                                            </div>
-                                                        </div> {/* -card */}
-                                                    </div> {/* -col */}
-                                                </div>   {/* -row */}
-
-                                            </div>
-
-                                    :
-                                        this.state.viewUser === this.state.userId || this.state.viewUser === null ?
-                                            <div className="row">
-                                                {/* change password */}
-                                                <div className="col-12 pr-0">
-                                                    <input className="btn btn-md btn-block btn-hover" value="Change Password" readOnly onClick={this.setPassword}/>
-                                                </div>
-                                            </div>
-                                    : null }
-                                    
-                                </div> 
+                                            </div> {/* -card */}
+                                        </div> {/* -col */}
+                                    </div>   {/* -row */}
+                                </div>
+                            :
+                                this.state.viewUser === this.state.userId || this.state.viewUser === null ?
+                                    <div className="row">
+                                        {/* change password */}
+                                        <div className="col-12 pr-0">
+                                            <input className="btn btn-md btn-block btn-hover" value="Change Password" readOnly onClick={this.setPassword}/>
+                                        </div>
+                                    </div>
+                                :
+                                    null
                             }
 
                         </div> {/* -col */}
