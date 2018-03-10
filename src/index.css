@@ -23,6 +23,10 @@ select {
   border: solid 1px #7f4db8;
 }
 
+.card-footer {
+  border-radius: 0 !important;
+}
+
 /* form area */
 .form-area {
   border: none;
@@ -140,3 +144,16 @@ select {
   border: solid 2px #7f4db8;
   background: #f6f3ff;
 }
+
+
+.btn-hover {
+    color: #7f4db8;
+    border: solid 1px #7f4db8;
+    background: none;
+    border-radius: 0px;
+}
+
+.btn-hover:hover {
+    color:white;
+    background: #7f4db8;
+  }
