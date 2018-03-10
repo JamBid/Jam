@@ -20,7 +20,7 @@ const cert = "phrase";
 
 //link toast component
 const Msg = (props,{closeToast}) => (
-  <div>You were out bid on<br/><Link onClick={closeToast} to={`/product/${props.prodId}`}>{props.prodName}</Link></div>
+  <div>You were out bid on<br/><Link className="toast-link" onClick={closeToast} to={`/product/${props.prodId}`}>{props.prodName}</Link></div>
 )
 
 class App extends Component {
@@ -59,12 +59,15 @@ class App extends Component {
       if(this.state.userId === toastMsg.userId)
         toast(<Msg prodId={toastMsg.prodId} prodName={toastMsg.prodName}/>, {
           position: toast.POSITION.TOP_RIGHT,
-          className: css({
-            background: "#841baa",
-            color: "white",
-            textAlign: "center"
-          }),
-          autoClose: 4000
+          // className: css({
+          //   border: "2px solid #841baa",
+          //   bordeRadius: "0",
+          //   background: "rgba(132, 27, 170, .6)",
+          //   color: "white",
+          //   textAlign: "center"
+          // }),
+          className: "toast",
+          autoClose: 200000
         })
     });
   }

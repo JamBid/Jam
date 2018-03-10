@@ -164,3 +164,31 @@ select {
   color: #7f4db8;
   font-weight: 500;
 }
+
+
+/* toast notification window */
+.toast {
+  font-family: 'Lato', sans-serif;
+  border: 1px solid #841baa;
+  border-radius: 0;
+  color: white !important;
+  font-weight: 300;
+  background: rgba(132, 27, 170, .7) !important;
+  text-align: center;
+}
+
+.toast:hover  {
+  background: #7f4db8;
+  background: rgba(132, 27, 170, .9) !important;
+  color: white;
+}
+
+/* toast notification hyperlink */
+.toast-link {
+  color: white;
+  font-weight: 700;
+}
+.toast-link:hover, .toast-link:link {
+  color: white;
+  text-decoration: none;
+}
