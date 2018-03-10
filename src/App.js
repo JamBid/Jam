@@ -113,7 +113,7 @@ class App extends Component {
               <Route component={NoMatch} />
             </Switch>
 
-            <div className="navbar-fixed-bottom m-4 text-center">Copyright &copy; 2018 <strong>JAM</strong>BID. All rights reserved.</div>
+            <div className="navbar-fixed-bottom m-5 text-center">Copyright &copy; 2018 <strong>JAM</strong>BID. All rights reserved.</div>
 
           </div>
         </div>
